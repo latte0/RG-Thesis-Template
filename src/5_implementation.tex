@@ -1,9 +1,35 @@
 \chapter{実装}
 \label{implementation}
 
-本章では提案手法の実装について述べる．
+本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
+その後,実験に用いたハイパーパラメータ,実装における留意点について解説を行う
 
-\section{概要}
+\section{実装環境}
+
+
+
+本研究において利用した実装環境を Table 4.1 に示す. 提案手法の実装は Pytorch 及
+を用いた.  PyTorch, Chainer は計算グラフの自動微分ライブラリであり, 深層ニューラ
+ルネットワークの研究や開発にも用いられる.
+Pytorchを用いた理由は実装コストが低く研究領域に従事できるところにある。
+
+
+
+\begin{tabular}{l*{2}{c}r}
+ソフトウェア              & バージョン \\
+\hline
+Python            & 3.6.2 or above \\
+CPU               & intel core i7
+Tensorflow        & 2.1.0-rc0 \\
+PyTorch           & 6 \\
+\end{tabular}
+
+
+
+
+
+\section{比較データ}
+
 他の活性化関数と適当に比較するために、以下の条件を比較して実験を行う。
 ・ラーニングレート
 ・初期値、
@@ -11,27 +37,37 @@
 ・optimizer
 ・テストデータ
 既存のものと比較している"
+\subsubsection{ラーニングレート}
+
+\subsubsection{初期値}
+初期値は
+\subsubsection{レギュラライザー}
+レギュラライザーはL1ノルム, L2ノルム等の比較ができる。
+\subsubsection{optimizer}
+\subsubsection{テストデータ}
+各テストデータの特徴を以下の表にまとめる。
+
+
+\begin{tabular}{l*{2}{c}r}
+データセット名      & 出力層 \\
+\hline
+Python            & 3.6.2 or above \\
+CPU               & intel core i7
+Tensorflow        & 2.1.0-rc0 \\
+PyTorch           & 6 \\
+\end{tabular}
+
+
+
 
 
 \section{実装手法}
+
+各データセットにおける中間層は以下のパラメータで固定した。
+
+
 \section{活性化関数}
-\section{アルゴリズム}
 
-
-\begin{algorithm}[!t]
-	\caption{\GLMt}
-	\label{alg:fixed-u-alg}
-\begin{algorithmic}
-	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
-	\reals^d \times [0, 1]$, $u: \reals \rightarrow [0, 1]$.
-	\STATE $w^1 := 0$;
-	\FOR {$t = 1, 2, \ldots$}
-	\STATE $h^t(x) := u(w^t \cdot x)$;
-	\STATE $w^{t+1} := w^t + \displaystyle\fraconem \sumionetom (y_i - u(w^t
-	\cdot x_i)) x_i$;
-	\ENDFOR
-\end{algorithmic}
-\end{algorithm}
 
 
 \section{}

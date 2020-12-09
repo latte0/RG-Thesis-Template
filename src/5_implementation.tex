@@ -12,9 +12,28 @@
 ・テストデータ
 既存のものと比較している"
 
+
 \section{実装手法}
 \section{活性化関数}
 \section{アルゴリズム}
+
+
+\begin{algorithm}[!t]
+	\caption{\GLMt}
+	\label{alg:fixed-u-alg}
+\begin{algorithmic}
+	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
+	\reals^d \times [0, 1]$, $u: \reals \rightarrow [0, 1]$.
+	\STATE $w^1 := 0$;
+	\FOR {$t = 1, 2, \ldots$}
+	\STATE $h^t(x) := u(w^t \cdot x)$;
+	\STATE $w^{t+1} := w^t + \displaystyle\fraconem \sumionetom (y_i - u(w^t
+	\cdot x_i)) x_i$;
+	\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+
 \section{}
 \section{}
 

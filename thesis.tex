@@ -13,6 +13,11 @@
 \usepackage{here}
 \usepackage{afterpage}
 \usepackage{./sty/ncodeline}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{color}
+
+
 %\usepackage[dvipdfmx, colorlinks, breaklinks,%
 \usepackage[dvipdfmx, breaklinks,%
 bookmarks=true, bookmarksnumbered=true,%
@@ -25,11 +30,56 @@ pdftitle={RG},%
 
 \usepackage{fancyhdr}
 
-\usepackage{./sty/doxygenorig}
+\usepackage{./sty/algorithm}
+\usepackage{./sty/algorithmic}
 
 \usepackage{indentfirst}
 \usepackage{url}
 \usepackage{listings,./sty/jlisting}
+
+
+
+%% Add Mathematical Notation Shortcuts and Macros here:
+\def\ball{\mathbb{B}}
+\def\reals{\mathbb{R}}
+\def\LPAV{{\sf LPAV}}
+\def\PAV{{\sf PAV}}
+\def\GLMt{\textsf{GLM-tron}}
+\def\Liso{\textsf{L-Isotron}}
+\def\Iso{\textsf{Isotron}}
+\def\err{\mathrm{err}}
+\def\E{\mathbb{E}}
+\def\herr{\widehat{\mathrm{err}}}
+\def\eps{\varepsilon}
+\def\heps{\hat{\varepsilon}}
+
+%% Shortcuts
+\def\fraconem{\frac{1}{m}}
+\def\hatyti{\hat{y}^t_i}
+\def\sumionetom{\sum_{i=1}^m}
+\def\realstozo{\reals \rightarrow [0, 1]}
+\def\baryi{\bar{y}_i}
+\def\tildeyti{\tilde{y}^t_i}
+
+%% Additional definitions (Ohad)
+\newtheorem{proposition}{Proposition}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\inner}[1]{\langle#1\rangle}
+\newcommand{\Ucal}{\mathcal{U}}
+\newcommand{\Wcal}{\mathcal{W}}
+\newcommand{\Fcal}{\mathcal{F}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\thmref}[1]{Thm.~\ref{#1}}
+
+\newcommand{\lnorm}[1]{\ensuremath \left\| #1 \right\|}
+
+%% Theorems
+\newtheorem{lemma}{Lemma}
+\newtheorem{thm}{Theorem}
+
+
+
 
 \def\lstlistingname{プログラム}
 

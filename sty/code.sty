@@ -1,0 +1,6 @@
+
+\makeatletter
+    \AtBeginDocument{
+    \renewcommand*{\thelstlisting}{\arabic{chapter}.\arabic{section}.\arabic{subsection}-\arabic{lstlisting}}
+    \@addtoreset{lstlisting}{section}}
+\makeatother

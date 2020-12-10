@@ -1,7 +1,65 @@
 \appendix
-\chapter{付録だよ}
+\chapter{ガウス分布とカーネル関数}
 
 
-\section{付録内容だよ}
+\section{カーネル活性化関数の導出}
 
-書くよ
+
+
+\chapter{カーネル活性化関数の実装}
+
+
+\section{クラス}
+
+
+中間層が一つのkernel activation functionの計算を考慮した実装クラスを以下に示す。
+
+
+\begin{lstlisting}[caption=hoge,label=fuga]
+class Net(nn.Module):
+
+    def __init__(self, Y, calc_Y, X, calc_X, settings):
+        super(Net, self).__init__()
+
+        self.fc1 = nn.Linear(DATA_INPUT_LENGTH, DATA_MID_LENGTH, bias=False)
+        self.fc2 = nn.Linear(DATA_MID_LENGTH, DATA_OUTPUT_LENGTH, bias=False)
+        # leave_ont_outのために事前に入力と出力をセットしておく
+        self.Y = Y
+        self.calc_Y = calc_Y
+        self.calc = False
+        # バンド幅も推定する
+        self.h = nn.Parameter(torch.tensor(1.5, requires_grad=True))
+        self.h_middle = torch.tensor(1.0)
+
+        self.last_layer_result = []
+        self.sigmoid = nn.Sigmoid()
+
+    # kernel推定量の計算
+    def kernel(self, Zw):
+        numerator = 0
+        denominator = 0
+        result = []
+        for j, x_j in enumerate(self.train_X):
+
+            Xw = self.fc2(F.relu(self.fc1(x_j)))
+            tmp = gauss((Xw - Zw) / self.h)
+
+            tmp[j] = 0
+            denominator += tmp
+            numerator += tmp * self.Y[j]
+
+        g = numerator/denominator
+        return g
+
+
+    def forward(self, x):
+
+        xw = F.relu(self.fc1(x))
+        xw = self.fc2(xw)
+
+        y = self.kernel(xw)
+
+        return y
+
+
+\end{lstlisting}

@@ -16,16 +16,17 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
-\begin{tabular}{l*{2}{c}r}
-ソフトウェア              & バージョン \\
-\hline
-Python            & 3.6.2 or above \\
-CPU               & intel core i7
-Tensorflow        & 2.1.0-rc0 \\
-PyTorch           & 6 \\
-\end{tabular}
-
-
+\begin{table}[htbp]
+    \caption{本研究の実行環境}
+    \begin{tabular}{l*{2}{c}r}
+    ソフトウェア              & バージョン \\
+    \hline
+    Python            & 3.6.2 or above \\
+    CPU               & intel core i7
+    Tensorflow        & 2.1.0-rc0 \\
+    PyTorch           & 6 \\
+    \end{tabular}
+\end{table}
 
 
 
@@ -49,18 +50,19 @@ PyTorch           & 6 \\
 各テストデータの特徴を以下の表にまとめる。データセットには出力の形式が存在し、多くの問題は「分類」もしくは「回帰」の二つに分類される。
 
 
-\begin{tabular}{l*{2}{c}r}
-データセット名      & 出力層 & 出力の形式 \\
-\hline
-iris            & 3  & 分類 \\
-MNIST               & i10 & 分類  \\
-wine        & 13 & 分類 \\
-住宅の価格           & 6 & 回帰 \\
-健康の状態           & 6 & 回帰 \\
-膵臓癌           & 6 & 回帰 \\
-\end{tabular}
-
-
+\begin{table}[htbp]
+    \caption{実験のデータセットの名称}
+    \begin{tabular}{l*{2}{c}r}
+    データセット名      & 出力層 & 出力の形式 \\
+    \hline
+    iris            & 3  & 分類 \\
+    MNIST               & i10 & 分類  \\
+    wine        & 13 & 分類 \\
+    住宅の価格           & 6 & 回帰 \\
+    健康の状態           & 6 & 回帰 \\
+    膵臓癌           & 6 & 回帰 \\
+    \end{tabular}
+\end{table}
 
 
 

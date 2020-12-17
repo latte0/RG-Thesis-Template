@@ -1,12 +1,12 @@
 # Fdb version 3
-["pdflatex"] 1607549839 "/Users/jimbo/RG-Thesis-Template/thesis.tex" "/Users/jimbo/RG-Thesis-Template/thesis.pdf" "thesis" 1607549839
+["pdflatex"] 1608187114 "/Users/jimbo/RG-Thesis-Template/thesis.tex" "/Users/jimbo/RG-Thesis-Template/thesis.pdf" "thesis" 1608187333
   "./sty/algorithm.sty" 1607549625 2302 d2b29bd8abe4b311c2e3cf0641b4549b ""
   "./sty/algorithmic.sty" 1607549625 7615 a7a253154ed6d7d83141571d55bc3515 ""
   "./sty/eclepsf.sty" 1605169825 7600 40f757c7c16bce50915893170ed9b916 ""
   "./sty/jlisting.sty" 1605169825 6236 a9258d8aff3bb8ae0affde727788b67f ""
   "./sty/ncodeline.sty" 1605169825 420 3dd4d7371b7362183afdd53c057e88e6 ""
-  "/Users/jimbo/RG-Thesis-Template/thesis.aux" 1607549839 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/Users/jimbo/RG-Thesis-Template/thesis.tex" 1607549732 4657 26935cfda9c4be6d72a667da387206fe ""
+  "/Users/jimbo/RG-Thesis-Template/thesis.aux" 1608187114 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/jimbo/RG-Thesis-Template/thesis.tex" 1608179971 4831 11fe05a30bae4022fde43a830d9477c0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/ascmac/ascgrp.tfm" 1520635638 448 9a1f3a95c3a7e2681aa6eefcf410b7ac ""
   "/usr/local/texlive/2018/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1480098815 1458 43ab4710dc82f3edeabecd0d099626b2 ""
@@ -68,8 +68,8 @@
   "sty/eclepsf.sty" 1605169825 7600 40f757c7c16bce50915893170ed9b916 ""
   "sty/jlisting.sty" 1605169825 6236 a9258d8aff3bb8ae0affde727788b67f ""
   "sty/ncodeline.sty" 1605169825 420 3dd4d7371b7362183afdd53c057e88e6 ""
-  "thesis.tex" 1607549732 4657 26935cfda9c4be6d72a667da387206fe ""
+  "thesis.tex" 1608179971 4831 11fe05a30bae4022fde43a830d9477c0 ""
   (generated)
   "thesis.log"
-  "/Users/jimbo/RG-Thesis-Template/thesis.pdf"
   "/Users/jimbo/RG-Thesis-Template/thesis.log"
+  "/Users/jimbo/RG-Thesis-Template/thesis.pdf"

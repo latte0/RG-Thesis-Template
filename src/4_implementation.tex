@@ -4,6 +4,9 @@
 本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
 その後,実験に用いたハイパーパラメータ,実装における留意点について解説を行う。
 
+今回は大きく３つの比較実験を行う。
+
+
 
 \section{実装環境}
 
@@ -17,15 +20,17 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 \begin{table}[htbp]
-    \caption{本研究の実行環境}
-    \begin{tabular}{l*{2}{c}r}
-    ソフトウェア              & バージョン \\
-    \hline
-    Python            & 3.6.2 or above \\
-    CPU               & intel core i7
-    Tensorflow        & 2.1.0-rc0 \\
-    PyTorch           & 6 \\
-    \end{tabular}
+    \begin{center}
+        \caption{本研究の実行環境}
+        \begin{tabular}{l*{2}{c}r}
+        ソフトウェア              & バージョン \\
+        \hline
+        Python            & 3.6.2 or above \\
+        CPU               & intel core i7
+        Tensorflow        & 2.1.0-rc0 \\
+        PyTorch           & 6 \\
+        \end{tabular}
+    \end{center}
 \end{table}
 
 
@@ -51,17 +56,19 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 \begin{table}[htbp]
-    \caption{実験のデータセットの名称}
-    \begin{tabular}{l*{2}{c}r}
-    データセット名      & 出力層 & 出力の形式 \\
-    \hline
-    iris            & 3  & 分類 \\
-    MNIST               & i10 & 分類  \\
-    wine        & 13 & 分類 \\
-    住宅の価格           & 6 & 回帰 \\
-    健康の状態           & 6 & 回帰 \\
-    膵臓癌           & 6 & 回帰 \\
-    \end{tabular}
+    \begin{center}
+        \caption{実験のデータセットの名称}
+        \begin{tabular}{l*{2}{c}r}
+        データセット名      & 出力層 & 出力の形式 \\
+        \hline
+        iris            & 3  & 分類 \\
+        MNIST               & i10 & 分類  \\
+        wine        & 13 & 分類 \\
+        住宅の価格           & 6 & 回帰 \\
+        健康の状態           & 6 & 回帰 \\
+        膵臓癌           & 6 & 回帰 \\
+        \end{tabular}
+    \end{center}
 \end{table}
 
 

@@ -74,8 +74,19 @@ Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid(\beta x)} $ と定義できるが�
 
 
 \section{統計学における位置付け}
+
+\begin{figure}[hbtp]
+        \includegraphics[width=6cm]{asset/glm1.png}~~~~~ ~~~~~ 
+        \includegraphics[width=6cm]{asset/glm2.png}
+            \caption{活性化関数の形}
+            \label{neural_network1}
+\end{figure}
+
+\subsubsection{一般線形化モデルとは}
 　一方、統計学の世界に目を向けると、活性化関数と同様の概念がリンク関数(Link Function)として一般化線形モデル(GLM)においても流用されている。
-線形モデルの数式は$ E[Y] = X w $で表現することができるが、従属変数が正規分布に従わない場合に徐々に誤差が生まれてしまう。
+説明変数を$ X $, パラメータを$ w $で表現し、従属変数を$ Y $とすると、
+線形モデルの数式は$ E[Y] = X\cdot w $で表現することができる。
+しかしながら、このままでは従属変数が正規分布に従わない場合に徐々に誤差が生まれてしまう。
 
 GLMの数式はリンク関数$ G $を用いて以下のように示す。
 
@@ -83,14 +94,17 @@ GLMの数式はリンク関数$ G $を用いて以下のように示す。
 E[Y|X]=G^{-1} (X\dot w)
 \end{eqnarray}
 
+\subsubsection{シングルインデックスモデルとは}
+シングルインデックスモデル(SIM)とは
+
 GLM（Generalized Linear Model）やSIM（single index model）などの線形回帰の一般化が提案されている。
 
-これら2つのモデルは、$ E[Y|X]=X\dot w $の線形回帰モデルに、$ E[Y|X]=X\dot w $のリンク機能を持たせたものです。 
+これら2つのモデルは、$ E[Y|X]=X\cdot w $の線形回帰モデルに、$ E[Y|X]=X\cdot w $のリンク機能を持たせたものです。 
 統計学の世界では汎用的なリンク関数の提案としてisotonic regressionを応用した手法が研究されている。
 
 
- 一方、SIM'sではリンク関数gの推定にノンパラメトリックな手法を用いており ディープラーニングには適用されていないようです。
- また、SIM'sの経験的に推定可能な反復学習 LPAVアルゴリズムと呼ばれるL-isotron法がSham Kakade(2011)で紹介されている。 
+ 一方、SIMではリンク関数gの推定にノンパラメトリックな手法を用いており ディープラーニングには適用されていないようです。
+ また、SIMの経験的に推定可能な反復学習 LPAVアルゴリズムと呼ばれるL-isotron法がSham Kakade~\cite{efficient_sim}で紹介されている。 
  しかし、LPAVでは線形相補的な位置推定法を用いてデータを並べ替えるため、ディープラーニングのような重い計算には不向きである。 
 
 isotonic regressionはGLMと同様に推定する関数に単調増加性を仮定している。統計学の世界ではリンク関数自体が逆関数の考え方から導出されているため、

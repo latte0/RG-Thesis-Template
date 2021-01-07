@@ -11,6 +11,10 @@
 
 
 
+\section{勾配の消失}
+勾配消失問題とは、機械学習手法のひとつであるニューラルネットワークの設計において、勾配が消失することで学習が進まなくなる技術的な問題のことである。
+
+
 \section{活性化関数}
 
 ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている。~\cite{study_af}
@@ -19,7 +23,7 @@
 その後tanhやreluなどといったより計算に適した活性化関数が発見されてきた。
 特にReluに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
 
-長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU [32]、ELU[6]、SELU[23]などが含まれる。
+長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}などが含まれる。
 Swish [37]は、$ f(x)=xsigmoid(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
 
 ~\cite{Mish}~\cite{ReLU}~\cite{trend_af}~\cite{evo_af}~\cite{study_af}~\cite{parametric_af}~\cite{isotron}~\cite{efficient_sim}~\cite{lsim}~\cite{sim}~\cite{ichimura}~\cite{Evolving}~\cite{swish}~\cite{resnte}~\cite{sim}
@@ -99,9 +103,29 @@ isotonic regressionはGLMと同様に推定する関数に単調増加性を仮�
 \subsection{ラーニングレート}
 学習率はニューラルネットにおけるハイパーパラメータの一つ。入念に調整する必要がある。
 \subsection{初期値}
-\subsection{レギュラライザー(l1ノルムなど)}
+ニューラルネットワークの学習効率は、重みの初期値によって大きく変わることが知られている。
+初期値は0や1で初期化する方法以外にさまざまな方法がある。
+
+\subsubsection{Uniform}
+Uniform：-1.0～1.0の一様乱数で初期化します
+\subsubsection{orthogonal}
+\subsubsection{sparse}
+sparseは~\cite{sim}で紹介されている。
+2次元入力テンソルを疎な行列として充填し，ここで非ゼロ要素は，正規分布で埋める。
+\subsubsection{kaiming uniform}
+ガウス乱数にKaiming He提案の係数をかけて初期化する。
+
+\subsection{レギュラライザー}
+ニューラルネットワークは学習を行う際に、初期値やデータによっては重みに偏りが生まれ、勾配消失につながる可能性が高くなる。それらを解消するために、損失関数に数学的な項を加えることで学習の際の偏りを解消する手法が、実用的にも用いられている。
+\subsubsection{L2ノルム}
+ippanntek
+\subsubsection{L1ノルム}
+
 \subsection{optimizer}
 この辺について
+
+
+
 \section{実社会における学習の問題点}
 ディープラーニングをGUIで簡易的に扱えるツールとして株式会社ソニーのNeural Network Consoleがある。
 しかしながらそれでも共通として存在する問題点はデータセットの整形はこちら側でやる必要があるということである。

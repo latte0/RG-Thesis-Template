@@ -34,29 +34,34 @@ $ z=g(y)=g(\sum w_i x_i+b) $
 特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
 
 長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}などが含まれる。
-Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid(\beta x)} $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
+Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
 活性化関数はそれまで単調増加な関数が使われることが多かったが、Swishで単調増加である必要なく、汎用的に精度が向上することがわかった。
-またそのような活性化関数の例としてMishと言うものもあげらている。~\cite{Mish}
+またそのような活性化関数の例としてMish~\cite{Mish}と言うものもあげらている。
 
-~\cite{trend_af}~\cite{evo_af}~\cite{study_af}~\cite{parametric_af}~\cite{isotron}~\cite{efficient_sim}~\cite{lsim}~\cite{sim}~\cite{ichimura}~\cite{Evolving}~\cite{swish}~\cite{resnte}~\cite{sim}
+~\cite{trend_af}~\cite{evo_af}~\cite{study_af}~\cite{parametric_af}~\cite{isotron}~\cite{efficient_sim}~\cite{lsim}~\cite{sim}~\cite{ichimura}~\cite{Evolving}~\cite{resnte}~\cite{sim}
 
 \begin{table}[htbp]
     \begin{center}
         \caption{活性化関数の種類}
+        \vspace{5mm} 
         \label{class_af}
         \begin{tabular}{cp{5cm}cc}
         活性化関数の数式              & 数式 \\
         \hline
-        Sigmoid            & sigmoid(x) \\
+        Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
+        \vspace{5mm} 
         TanH               & tanh(x) \\
-        ReLU        &  \[l=
+        \vspace{-5mm} 
+        \multirow{5}{*}{ReLU}        &  \[l=
             \begin{cases} 
-            0 &\text{when x < 0 }\\
-            x &\text{when x \lq 0 else} \\
+            0 &\text{when $ x < 0 $ }\\
+            x &\text{when $ x \geq 0 $ else} \\
             \end{cases}
             \] & & \\
+        \vspace{2mm} 
         Swish           & $ x{\bf sigmoid}(\beta x) $ \\
-        Mish           & $ x{\bf tanh}(softplus(x)) $ \\
+        \vspace{2mm} 
+        Mish           & $ x{\bf tanh}(\log (1 + \mathrm{exp}(x) )) $ \\
 
         \end{tabular}
     \end{center}
@@ -75,8 +80,8 @@ Sigmoidなどの場合、勾配が0に近い領域が存在するため、勾配
 \section{汎用的な活性化関数}
 
 しかしながら、\ref{class_af}であげたような活性化関数は、どれも実験的に精度が向上すると言う理由で選択したものであり、あらゆるパターンにおいて最適かどうかと言う議論がされていない。
-また、Alberto Marchisio~\cite{automatic_af}は、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出しています。
-しかし、その選択は、すでに知られているものから関数全体を選択している。Garrett Bingham（2020）は、内部から探索することはできなかったようです。
+また、Alberto Marchisio~\cite{automatic_af}は、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出している。
+しかし、その選択は、すでに知られているものから関数全体を選択している。Garrett Bingham（2020）は、内部から探索することはできていない。
 多くのハイパーパラメータを持つ活性化関数を選択し、訓練で推定することで精度が向上します。 しかし、これも関数全体の探索には程遠い。
 より良い活性化関数を選択して精度を向上させ、パラメータ数を減らすことは、より良いモデルを学習・発見するための重要な課題である。
 

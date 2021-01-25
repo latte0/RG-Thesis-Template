@@ -187,20 +187,23 @@ E(w) + \lambda \frac{1}{p}\|w\|^p_p
 
 \begin{figure}[hbtp]
     \begin{center}
-        \includegraphics[width=10cm]{asset/l1norm.png}
-            \caption{パラメータが二つの時のL2ノルムのイメージ図。パラメータが二つある時、その合計値($ \sim_i w_i $)が$ 1 $の点を取ると、一つのパラメータを$ 0 $にすることが最も大きくなる。}
-            \label{l1norm}
+        \begin{tabular}{c}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/l1norm.png}
+                    \caption{パラメータが二つの時のL2ノルムのイメージ図。パラメータが二つある時、その合計値($ \sum_i w_i $)が$ 1 $の点を取ると、一つのパラメータを$ 0 $にすることが最も大きくなる。}
+                    \label{l1norm}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/l2norm.png}
+                    \caption{パラメータが二つの時のL2ノルムのイメージ図。パラメータの合計値その合計値($ \sum_i w_i $)が$ 1 $の時は$ w_1 = w_2 = 0.5 $の時が最も値が小さくなるので、より高次元で考えるとこの値を大きくするのは均一的な重み分布であることが望ましい。}
+                    \label{l2norm}
+            \end{minipage}
+        \end{tabular}
     \end{center}
 \end{figure}
 
 
-\begin{figure}[hbtp]
-    \begin{center}
-        \includegraphics[width=10cm]{asset/l2norm.png}
-            \caption{パラメータが二つの時のL2ノルムのイメージ図。}
-            \label{l2norm}
-    \end{center}
-\end{figure}
 
 
 \subsubsection{L1ノルム}
@@ -209,7 +212,7 @@ L1正則化は余分なパラメータ（説明変数）を省くことを目的
 この結果は、主に次元の圧縮などに対して応用することも可能である。
 
 \subsubsection{L2ノルム}
-L2ノルムの値を$ L2 $、L1ノルムの値を$ L1 $、またパラメータの合計値($ \sim_i w_i $)が等しい場合においては
+L2ノルムの値を$ L2 $、L1ノルムの値を$ L1 $、またパラメータの合計値($ \sum_i w_i $)が等しい場合においては
 
 \begin{eqnarray}
 L2 < L1
@@ -230,16 +233,30 @@ L2 < L1
         \caption{実験のデータセットの名称}
         \vspace{5mm} 
         \begin{tabular}{l*{2}{c}r}
-        扱うデータ      & 説明 & 名称 \\
+        扱うデータ      & 名称 & 説明 \\
         \hline
-        test           & 3  & 分類 \\
-        MNIST               & i10 & 分類  \\
-        wine        & 13 & 分類 \\
+        $ D_i \subseteq D $          & ミニバッチ学習  & データを部分的にランダムで取り出して学習を行う \\
+        $ d_i \in D $                & オンライン学習 & データを一つ取り出して学習を行う  \\
+        D        & バッチ学習 & 全てのデータを用いて学習する \\
         \end{tabular}
     \end{center}
 \end{table}
 
+バッチ学習は安定した学習が行えるものの、の欠点は大きく以下の二つがある。
 
+\begin{itemize}
+  \item 損失関数の形が変わらないため、最適化の手法によっては学習が停滞してしまう。
+  \item Kernel AFはさまざまなデータセットにおいて既存の活性化関数によりより良い精度を出すことを達成した。
+\end{itemize}
+
+また、オンライン学習は局所界に陥りにくいというメリットがあるものの、以下欠点が存在する。
+
+\begin{itemize}
+  \item 最初より最後のデータに過剰に適合してしまう。
+  \item 外れ値にも反応しやすいため、パラメータの収束が不安定になる。
+\end{itemize}
+
+以上により一般的に両者の欠点を抑えたミニバッチ学習が実務では使用されることが多い。
 
 
 \subsection{optimizer}
@@ -251,8 +268,56 @@ L2 < L1
 しかしながら、SGD以外にもパラメータをよりよく最適化する方法は多く研究されている。
 
 \subsubsection{SGD}
-SGDは一般的に広く知れ渡り、実装が簡単な手法として認知されている。しかしながらSGDには以下の欠点が発見されている。
+SGDは\ref{eq:learning_rate}の式の形で一般的に広く知れ渡り、実装が簡単な手法として認知されている。しかしながらSGDには以下の欠点が発見されている。
+しかしながら数式からもわかるようにSGDには欠点とした以下の二つが広く認知されている。
 
+\begin{itemize}
+  \item 勾配が０の点では学習が進まなくなる。
+  \item 勾配の方向が本来の最小値では ない方向を指していないことがある。
+\end{itemize}
+これらの理由により近年では実用的には使用されていない。
+
+\subsubsection{Momentum}
+
+モーメンタム(Momentum)はSGDの勾配の方向が本来の最小値ではないという
+
+\begin{eqnarray}
+v \leftarrow \alpha v - \mu \frac {\partial E }{\partial w} \\
+
+w \leftarrow 
+
+
+
+
+w+v
+\label{eq:norm uneq}
+\end{eqnarray}
+
+
+
+
+Momentum という手法は、数式で次のように表されます。
+
+
+
+\subsubsection{AdaGrad}
+ニューラルネットワークの学習では、学習係数――数式では η で表記――の値が重 要になります。
+学習係数が小さすぎると学習に時間がかかりすぎてしまい、逆に大き すぎると発散して正しい学習が行えません。
+この学習係数に関する有効なテクニックとして、学習係数の減衰(learning rate decay)という方法があります。
+これは、学習が進むにつれて学習係数を小さくする という方法です。
+最初は“大きく”学習し、次第に“小さく”学習するという手法で、 ニューラルネットワークの学習では実際によく使われます。
+学習係数を徐々に下げていくというアイデアは、パラメータ「全体」の学習係数の 値を一括して下げることに相当します。
+これをさらに発展させたのが AdaGrad [6] です。AdaGrad は、「一つひとつ」のパラメータに対して、“オーダーメイド”の値 をこしらえます。
+
+\subsubsection{Adam}
+Momentum は、ボールがお椀を転がるように物理法則に準じる動きをしました。 
+AdaGrad は、パラメータの要素ごとに、適応的に更新ステップを調整しました。
+そ れでは、その 2 つの手法―― Momentum と AdaGrad――を融合するとどうなるで しょうか? 
+それが Adam [8] という手法のベースとなるアイデアです†1。
+Adam は 2015 年に提案された新しい手法です。
+その理論はやや複雑ですが、直 感的には、Momentum と AdaGrad を融合したような手法です。先の 2 つの手法 の利点を組み合わせることで、効率的にパラメータ空間を探索することが期待でき ます。
+また、ハイパーパラメータの「バイアス補正(偏りの補正)」が行われてい ることも Adam の特徴です。ここでは、これ以上踏み込んで説明することは避け ます。詳細は原著論文 [8] を参照してください。
+また、Python の実装については、 common/optimizer.py に Adam というクラスで実装してあるので、興味のある方 は参照してください。
 
 
 \section{実社会における学習の問題点}

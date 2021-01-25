@@ -63,6 +63,35 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)
 ~\cite{ichimura}ではデータセットの数だけで表現していたが、一部を省略することにより少ない変数で表現することに成功した。
 
 
+
+\subsection{バンド幅推定}
+kernel関数は関数の形状を推定するにあたってバンド幅の大きさが非常に重要になる。
+
+バンド幅は大きいほど関数の自由度が減り、小さいほど自由度が大きくなることが容易に推定できる。
+
+
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/k_af_band_big.png}
+                    \caption{バンド幅が大きいと、K-AFで表現できる活性化関数の数は減る。}
+                    \label{k_af_band_big}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/k_af_band_small.png}
+                    \caption{バンド幅が小さいと、K-AFで表現できる活性化関数の形は大きくなる。}
+                    \label{k_af_band_small}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+\ref{k_af_band_small}の方が表現の幅が広いが、勾配消失の問題や過学習の問題が考えらる。
+本実験ではこのバンド幅も学習のパラメータに含めることで最適なバンド幅を推定できるようにした。
+
 \section{アルゴリズム}
 
 
@@ -81,7 +110,7 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)
 \end{algorithmic}
 \end{algorithm}
 
-これが実装の大まかなアルゴリズムである。詳細についてはappendixで述べた。
+これが実装のアルゴリズムである。実装についてはappendixで述べた。
 
 
 

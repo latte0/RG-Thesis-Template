@@ -252,9 +252,27 @@ isotonic regressionは単調増加性とう制約を仮定したSIMの一つで�
 
 \subsection {セミパラメトリックモデルと機械学習学習}
 
-SIMの未知の関数をleave one outを用いたカーネル密度推定法と最尤推定により導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
+セミパラメトリックにモデルを推定する手法は統計学ではIchimura~\cite{ichimura}から始まり、PAVアルゴリズムとしてAdam Tauman Kalai~\cite{isotron}によりその有用性が確かめられた。
 
-そして、SIMやisotonic regressionを機械学習に応用する試みはAdam Tauman Kalai~\cite{isotron}のPAVアルゴリズムと呼ばれる手法で、分類問題の応用へと繋がった。
+\subsubsection{Ichimuraの手法}
+
+SIMの未知の関数をleave one out法を用いたカーネル密度推定法と最尤推定により導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
+
+Ichimuraの手法はSingleIndexModelのノンパラメトリック関数を以下の式で近似する手法である。
+
+
+\begin{eqnarray}
+G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)}
+\label{eq:ichimura}
+\end{eqnarray}
+
+ここで、$ K $はカーネル関数である。$ i \neq j $ とすることにより、$ x_i $を入力した時の値が$ y_i $へと過剰適合しないようにするためである。
+
+
+
+\subsubsection{PAVアルゴリズム}
+
+SIMやisotonic regressionを機械学習に応用する試みはAdam Tauman Kalai~\cite{isotron}のPAVアルゴリズムと呼ばれる手法で、分類問題の応用へと繋がった。
 isotonic regression自体は回帰問題として発明された手法であったが、これによりアルゴリズム的に分類問題がセミパラメトリックな手法を用いて解くことが可能であることが発見された。
 この手法をベースにSham Kakade~\cite{efficient_sim}やRavi Ganti~\cite{lsim}などによってより高速で汎用的なisotonic regressionを応用したセミパラメトリックモデルの分類問題の解法のアルゴリズムが導かれた。
 
@@ -489,12 +507,11 @@ Garrett Bingham~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $�
 
 以上のような背景の中で活性化関数は、今もなお汎用的で精度が向上するような手法が模索されている。
 またこれまで用いてきた活性化関数が、問題に対して最適だったか確認する手立てが求められている。
-本研究ではそれを踏まえて以下の３つの課題に取り組む。
+本研究ではそれを踏まえて以下の２つの課題に取り組む。
 
 \begin{itemize}
-  \item 状況に応じた活性化関数で既存のものより安定的で精度がよくなること。
-  \item 状況に応じた活性化関数が、関数全体から探査でき、
-  \item 初学者でも簡単に取り組めること。
+  \item 状況に応じた活性化関数が自動で推論でき、既存のものより安定的で精度がよくなること。
+  \item 関数全体から活性化関数が推定でき、扱っていた活性化関数との差分を確認できるようにすること。
 \end{itemize}
 
 

@@ -111,9 +111,9 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
 	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
-	\reals^d \times \reals^e$, $G: \reals \rightarrow [0, 1]$.
-	\STATE $X^{calc} \sim_n D(X)$;
-    \STATE $Y^{calc} \sim_n D(Y)$;
+	\reals^d \times \reals^e$, $G: \reals^d, \reals^n, \reals^n \rightarrow  \reals^e$.
+	\STATE $X^{calc} \sim_n \mathcal{D}(X)$;
+    \STATE $Y^{calc} \sim_n \mathcal{D}(Y)$;
 	\FOR {$t = 1, 2, \ldots$}
 	\STATE $g^t(x) := G(X \cdot w^t, X^{calc}, Y^{calc} )$;
 	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(x_i))^2 $
@@ -122,8 +122,8 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 \end{algorithm}
 
 \begin{itemize}
-  \item データセット$D_x$,$D_y$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
-  \item 現状のパラメータ$ w $, $D_x$, $D_y$を用いて、リンク関数$ g^t $の計算を行う。
+  \item データセット$\mathcal{D_x}$,$\mathcal{D_y}$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
+  \item 現状のパラメータ$ w $, $\mathcal{D_x}$, $\mathcal{D_y}$を用いて、リンク関数$ g^t $の計算を行う。
   \item そのリンク関数を用いて$ y $の値との最小二乗誤差を取り$ w $に対して最適化を行う。
 \end{itemize}
 

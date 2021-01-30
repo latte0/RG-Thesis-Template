@@ -53,16 +53,16 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \end{itemize}
 
 
-活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。データセットにはskcit-learnのライブラリのデータセットに対してデフォルトで入ってるものを想定する。
+活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。データセットにはsckit-learn~\cite{scikit-learn}のライブラリのデータセットに対してデフォルトで入ってるものを想定する。
 \begin{itemize}
 
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
-    \item ラーニングレート [ 何もなし,L1ノルム, L2ノルム]
-    \item 初期値 [ 何もなし,L1ノルム, L2ノルム]
+    \item ラーニングレート [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
+    \item 初期値 [ Xavier, kaiming uniform]
     \item レギュラライザー [ 何もなし,L1ノルム, L2ノルム]
-    \item optimizer [ 何もなし,L1ノルム, L2ノルム]
-    \item データセット [ アヤメ, MNIST, wine]
+    \item optimizer [ SGD, Momentum, AdaGrad, Adam]
+    \item データセット [ アヤメ, MNIST, wine, 住宅の価格, 健康の状態]
 \end{itemize}
 
 
@@ -89,37 +89,22 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \end{center}
 \end{table}
 
-\begin{table}[htbp]
-    \begin{center}
-        \caption{実験のデータセットの名称}
-        \vspace{5mm} 
-        \begin{tabular}{l*{2}{c}r}
-        比較実験      & 出力層 & 出力の形式 & 中間層の数 \\
-        \hline
-        iris            & 3  & 分類 & 10  \\
-        MNIST               & i10 & 分類 & 10   \\
-        \end{tabular}
-    \end{center}
-\end{table}
-
-
-\subsection{実験1}
-
-
-
-\section{実装手法}
-
-各データセットにおける中間層は以下のパラメータで固定した。
-
-
-
-\section{活性化関数}
 
 
 
 \section{実装における留意点}
 本研究における提案手法を実装する際に留意する必要のある点を述べる.
 一つは勾配が消失してしまった場合の処理である。
+
+
+
+\subsection{実験1}
+\section{実装手法}
+
+
+\section{活性化関数}
+
+
 
 
 \section{実験2}

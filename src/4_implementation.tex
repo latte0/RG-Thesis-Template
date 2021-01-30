@@ -14,13 +14,13 @@
 
 
 
-本研究において利用した実装環境を Table 4.1 に示す. 提案手法の実装は Pytorch 及
-を用いた.  PyTorch, Chainer は計算グラフの自動微分ライブラリであり, 深層ニューラ
-ルネットワークの研究や開発にも用いられる.
+本研究において利用した実装環境を \ref{impl_table} に示す. 提案手法の実装は Pytorch 及
+を用いた.  PyTorch~\cite{pytorch}, Chainer~\cite{chainer} は計算グラフの自動微分ライブラリであり, 深層ニューラルネットワークの研究や開発にも用いられる.
 Pytorchを用いた理由は実装コストが低く研究領域に従事できるところにある。
 
 
 \begin{table}[htbp]
+\label{impl_table}
     \begin{center}
         \caption{本研究の実行環境}
         \vspace{5mm} 
@@ -39,19 +39,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 \section{実験1}
 \label{exp1}
-活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。
-\begin{itemize}
-
-    \setlength{\parskip}{0cm} % 段落間
-    \setlength{\itemsep}{0cm} % 項目間
-    \item ラーニングレート
-    \item 初期値、
-    \item レギュラライザー(l1ノルムなど)
-    \item optimizer
-    \item テストデータ
-\end{itemize}
-
-比較用の活性化関数には以下を用いる
+比較用の活性化関数には以下を用いる。
 \begin{itemize}
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
@@ -63,6 +51,20 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \item Swish
     \item K-AF(本手法)
 \end{itemize}
+
+
+活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。データセットにはskcit-learnのライブラリのデータセットに対してデフォルトで入ってるものを想定する。
+\begin{itemize}
+
+    \setlength{\parskip}{0cm} % 段落間
+    \setlength{\itemsep}{0cm} % 項目間
+    \item ラーニングレート [ 何もなし,L1ノルム, L2ノルム]
+    \item 初期値 [ 何もなし,L1ノルム, L2ノルム]
+    \item レギュラライザー [ 何もなし,L1ノルム, L2ノルム]
+    \item optimizer [ 何もなし,L1ノルム, L2ノルム]
+    \item データセット [ アヤメ, MNIST, wine]
+\end{itemize}
+
 
 
 \subsection{比較データ}

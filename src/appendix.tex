@@ -14,8 +14,8 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\n
 \label{calc:k-af}
 \end{eqnarray}
 
-ここで、バンド幅$ K\left(\frac{X_j w - X_i w}{h}\right) \approx	K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)$
-となるような$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ X_{calc} $を用いて\ref{calc:k-af}を近似することができる。
+ここで、$ \sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right) \approx	\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)$
+となるようなバンド幅$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ X_{calc} $を用いて\ref{calc:k-af}を近似することができる。
 
 これにより\ref{calc:k-af}は以下の式に直すことができる。
 
@@ -23,6 +23,8 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\n
 G(X_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
 \label{calc:k-af-2}
 \end{eqnarray}
+
+以上により、Ichimuraの手法に対してデータ点を減らしても近似できることを示した。
 
 
 \chapter{カーネル活性化関数の実装}

@@ -146,10 +146,11 @@ E[Y|X]=G^{-1} (X\dot W)
                     \caption{カーネル関数、今回はガウス関数でその周辺ごと近似する。}
                     \label{k_af_band2}
             \end{minipage}
-            \hspace{10pt}
+            \hspace{10pt} \\
+            \vspace{10pt} \\
             \begin{minipage}{0.40\hsize}
                 \includegraphics[clip, width=5cm]{asset/k_af_band3.png}
-                    \caption{点の周辺で}
+                    \caption{点の周辺のカーネル関数を足し合わせた時にできる関数}
                     \label{k_af_band3}
             \end{minipage}
         \end{tabular}
@@ -175,6 +176,10 @@ $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定�
 この時、カーネル密度推定法とは、$ x_n $をデータ、推定すべき関数を$ f $ カーネル関数を $ K $ バンド幅を $ h $ としたとき、以下の式で表現することができる。
 
 
+\begin{eqnarray}
+f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
+\label{eq:k-af}
+\end{eqnarray}
 イメージとしては\ref{k_af_band1}のようにまばらに存在するデータ点の周辺に、\ref{k_af_band2}のようにカーネル関数をおき、任意のバンド幅で足し合わせ近似していくイメージである。
 
 
@@ -182,55 +187,37 @@ $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定�
 
 
 
-\subsection{シングルインデックスモデルとは}
+\subsection{セミパラメトリックモデルとシングルインデックスモデル}
 
-統計学の世界では、
+統計学の世界では、セミパラメトリックモデルというノンパラメトリックな手法とセミパラメトリックな手法を組み合わせた手法が存在する。
+その中の一つの代表的な手法の中にシングルインデックスモデルと呼ばれる手法が存在する。
+シングルインデックスモデル(SIM)とは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
 
-シングルインデックスモデル(SIM)とは
+\begin{eqnarray}
+Y = g(X \dot W) + \epsilon
+\label{eq:k-af}
+\end{eqnarray}
 
-これら2つのモデルは、$ E[Y|X]=X\cdot w $の線形回帰モデルに、$ E[Y|X]=X\cdot w $のリンク機能を持たせたものです。 
-統計学の世界では汎用的なリンク関数の提案としてisotonic regressionを応用した手法が研究されている。
+SIMは未知の関数$ g $を推定しながらパラメータ $ W $を求めていく問題に帰着されるため、ノンパラメトリックとパラメトリックが混ざった手法であるセミパラメトリックモデルとして表現される理由である。
+この$ g $は、一般化線形モデルのリンク関数$ G^{-1} $ をさらに一般化した単調増加性を無くしたモデルだと考えることができる。
+SIMの有名なモデルの一つにisotonic regressionと呼ばれるものがある。
 
+\begin{figure}[hbtp]
+\includegraphics[width=15cm]{asset/isotonic_regression.png}
+	\caption{シングルインデックスモデルの例の一つのisotonic regression}
+	\label{isotonic_regression}
+\end{figure}
 
-
-
-\subsection {セミパラメトリックモデルと学習}
-
-
-
- 一方、SIMではリンク関数gの推定にノンパラメトリックな手法を用いており ディープラーニングには適用されていないようです。
- また、SIMの経験的に推定可能な反復学習 LPAVアルゴリズムと呼ばれるL-isotron法がSham Kakade~\cite{efficient_sim}で紹介されている。 
- しかし、LPAVでは線形相補的な位置推定法を用いてデータを並べ替えるため、ディープラーニングのような重い計算には不向きである。 
-
-isotonic regressionはGLMと同様に推定する関数に単調増加性を仮定している。統計学の世界ではリンク関数自体が逆関数の考え方から導出されているため、
-このように単調増加性を仮定しているが、これは必要のない仮定である。
-
-
+isotonic regressionは単調増加性とう制約を仮定したSIMの一つで、化学分野や経済分野に応用されている。
 
 
-\subsection{ノンパラメトリック}
+\subsection {セミパラメトリックモデルと機械学習学習}
 
+SIMの未知の関数をカーネル関数を用いてアルゴリズム的に導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
 
-
- また、活性化関数に対応するリンク関数が未知の場合には、カーネル推定などのリンク関数をノンパラメトリックに推定する方法がIchimura~\cite{ichimura}によって提案されている。
- しかし、リンク関数をデータセット全体で推定するため、ディープラーニング的には データ数が多い場合でも有効ではない。
- Kleinの二項選択モデル~\cite{klein}も同様の手法である．
-
- カーネル関数を用いたノンパラメトリックな方法で提案されているが、この方法での深層学習については研究されていない。
-
-
-
-
-\subsection{カーネル密度推定}
-
-
-
-カーネル密度推定とははパターン認識において使われる手法の一つで、 判別などのアルゴリズムに組み合わせて利用するものである。
-カーネル関数にしようする関数は、
-
-
-
-
+そして、SIMやisotonic regressionを機械学習に応用する試みはAdam Tauman Kalai~\cite{isotron}のPAVアルゴリズムと呼ばれる手法で、分類問題の応用へと繋がった。
+isotonic regression自体は回帰問題として発明された手法であったが、これによりアルゴリズム的に分類問題がセミパラメトリックな手法を用いて解くことが可能であることが発見された。
+この手法をベースにSham Kakade~\cite{efficient_sim}やRavi Ganti~\cite{lsim}などによってより高速で汎用的なisotonic regressionを応用したセミパラメトリックモデルの分類問題の解法のアルゴリズムが導かれた。
 
 
 

@@ -1,9 +1,9 @@
 \appendix
 \chapter{ガウス分布とカーネル関数}
 
-\section{カーネル関数}
 
 \section{カーネル活性化関数の導出}
+\label{appendix:calc}
 
 本研究で実際に使用したアルゴリズムに用いた数式実際に導出する。
 Ichimura~\cite{ichimura}の手法を用いてまずは以下の式に変換する。
@@ -22,12 +22,13 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)
 
 
 \chapter{カーネル活性化関数の実装}
+\label{appendix:algorithm}
 
 
 \section{クラス}
 
 
-中間層が一つのkernel activation functionの計算を考慮した実装クラスを以下に示す。
+中間層が一つのK-AFの計算を考慮した実装クラスを以下に示す。
 
 
 \begin{lstlisting}[caption=hoge,label=fuga]

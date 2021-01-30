@@ -50,16 +50,20 @@ isotonic regression同様に単調増加性について仮定しているよう�
 
 
 \section{K-AF}
-本論文で私が提案する活性化関数を以下の数式で表現する。
-
+本論文で私が提案する活性化関数を数式\ref{eq:k-af}で表現する。
 
 \begin{eqnarray}
-G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
+G(X_iw, X^{calc}, Y^{calc})=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
 \label{eq:k-af}
 \end{eqnarray}
 
-~\cite{ichimura}ではデータセットの数だけで表現していたが、一部を省略することにより少ない変数で表現することに成功した。詳細な数式の導出はappendix\ref{appendix:calc}で述べた。
-$ i \neq j $ にっている理由は過剰適合を抑えるためにleave one out 
+
+$ X^{calc}_j $及び$ Y^{calc}_j $ は計算用に用いるデータ点である。
+現在の機械学習における問題の多くは学習に用いるデータセットが非常に大きい。
+そのため、~\cite{ichimura}ではデータセットの数だけで表現していたが、一部を省略することにより少ないデータ点で表現する。
+少ないデータ点で記述することは、活性化関数の形の単純化と計算量を減らすことにも直結する。
+
+詳細な数式の導出はappendix\ref{appendix:calc}で述べた。
 
 
 \subsection{バンド幅推定}
@@ -89,8 +93,12 @@ $ i \neq j $ にっている理由は過剰適合を抑えるためにleave one 
 本実験ではこのバンド幅も学習のパラメータに含めることで最適なバンド幅を推定できるようにした。
 
 \section{アルゴリズム}
+K-AFのアルゴリズムの概要を\ref{alg:fixed-u-alg}に記述した。
 
-入力の次元をd
+入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
+また、$x$のデータセットの集合を$ D_x $　$y$のデータセットの集合を$ D_y $、それらから$n$個サンプリングすることを$ Y^{calc} \sim_n D_y $と記述する。
+$ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適化を表現することができる。
+
 
 
 \begin{algorithm}[]
@@ -98,24 +106,24 @@ $ i \neq j $ にっている理由は過剰適合を抑えるためにleave one 
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
 	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
-	\reals^d \times [0, 1]$, $u: \reals \rightarrow [0, 1]$.
-	\STATE $w^1 := 0$;
+	\reals^d \times \reals^e$, $G: \reals \rightarrow [0, 1]$.
+	\STATE $X^{calc} \sim_n D(X)$;
+    \STATE $Y^{calc} \sim_n D(Y)$;
 	\FOR {$t = 1, 2, \ldots$}
-	\STATE $h^t(x) := u(w^t \cdot x)$;
-	\STATE $w^{t+1} := w^t + \displaystyle\fraconem \sumionetom (y_i - u(w^t
-	\cdot x_i)) x_i$;
+	\STATE $g^t(x) := G(X \cdot w^t, X^{calc}, Y^{calc} )$;
+	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(x_i))^2 $
 	\ENDFOR
 \end{algorithmic}
 \end{algorithm}
 
-これが実装のアルゴリズムである。pythonでの実装についてはappendix\ref{appendix:algorithm}に記述した。
-いかにアルゴリズムの手順を記す
-
 \begin{itemize}
-  \item 出力層に使う活性化関数を状況に応じた適切な形に変わる汎用的な関数を導き、高い精度を出せるようにした。
-  \item そのような関数を使うことで、データセットの形等の専門的な知識を理解しなくて済むようになり、ニューラルネットの構築を容易にした。
+  \item データセット$D_x$,$D_y$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
+  \item 現状のパラメータ$ w $, $D_x$, $D_y$を用いて、リンク関数$ g^t $の計算を行う。
+  \item そのリンク関数を用いて$ y $の値との最小二乗誤差を取り$ w $に対して最適化を行う。
 \end{itemize}
 
+
+pythonでの実装についてはappendix\ref{appendix:algorithm}に記述した。
 
 
 %%% Local Variables:

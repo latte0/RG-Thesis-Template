@@ -25,7 +25,7 @@
 図の黄色で囲った活性化関数を出力層の活性化関数、赤色部分を中間層の活性化関数、緑色部分を入力そうの活性化関数と呼ぶことにする。
 
 ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている。~\cite{study_af}
-活性化関数の歴史はシグモイドという脳のニューロンの数学的モデルに基づいた関数を応用したものにはじまる。
+活性化関数の歴史はシグモイドという統計学的にも馴染み深いロジスティック回帰のモデルから始まった。
 ニューラルネットワークの層に活性化関数を適用する過程を以下に示す。
 $ w_i$ を重み、$ x_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
 $ z=g(y)=g(\sum w_i x_i+b) $ 
@@ -37,8 +37,6 @@ $ z=g(y)=g(\sum w_i x_i+b) $
 Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
 活性化関数はそれまで単調増加な関数が使われることが多かったが、Swishで単調増加である必要なく、汎用的に精度が向上することがわかった。
 またそのような活性化関数の例としてMish~\cite{Mish}と言うものもあげらている。
-
-~\cite{trend_af}~\cite{evo_af}~\cite{study_af}~\cite{parametric_af}~\cite{isotron}~\cite{efficient_sim}~\cite{lsim}~\cite{sim}~\cite{ichimura}~\cite{Evolving}~\cite{resnte}~\cite{sim}
 
 \begin{table}[htbp]
     \begin{center}

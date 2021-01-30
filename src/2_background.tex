@@ -93,29 +93,43 @@ Sigmoidなどの場合、勾配が0に近い領域が存在するため、勾配
 \begin{figure}[hbtp]
         \includegraphics[width=6cm]{asset/glm1.png}~~~~~ ~~~~~ 
         \includegraphics[width=6cm]{asset/glm2.png}
-            \caption{活性化関数の形}
-            \label{neural_network1}
+            \caption{一般化線形モデルの必要性}
+            \label{glm}
 \end{figure}
 
-\subsubsection{一般線形化モデルとは}
+\subsubsection{一般化線形モデルとは}
 　一方、統計学の世界に目を向けると、活性化関数と同様の概念がリンク関数(Link Function)として一般化線形モデル(GLM)においても流用されている。
-説明変数を$ X $, パラメータを$ w $で表現し、従属変数を$ Y $とすると、$ \epsilon \sim \mathcal{G}(0, \sigma^2) $
 
-$ Y = X \cdot w + \epsilon $
-線形モデルの数式は$ E[Y] = X\cdot w $で表現することができる。
-しかしながら、このままでは従属変数が正規分布に従わない場合に徐々に誤差が生まれてしまう。
-
-GLMの数式はリンク関数$ G $を用いて以下のように示す。
+説明変数を$ X $, パラメータを$ W $で表現し、従属変数を$ Y $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
 
 \begin{eqnarray}
-E[Y|X]=G^{-1} (X\dot w)
+Y = X \cdot W + \epsilon
+\label{eq:senkei}
+\end{eqnarray}
+またこれは$ Y $の期待値を使って表現すると上記は
+\begin{eqnarray}
+    \mathrm{E}[Y] &=& \mathrm{E}[X \cdot W + \epsilon] \\
+    \mathrm{E}[Y] &=& \mathrm{E}[X \cdot W] + \mathrm{E}[\epsilon] \\
+    \mathrm{E}[Y] &=& X \cdot W
+\label{eq:link}
+\end{eqnarray}
+である。
+しかしながら、上記の式の展開では$ \epsilon $が正規分布に従うことを想定した、すなわち従属変数$ Y $がガウス分布に従うことを仮定したが、実際は図\ref{glm} のように、誤差の分布にガウス分布を仮定すると、正確さが失われることがある。
+そこで、従属変数をある関数 $ G $ で変換してからモデル化することでモデルの正確さが向上する。
+すなわち、$ \mathrm{E}[Y|X] = X \dot W $ に対して$ G(\mathrm{E}[Y|X]) = X \dot W $ となるような$ G $ を取り入流。
+またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
+一般線形モデルに対して、リンク関数を加えた式を以下に記す。
+\begin{eqnarray}
+E[Y|X]=G^{-1} (X\dot W)
 \label{eq:link}
 \end{eqnarray}
 
+一般に誤差構造が決まれば、リンク関数も自動的に決まる。
+ガウス分布の場合のリンク関数は$ G(U) = U $であることが知られている。
+
+
 \subsubsection{シングルインデックスモデルとは}
 シングルインデックスモデル(SIM)とは
-
-GLM（Generalized Linear Model）やSIM（single index model）などの線形回帰の一般化が提案されている。
 
 これら2つのモデルは、$ E[Y|X]=X\cdot w $の線形回帰モデルに、$ E[Y|X]=X\cdot w $のリンク機能を持たせたものです。 
 統計学の世界では汎用的なリンク関数の提案としてisotonic regressionを応用した手法が研究されている。
@@ -130,11 +144,39 @@ isotonic regressionはGLMと同様に推定する関数に単調増加性を仮�
 
 \section{ノンパラメトリックモデルとカーネル法}
 
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/k_af_band1.png}
+                    \caption{パラメータの点がある。}
+                    \label{k_af_band1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/k_af_band2.png}
+                    \caption{カーネル関数、今回はガウス関数でその周辺ごと近似する。}
+                    \label{k_af_band2}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.40\hsize}
+                \includegraphics[clip, width=5cm]{asset/k_af_band3.png}
+                    \caption{点の周辺で関数が近似できるイメージ}
+                    \label{k_af_band3}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
 
 \subsection{カーネル法}
 
+
+
 カーネル法とははパターン認識において使われる手法の一つで、 判別などのアルゴリズムに組み合わせて利用するものである。
 カーネル関数にしようする関数は、
+
+
 
 
 
@@ -276,8 +318,19 @@ L2 < L1
 しかしながら、SGD以外にもパラメータをよりよく最適化する方法は多く研究されている。
 
 \subsubsection{SGD}
-SGDは\ref{eq:learning_rate}の式の形で一般的に広く知れ渡り、実装が簡単な手法として認知されている。しかしながらSGDには以下の欠点が発見されている。
+SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一般的に広く知れ渡り、実装が簡単な手法として認知されている。
+
+\begin{eqnarray}
+\mathrm{W} \leftarrow \mathrm{W} - \mu \frac{\partial E}{\partial \mathrm{W}} \\
+\label{eq:norm uneq}
+\end{eqnarray}
+
+ここで、$ \mathrm{W} $ は各パラメータ $ w_i $をベクトルで表現したものである。
+
 しかしながら数式からもわかるようにSGDには欠点とした以下の二つが広く認知されている。
+
+
+
 
 \begin{itemize}
   \item 勾配が０の点では学習が進まなくなる。
@@ -287,48 +340,48 @@ SGDは\ref{eq:learning_rate}の式の形で一般的に広く知れ渡り、実�
 
 \subsubsection{Momentum}
 
-モーメンタム(Momentum)~\cite{momentum}はSGDの勾配の方向が本来の最小値ではないという
+モーメンタム(Momentum)~\cite{momentum}はSGDの勾配の方向が本来の最小値ではないという考えから、物理の法則を応用するような形で生まれた勾配法の一つである。
 
 
-Momentum という手法は、数式で次のように表されます。
+Momentum という手法は、数式で次のように表される。
 
 \begin{eqnarray}
-    v \leftarrow \alpha v - \mu \frac {\partial E }{\partial w} \\
-    w \leftarrow w+v
+    \mathrm{v} \leftarrow \alpha \mathrm{v} - \mu \frac {\partial E }{\partial \mathrm{W}} \\
+    \mathrm{W} \leftarrow \mathrm{W+v}
 \label{eq:norm uneq}
 \end{eqnarray}
 
+ここで新しく$ \mathrm{v} $という変数が登場する。これは一つ前の勾配の速度のようなものを記録しており、勾配が急なところでは大きな値になり、小さなところでは値が小さくなる。
+これによりSGDに比べると更新するときの"ジグザグ度合い"のようなものが軽減され、学習が安定し高速化することが知られている。
 
 
 \subsubsection{AdaGrad}
-ニューラルネットワークの学習では、学習係数――数式では$ \mu $ で表記――の値が重 要になります。
-学習係数が小さすぎると学習に時間がかかりすぎてしまい、逆に大き すぎると発散して正しい学習が行えません。
-この学習係数に関する有効なテクニックとして、学習係数の減衰(learning rate decay)という方法があります。
-これは、学習が進むにつれて学習係数を小さくする という方法です。
-最初は“大きく”学習し、次第に“小さく”学習するという手法で、 ニューラルネットワークの学習では実際によく使われます。
-学習係数を徐々に下げていくというアイデアは、パラメータ「全体」の学習係数の 値を一括して下げることに相当します。
-これをさらに発展させたのが AdaGrad~\cite{momentum}です。AdaGrad は、「一つひとつ」のパラメータに対して、“オーダーメイド”の値 をこしらえます。
 
+ニューラルネットワークの学習では学習係数の値が重要になる。
+これを初めは大きく学習し、次第に小さ学習する、学習係数の減衰(learning rate decay)という方法がよく使われる。
+これを発展させた方法にAdaGrad~\cite{momentum}というものがある。
+AdaGradは以下の数式で表現できる。
 
-\subsubsection{RMS Prop}
-RMSProp~\cite{rms_prop}はMomentumと同じくSGDの振動を抑えるという目的で作られたものです。ただこちらは 学習率を調整 しているのでした。
-Pathological Curvatureでは振動方向は最小値方向に比べて勾配が大きくなっていますね。これを解決するには、振動方向の学習率を下げてあげれば振動を抑えられそうです。
-RMSPropはgradの大きさに応じて学習率を調整する、というものです。
-Momentumまで理解できていればとても単純なので早速更新式です。
+\begin{eqnarray}　
+    \mathrm{h} \leftarrow \alpha \mathrm{h} + \frac {\partial E }{\partial \mathrm{W}} \odot \frac {\partial E }{\partial \mathrm{W}}  \\
+    \mathrm{W} \leftarrow \mathrm{W}  - \mu \frac{ 1 }{\sqrt{\mathrm{h}}} \frac{ \partial E }{\mathrm{W}} 
+\label{eq:norm uneq}
+\end{eqnarray}
+
+ここで$ \odot $は行列の要素ごとの掛け算を意味する。パラメータ更新の際に$ \frac{ 1 }{\sqrt{\mathrm{h}}} $を乗算することで、学習スケールを調整するという手法である。
+これにより、よく動いた学習パラメータは次第に小さくなる。
+
 
 
 \subsubsection{Adam}
-Momentum は、ボールがお椀を転がるように物理法則に準じる動きをしました。 
-AdaGrad は、パラメータの要素ごとに、適応的に更新ステップを調整しました。
-そ れでは、その 2 つの手法―― Momentum と AdaGrad――を融合するとどうなるで しょうか? 
-それが Adam~\cite{adam} という手法のベースとなるアイデアです†1。
-Adam は 2015 年に提案された新しい手法です。
-その理論はやや複雑ですが、直 感的には、Momentum と AdaGrad を融合したような手法です。先の 2 つの手法 の利点を組み合わせることで、効率的にパラメータ空間を探索することが期待でき ます。
-また、ハイパーパラメータの「バイアス補正(偏りの補正)」が行われてい ることも Adam の特徴です。ここでは、これ以上踏み込んで説明することは避け ます。詳細は原著論文 [8] を参照してください。
-また、Python の実装については、 common/optimizer.py に Adam というクラスで実装してあるので、興味のある方 は参照してください。
+物理的なテクニックを応用するMomentumと学習係数を調整するAdaGradを掛け合わせたせるのがAdamAdam~\cite{adam} である。
+機械学習の世界では最も頻繁に用いられる。
+
+
 
 
 \section{実社会における学習の問題点}
+
 ディープラーニングをGUIで簡易的に扱えるツールとして株式会社ソニーのNeural Network Consoleがある。
 しかしながらそれでも共通として存在する問題点はデータセットの整形はこちら側でやる必要があるということである。
 データ整形のプログラムは非技術者には難易度が高く

@@ -91,13 +91,27 @@ Sigmoidなどの場合、勾配が0に近い領域が存在するため、勾配
 \section{統計学における位置付け}
 
 \begin{figure}[hbtp]
+        \includegraphics[width=6cm]{asset/machine_statistics.png}
+            \caption{機械学習と統計学の繋がり}
+            \label{glm}
+\end{figure}
+
+活性化関数の概念は統計学におけるリンク関数と呼ばれるモデルの汎用性を高める動きに始まり、機械学習へと応用されている。
+本項目ではその理解に必要な知識を述べていく。
+
+
+
+\subsection{一般化線形モデルとは}
+
+
+\begin{figure}[hbtp]
         \includegraphics[width=6cm]{asset/glm1.png}~~~~~ ~~~~~ 
         \includegraphics[width=6cm]{asset/glm2.png}
             \caption{一般化線形モデルの必要性}
             \label{glm}
 \end{figure}
 
-\subsection{一般化線形モデルとは}
+
 　一方、統計学の世界に目を向けると、活性化関数と同様の概念がリンク関数(Link Function)として一般化線形モデル(GLM)においても流用されている。
 
 説明変数を$ X $, パラメータを$ W $で表現し、従属変数を$ Y $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
@@ -127,6 +141,42 @@ E[Y|X]=G^{-1} (X\dot W)
 一般に誤差構造が決まれば、リンク関数も自動的に決まる。
 ガウス分布の場合のリンク関数は$ G(U) = U $である。
 これらの結果は$ G^{-1} $を単調増加な任意の関数に置き換えることでさまざまなモデルを表現することが可能になる。
+
+
+\subsection{シグモイド関数とロジスティック回帰}
+\begin{eqnarray}
+G(Y)=WX
+\end{eqnarray}
+とした時、
+\begin{eqnarray}
+G=\log \bigl(\frac{y}{1-y}\bigr)
+\end{eqnarray}
+とする。一般的にこれはロジット関数と呼ばれる。
+これを左辺がyになるように変形すると,
+
+\begin{eqnarray}
+\log \bigl(\frac{y}{1-y}\bigr) = z \\
+y = \frac{1}{1 + \exp(-z)}
+\end{eqnarray}
+右辺をzを関数にすると
+
+\begin{eqnarray}
+g(z) = \frac{1}{1 + \exp(-z)}
+\end{eqnarray}
+となり、これはシグモイド関数である。
+g(z)はロジスティック関数でもあり、
+
+
+\begin{eqnarray}
+y = \frac{1}{1 + \exp (WX)}
+\end{eqnarray}
+より、ロジスティック回帰であることも示される。 \\
+
+これらにより、ニューラルネットワークに出てくるシグモイど関数が潜在的に統計学の世界でも出てくることがわかる。
+
+
+
+
 
 
 
@@ -180,7 +230,7 @@ $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定�
 f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
 \label{eq:k-af}
 \end{eqnarray}
-イメージとしては\ref{k_af_band1}のようにまばらに存在するデータ点の周辺に、\ref{k_af_band2}のようにカーネル関数をおき、任意のバンド幅で足し合わせ近似していくイメージである。
+\ref{k_af_band1}のようにまばらに存在するデータ点の周辺に、\ref{k_af_band2}のようにカーネル関数をおき、任意のバンド幅で足し合わせ近似していくようなものである。
 
 
 
@@ -239,19 +289,35 @@ w_{i + 1} = w_i - \mu \frac{\partial E}{\partial w}
 本項ではこれらについて必要な概念を述べる。
 \subsection{ラーニングレート（学習率）}
 
+ラーニングレートとはハイパーパラメータの一つで、式(\ref{eq:learning_rate})の$ \mu $にそうとする部分でらう。
+ラーニングレートは大きいほど収束の可能性は小さくなり、小さいほど学習が遅くなる。
+活性化関数の性能評価の一つに、大きな学習率に対しての収束性能のがあげられる。
 
-\subsection{初期値}
+
+\subsection{重み初期値}
 ニューラルネットワークの学習効率は、重みの初期値によって大きく変わることが知られている。
-初期値は0や1で初期化する方法以外にさまざまな方法がある。
+例えば初期値を全て$ 0 $に固定すると、逆誤差伝播の影響で重みが均一になることにより、重みを多く持つ意味がなくなる。
+この問題を解消するために、学習のテクニックとして以下のような手法がある。
 
-\subsubsection{Uniform}
-Uniform：$-1.0～1.0$の一様乱数で初期化します
-\subsubsection{orthogonal}
-\subsubsection{sparse}
-sparseは~\cite{sim}で紹介されている。
-2次元入力テンソルを疎な行列として充填し，ここで非ゼロ要素は，正規分布で埋める。
+\subsubsection{Xavier initializer}
+Xavier~\cite{xavier}によって提唱された重みの初期化手法の一つで、現在最もニューラルネットワークの学習で利用されてる手法である。
+ニューラルネットワークの$ i $層の重みの数を$ n_{i} $、重みを$ w_i $、一様分布を$U$ で表現した時
+
+\begin{eqnarray}
+w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1} }} \bigr]
+\end{eqnarray}
+で初期化する手法である。これにより初期化すると、重みの分布が広がりを持つことが知られている。
+活性化関数がlinear、sigmoid、tanhの時に有効に働く。
+
 \subsubsection{kaiming uniform}
-ガウス乱数にKaiming He提案の係数をかけて初期化する。
+Kaiming He~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。
+
+\begin{eqnarray}
+w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{ n_{i+1} }} \bigr]
+\end{eqnarray}
+
+主にReLUに有効になる。
+
 
 \subsection{レギュラライザー（正則化）}
 ニューラルネットワークは訓練データを過剰に学習すると未知データへの予測精度が落ちることがある。

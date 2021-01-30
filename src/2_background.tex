@@ -133,7 +133,7 @@ E[Y|X]=G^{-1} (X\dot W)
 
 \subsection{シグモイド関数とロジスティック回帰}
 \begin{eqnarray}
-G(Y)=WX
+G(Y)=X\dot W
 \end{eqnarray}
 とした時、
 \begin{eqnarray}
@@ -156,7 +156,7 @@ g(z)はロジスティック関数でもあり、
 
 
 \begin{eqnarray}
-y = \frac{1}{1 + \exp (WX)}
+y = \frac{1}{1 + \exp (X \dot W)}
 \end{eqnarray}
 より、ロジスティック回帰であることも示される。 \\
 
@@ -241,7 +241,7 @@ SIMは未知の関数$ g $を推定しながらパラメータ $ W $を求めて
 SIMの有名なモデルの一つにisotonic regressionと呼ばれるものがある。
 
 \begin{figure}[hbtp]
-\includegraphics[width=15cm]{asset/isotonic_regression.png}
+\includegraphics[width=10cm]{asset/isotonic_regression.png}
 	\caption{シングルインデックスモデルの例の一つのisotonic regression}
 	\label{isotonic_regression}
 \end{figure}
@@ -487,11 +487,12 @@ Garrett Bingham~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $�
 \section{本研究が取り組むべき課題}
 
 以上のような背景の中で活性化関数は、今もなお汎用的で精度が向上するような手法が模索されている。
-具体的には以下の課題が残っている。
+またこれまで用いてきた活性化関数が、問題に対して最適だったか確認する手立てが求められている。
+本研究ではそれを踏まえて以下の３つの課題に取り組む。
 
 \begin{itemize}
-  \item 状況に応じた活性化関数で既存のものより精度がよくなること。
-  \item 状況に応じた活性化関数が、関数全体から探査できること。
+  \item 状況に応じた活性化関数で既存のものより安定的で精度がよくなること。
+  \item 状況に応じた活性化関数が、関数全体から探査でき、
   \item 初学者でも簡単に取り組めること。
 \end{itemize}
 

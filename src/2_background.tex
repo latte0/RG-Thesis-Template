@@ -241,9 +241,12 @@ SIMは未知の関数$ g $を推定しながらパラメータ $ W $を求めて
 SIMの有名なモデルの一つにisotonic regressionと呼ばれるものがある。
 
 \begin{figure}[hbtp]
-\includegraphics[width=10cm]{asset/isotonic_regression.png}
-	\caption{シングルインデックスモデルの例の一つのisotonic regression}
-	\label{isotonic_regression}
+
+    \begin{center}
+        \includegraphics[width=10cm]{asset/isotonic_regression.png}
+            \caption{シングルインデックスモデルの例の一つのisotonic regression}
+            \label{isotonic_regression}
+    \end{center}
 \end{figure}
 
 isotonic regressionは単調増加性とう制約を仮定したSIMの一つで、化学分野や経済分野に応用されている。
@@ -251,7 +254,7 @@ isotonic regressionは単調増加性とう制約を仮定したSIMの一つで�
 
 \subsection {セミパラメトリックモデルと機械学習学習}
 
-SIMの未知の関数をカーネル関数を用いてアルゴリズム的に導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
+SIMの未知の関数をleave one outを用いたカーネル密度推定法と最尤推定により導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
 
 そして、SIMやisotonic regressionを機械学習に応用する試みはAdam Tauman Kalai~\cite{isotron}のPAVアルゴリズムと呼ばれる手法で、分類問題の応用へと繋がった。
 isotonic regression自体は回帰問題として発明された手法であったが、これによりアルゴリズム的に分類問題がセミパラメトリックな手法を用いて解くことが可能であることが発見された。

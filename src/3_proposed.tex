@@ -1,10 +1,24 @@
 \chapter{提案手法}
 \label{proposed}
 
-本章では背景で述べた問題点をまとめ、提案手法について述べる．
 
 
-\section{概要}
+\begin{figure}[hbtp]
+\includegraphics[width=15cm]{asset/proposed_method.png}
+	\caption{提案手法}
+	\label{proposed_method}
+\end{figure}
+
+
+本章では背景で述べた課題を整理しつつ、それらを解決する提案手法について述べる．
+\ref{history_activation}では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
+次の章で私が提案する活性化関数の数式について解説する。
+次の章でそのアルゴリズムについて解説する。
+
+
+
+\section{活性化関数と背景}
+\label {history_activation}
 
 
 \begin{figure}[hbtp]
@@ -44,11 +58,9 @@ ReLUやsigmoidといった関数はあくまでリンク関数の概念に相当
 また、この実験により状況に応じた適切か活性化関数の形を既存のものから選択するのではなく、関数全体の中から逆算できると考えている。それにより、ディープラーニングの課題であった、活性化関数の選択問題という課題も新しいアプローチで解決できると考えている。
 
 
-\section{活性化関数}
-本節では既存の活性化関数の問題点を具体的な事例を交えて考える。
 
 
-\section{kernel活性関数}
+\section{カーネル密度推定}
 
 
 

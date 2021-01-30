@@ -10,14 +10,18 @@ Ichimura~\cite{ichimura}の手法を用いてまずは以下の式に変換す�
 
 
 \begin{eqnarray}
-G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
-\label{eq:k-af-2}
+G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)}
+\label{calc:k-af}
 \end{eqnarray}
 
+ここで、バンド幅$ K\left(\frac{X_j w - X_i w}{h}\right) \approx	K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)$
+となるような$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ X_{calc} $を用いて\ref{calc:k-af}を近似することができる。
+
+これにより\ref{calc:k-af}は以下の式に直すことができる。
 
 \begin{eqnarray}
-G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
-\label{eq:k-af-2}
+G(X_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
+\label{calc:k-af-2}
 \end{eqnarray}
 
 
@@ -31,7 +35,7 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)
 中間層が一つのK-AFの計算を考慮した実装クラスを以下に示す。
 
 
-\begin{lstlisting}[caption=hoge,label=fuga]
+\begin{lstlisting}[caption=Pytorchを用いたK-AFの計算用のクラス,label=fuga]
 class Net(nn.Module):
 
     def __init__(self, Y, calc_Y, X, calc_X, settings):

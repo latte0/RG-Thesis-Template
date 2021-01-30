@@ -2,13 +2,15 @@
 \label{implementation}
 
 本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
-その後実験に用いたハイパーパラメータ,実装における留意点について解説を行う。
-
-今回は大きく３つの比較実験を行う。
+\ref{impl_env}では本研究における実験のための実行環境及び事前知識について述べる。
+\ref{exp1}ではK-AFの性能を既存の活性化関数と比較する実験を行う。
+\ref{exp2}では各データセットにおいての活性化関数の形を調査する実験をこなう。
+\ref{exp3}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
 
 
 
 \section{実装環境}
+\label{impl_env}
 
 
 
@@ -16,7 +18,6 @@
 を用いた.  PyTorch, Chainer は計算グラフの自動微分ライブラリであり, 深層ニューラ
 ルネットワークの研究や開発にも用いられる.
 Pytorchを用いた理由は実装コストが低く研究領域に従事できるところにある。
-
 
 
 \begin{table}[htbp]
@@ -36,26 +37,37 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
-\section{比較データ}
-
-他の活性化関数と適当に比較するために、以下の条件を比較して実験を行う。
+\section{実験1}
+\label{exp1}
+活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。
 \begin{itemize}
+
+    \setlength{\parskip}{0cm} % 段落間
+    \setlength{\itemsep}{0cm} % 項目間
     \item ラーニングレート
     \item 初期値、
     \item レギュラライザー(l1ノルムなど)
     \item optimizer
     \item テストデータ
 \end{itemize}
-既存のものと比較している
-\subsubsection{ラーニングレート}
 
-\subsubsection{初期値}
-初期値は
-\subsubsection{レギュラライザー}
-レギュラライザーはL1ノルム, L2ノルム等の比較ができる。
-\subsubsection{optimizer}
-\subsubsection{テストデータ}
-各テストデータの特徴を以下の表にまとめる。データセットには出力の形式が存在し、多くの問題は「分類」もしくは「回帰」の二つに分類される。
+比較用の活性化関数には以下を用いる
+\begin{itemize}
+    \setlength{\parskip}{0cm} % 段落間
+    \setlength{\itemsep}{0cm} % 項目間
+    \item ReLU
+    \item Sigmoid
+    \item Linear
+    \item TanH
+    \item Mish
+    \item Swish
+    \item K-AF(本手法)
+\end{itemize}
+
+
+\subsection{比較データ}
+
+他の活性化関数と適当に比較するために、以下の条件を比較して実験を行う。
 
 
 \begin{table}[htbp]
@@ -63,17 +75,33 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \caption{実験のデータセットの名称}
         \vspace{5mm} 
         \begin{tabular}{l*{2}{c}r}
-        データセット名      & 出力層 & 出力の形式 \\
+        データセット名      & 出力層 & 出力の形式 & 中間層の数 \\
         \hline
-        iris            & 3  & 分類 \\
-        MNIST               & i10 & 分類  \\
-        wine        & 13 & 分類 \\
-        住宅の価格           & 6 & 回帰 \\
-        健康の状態           & 6 & 回帰 \\
-        膵臓癌           & 6 & 回帰 \\
+        iris            & 3  & 分類 & 10  \\
+        MNIST               & i10 & 分類 & 10   \\
+        wine        & 13 & 分類 & 10  \\
+        住宅の価格           & 6 & 回帰 & 10  \\
+        健康の状態           & 6 & 回帰 & 10  \\
+        膵臓癌           & 6 & 回帰 & 10  \\
         \end{tabular}
     \end{center}
 \end{table}
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{実験のデータセットの名称}
+        \vspace{5mm} 
+        \begin{tabular}{l*{2}{c}r}
+        比較実験      & 出力層 & 出力の形式 & 中間層の数 \\
+        \hline
+        iris            & 3  & 分類 & 10  \\
+        MNIST               & i10 & 分類 & 10   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+\subsection{実験1}
 
 
 
@@ -91,7 +119,18 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 本研究における提案手法を実装する際に留意する必要のある点を述べる.
 一つは勾配が消失してしまった場合の処理である。
 
-\section{}
+
+\section{実験2}
+\label{exp2}
+２つ目の実験では推論した活性化関数の形を観測し、既存の活性化関数との違いを定性評価を行う
+\subsection{比較データ}
+
+
+\section{実験3}
+\label{exp3}
+K-AFにおける学習の難点である、勾配消失について定量評価を行う。
+\subsection{比較データ}
+
 
 %%% Local Variables:
 %%% mode: japanese-latex

@@ -11,9 +11,11 @@
 
 
 本章では背景で述べた課題を整理しつつ、それらを解決する提案手法の位置付けについて述べる。
-\ref{history_activation}では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
-次の章で私が提案する活性化関数の数式について解説する。
-次の章でそのアルゴリズムについて解説する。
+\ref{history_activation}では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べ流。
+\ref{position_proposed}では本研究の研究的な位置付けについて解説する。
+\ref{math}ではK-AFの数式について解説し、活性化関数として使用できることを示す。
+\ref{al}ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
+
 
 
 
@@ -43,6 +45,7 @@ isotonic regression同様に単調増加性について仮定しているよう�
 
 
 \section{提案手法の位置付け}
+\label {position_proposed}
 
 本研究の提案手法の位置付けをまとめた図を\ref{proposed_method}に示した。
 統計学の世界でSingleIndexModelにおけるIchimuraの手法を多次元化し、学習アルゴリズムにPAVアルゴリズムを組み合わせた手法をニューラルネットワークの活性化関数に応用する。
@@ -50,6 +53,7 @@ isotonic regression同様に単調増加性について仮定しているよう�
 
 
 \section{K-AF}
+\label {math}
 本論文で私が提案する活性化関数を数式\ref{eq:k-af}で表現する。
 
 \begin{eqnarray}
@@ -93,6 +97,7 @@ $ X^{calc}_j $及び$ Y^{calc}_j $ は計算用に用いるデータ点である
 本実験ではこのバンド幅も学習のパラメータに含めることで最適なバンド幅を推定できるようにした。
 
 \section{アルゴリズム}
+\section{al}
 K-AFのアルゴリズムの概要を\ref{alg:fixed-u-alg}に記述した。
 
 入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
@@ -124,6 +129,10 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 
 
 pythonでの実装についてはappendix\ref{appendix:algorithm}に記述した。
+
+
+
+
 
 
 %%% Local Variables:

@@ -399,10 +399,10 @@ K-AFは実験の中で勾配発散問題が発生することが発覚した。
         \caption{実験のデータセットの名称}
         \vspace{2mm} 
         \scalebox{1.0}[1.0]{
-            \begin{tabular}{||c | c |c||}
-            ハイパーパラメータ  & wineの場合 & bostonの場合 & \\
+            \begin{tabular}{||c|c|c||}
+            ハイパーパラメータ  & wineの場合 & bostonの場合 \\
             \hline
-            epoch数                           & 200       & 200  \\
+            epoch数                           & 10       & 10  \\
             実験回数                           & 10     & 10 \\
             カーネル密度推定に用いるデータ数        & 50           & 50  \\
             \end{tabular}
@@ -410,6 +410,7 @@ K-AFは実験の中で勾配発散問題が発生することが発覚した。
     \end{center}
 \end{table}
 
+epoch数が少ない理由は発散するときは初期のタイミングで発散するからである。
 評価項目として発散頻度とAccuracy及びMSEを二つのデータセットで調査する。
 
 

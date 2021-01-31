@@ -69,15 +69,16 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 活性化関数の性能の比較実験のために、以下の項目を変えながら実験する。データセットにはsckit-learn~\cite{scikit-learn}のライブラリのデータセットに対してデフォルトで入ってるものを想定する。
-\begin{itemize}
+各種データセットの詳細については\url{https://scikit-learn.org/stable/datasets/toy_dataset.html}こちらのページが参考になる。
 
+\begin{itemize}
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
-    \item ラーニングレート [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
+    \item ラーニングレート(lr) [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
     \item 初期値 [ Xavier, kaiming uniform]
     \item レギュラライザー [ 何もなし, L1ノルム, L2ノルム]
     \item optimizer [ SGD, Momentum, AdaGrad, Adam]
-    \item データセット [ アヤメ, MNIST, wine, 住宅の価格, 健康の状態]
+    \item データセット [ iris, digits, wine, boston, linnerud]
 \end{itemize}
 
 
@@ -91,25 +92,45 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \begin{center}
         \caption{実験のデータセットの名称}
         \vspace{5mm} 
-        \begin{tabular}{l*{2}{c}r}
-        データセット名      & 出力層 & 出力の形式 & 中間層の数 \\
+        \begin{tabular}{ |c|c|c|c|c| }
+        データセット名 & 入力の次元 & 出力の次元 & 出力の形式 & 中間層の数$ {l_1} $\\
         \hline
-        iris            & 3  & 分類 & 10  \\
-        MNIST               & i10 & 分類 & 10   \\
-        wine        & 13 & 分類 & 10  \\
-        住宅の価格           & 6 & 回帰 & 10  \\
-        健康の状態           & 6 & 回帰 & 10  \\
-        膵臓癌           & 6 & 回帰 & 10  \\
+        iris         & 3         & 3        & 分類      & 10 \\
+        digits       & 3         & 10       & 分類      & 10 \\
+        wine        & 3         & 13       & 分類      & 10 \\
+        boston       & 3         & 6        & 回帰      & 10 \\
+        linnerud     & 3         & 3        & 回帰      & 10 \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+\section{実装における留意点}
+実験のために必要なハイパーパラメータとして以下のパラメータを実験前に設定することとした。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{実験のデータセットの名称}
+        \vspace{5mm} 
+        \begin{tabular}{||c c c||}
+        ハイパーパラメータ & 記号 & 説明 \\
+        \hline
+        epoch数                           & epoch       & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
+        実験回数                           & exp\_num     & 数回実験を行なった平均をとり、結果を保証する。 \\
+        カーネル密度推定に使うデータ数        & n           & $ X^{calc} $ に使うデータ数を表す。  \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
 
-
-\section{実装における留意点}
-本研究における提案手法を実装する際に留意する必要のある点を述べる.
-一つは勾配が消失してしまった場合の処理である。
+\begin{itemize}
+    \setlength{\parskip}{0cm} % 段落間
+    \setlength{\itemsep}{0cm} % 項目間
+    \item epoch数・・・学習に適切な数
+    \item 実験回数・・・最終的な精度の平均を取ることで初期パラメータに依存した偶然によるものではないことを示す。
+    \item カーネル密度推定に使う
+\end{itemize}
 
 
 

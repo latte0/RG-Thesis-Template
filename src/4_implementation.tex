@@ -220,12 +220,12 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
-        Initializer       & Xavier &  kaiming uniform \\
+        Initializer       & kaiming uniform &  kaiming uniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
-        epoch\_num       & 1 &  1 \\
-        exp\_num         & 1 & 1 \\
-        calc\_num        & 1 & 1 \\
+        epoch\_num       & 4000 &  10000 \\
+        exp\_num         & 3 & 3 \\
+        calc\_num        & 36 & 36 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -247,13 +247,13 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        Initializer       & Xavier & kaiming uniform \\
-        Optimizer           & SGD & Adam \\
-        Regularizer     & L1 & L2 \\
-        epoch\_num       & 2000 &  2000 \\
+        LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
+        Initializer       & kaiming uniform &  kaiming uniform \\
+        Optimizer           & SGD & SGD \\
+        Regularizer     & なし & なし \\
+        epoch\_num       & 2000 &  10000 \\
         exp\_num         & 3 & 3 \\
-        calc\_num        & 18 & 18 \\
+        calc\_num        & 36 & 36 \\
         \end{tabular}
     \end{center}
 \end{table}

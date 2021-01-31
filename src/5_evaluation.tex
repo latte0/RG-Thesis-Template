@@ -18,6 +18,7 @@
 \subsection{irisでの比較実験}
 \label{ev:iris}
 
+第4章の\ref{impl:iris}で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2の結果と考察}
 
 
@@ -46,10 +47,9 @@ irisでは十分な性能を出すことができた。
 
 \subsection{digitsでの比較実験}
 \label{ev:digitsでの比較実験}
-
-
-\subsubsection{設定1及び設定2の結果と考察}
-
+第4章の\ref{impl:digits}で設定した実験を行い、結果を以下にまとめた。
+\subsubsection{設定1及び設定2の結果}
+\label{digits:result}
 
 \begin{table}[htbp]
     \begin{center}
@@ -58,20 +58,47 @@ irisでは十分な性能を出すことができた。
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
-            K-AF            & 0.0 & 0.0 \\
-            Sigmoid            & -22.0 & 0.0\\
-            Linear            & 0.0 & 0.0\\
-            ReLU        & -22.0 & 0.0\\
-            Swish           & 0.0 & 0.0 \\
-            Mish           & -1.0 & 0.0\\
+            K-AF            & 91.6 & 60.0 \\
+            Sigmoid            & 92.0 & 68.6\\
+            Tanh            & 95.6 & 89.6 \\
+            ReLU        & 38.0 & 54.3 \\
+            Swish           & 50.3 & 56.6 \\
+            Mish           & 55.6 & 53.3 \\
     
         \end{tabular}
     \end{center}
 \end{table}
 
 
+\subsubsection{設定1及び設定2のLossTrainig}
+\label{digits:loss}
 
-irisでは十分な性能を出すことができた。
+
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/digits_0.01_4000_3_002_sgd_non_kaiming_uniform.png}
+                    \caption{digitsの設定1の結果のLossTraining}
+                    \label{digits_1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_sgd_non_kaiming_uniform.png}
+                    \caption{digitsの設定2の結果のLossTraining}
+                    \label{digits_2}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+
+\subsubsection{digitsでの実験結果の考察}
+結果\ref{digits:result}を見ると設定1の場合では91.6%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
+設定2の場合でもSigmoidやTanhほどの成果は出なかったものの、上限値が存在しない関数よりはいい性能を出すことができた。
+
+TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
 
 
 

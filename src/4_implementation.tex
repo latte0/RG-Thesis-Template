@@ -1,11 +1,16 @@
 \chapter{実装}
 \label{implementation}
 
+\ref{kadai}を踏まえつつ\ref{propsed}で解決に近づけるために、本章では３つの実験とその設定内容について述べる。
+
 本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
 \ref{impl_env}では本研究における実験のための実行環境及び事前知識について述べる。
+\ref{exp_common}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
 \ref{exp1}ではK-AFの性能を既存の活性化関数と比較する実験を行う。
 \ref{exp2}では各データセットにおいての活性化関数の形を調査する実験をこなう。
 \ref{exp3}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
+
+これら３つの実験を踏まえて、K-AFの課題に対しての実用性だけでなく、K-AFの性質についても調査し、今後の発展のための鍵となる結論へとつなげる。
 
 
 
@@ -25,11 +30,14 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \caption{本研究の実行環境}
         \vspace{5mm} 
         \begin{tabular}{l*{2}{c}r}
-        ソフトウェア              & バージョン \\
+        環境              & バージョン \\
         \hline
+        CPU               & Intel core i7 6コア 2.2GHz \\
+        メモリ             & 16GB \\
         Python            & 3.8.5  \\
-        CPU               & Intel core i7  \\
-        PyTorch           & 6 \\
+        scikit-learn      & 0.23.2\\
+        numpy             & 1.18.5 \\
+        pytorch           & 2.5.0 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -37,8 +45,8 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 \vspace{-15mm} 
-\section{実験1}
-\label{exp1}
+\section{本実験での共通項目}
+\label{exp_common}
 
 実験に用いる活性化関数の形を図\ref{k-af-net}に示す。
 \begin{figure}[hbtp]
@@ -62,7 +70,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \item ReLU
     \item Sigmoid
     \item Linear
-    \item TanH
+    \item Tanh
     \item Mish
     \item Swish
     \item K-AF(本手法)
@@ -83,8 +91,6 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \item データセット [ iris, digits, wine, boston, linnerud]
 \end{itemize}
 
-
-
 \subsection{比較データ}
 
 他の活性化関数と適当に比較するために、以下の条件を比較して実験を行う。
@@ -93,21 +99,22 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \begin{table}[htbp]
     \begin{center}
         \caption{実験のデータセットの名称}
+        \label{dataset_name}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c|c|c| }
         データセット名 & 入力の次元 & 出力の次元 & 出力の形式 & 中間層の数$ {l_1} $\\
         \hline
-        iris         & 3         & 3        & 分類      & 10 \\
-        digits       & 3         & 10       & 分類      & 10 \\
-        wine        & 3         & 13       & 分類      & 10 \\
-        boston       & 3         & 6        & 回帰      & 10 \\
+        iris         & 3         & 3        & 分類      & 4 \\
+        digits       & 3         & 64       & 分類      & 100 \\
+        wine        & 3         & 13       & 分類      & 40 \\
+        boston       & 3         & 13        & 回帰      & 20 \\
         linnerud     & 3         & 3        & 回帰      & 10 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
-\section{実装における留意点}
+\subsection{実装における留意点}
 実験のために必要なハイパーパラメータとして以下のパラメータを実験前に設定することとした。
 
 \begin{table}[htbp]
@@ -128,30 +135,179 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
-\section{実験1}
 
+
+
+\section{実験1}
+\label{exp1}
 \subsection{実装手法}
 
 \ref{exp_list}に記述した５つのデータセットを軸に\ref{list:active}の活性化関数での比較実験を
-ニューラルネットワーク、中間層、学習率 、勾配アルゴリズム、イニシャライザ、ステップ数 、ノーマライザー
-を変更しながら実験した。
+学習率 、optimizer、イニシャライザ、レギュラライザーを変更しながら実験した。
+K-AFの性能が有利にならないように、可能な限り任意の組み合わせで実験を行い性能の評価を行う。
+
+\subsubsection{irisでの実験}
+
+irisはアヤメの分類問題であり、統計学の分野で最も一般的に性能評価がおなわれるものである。
+optimzerにSGD、レギュラライザーを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{irisでの実験と設定}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        設定名 & 設定1 & 設定2 \\
+        \hline
+        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        イニシャライザ       & Xavier &  kaiming uniform \\
+        optimizer           & SGD & SGD \\
+        レギュラライザー     & なし & なし \\
+        \end{tabular}
+    \end{center}
+\end{table}
 
 
-\section{活性化関数}
 
+\subsubsection{digitsでの実験}
+
+digitsは数字の画像の分類問題であり、機械学習の分野で一般的に性能評価の対象として使用されるものである。
+digitsは次元数が高いデータセットであるため、optimizerにはAdamとSGD, レギュライザーにはL1とL2を使用した。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{digitsでの実験と設定}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        設定名 & 設定1 & 設定2 \\
+        \hline
+        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        イニシャライザ       & Xavier & kaiming uniform \\
+        optimizer           & SGD & Adam \\
+        レギュラライザー     & L1 & L2 \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+
+\subsubsection{wineでの実験}
+
+wineとはワインの種類の判別を13個の入力次元の性質を用いて３つにカテゴライズするデータセットである。
+主に決定木の性能評価に使われることが多い。本実験では以下のデータセットを用いて行う。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{wineでの実験と設定}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        設定名 & 設定1 & 設定2 \\
+        \hline
+        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        イニシャライザ       & Xavier & kaiming uniform \\
+        optimizer           & SGD & Adam \\
+        レギュラライザー     & L1 & なし \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+\subsubsection{bostonでの実験}
+
+bostonはボストンの住宅価格を回帰で推定する問題である。K-AFが回帰問題に対しても有効であることを示すため、この実験を行う。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{bostonでの実験と設定}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        設定名 & 設定1 & 設定2 \\
+        \hline
+        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        イニシャライザ       & Xavier & kaiming uniform \\
+        optimizer           & SGD & Adam \\
+        レギュラライザー     & L1 & なし \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+
+\subsubsection{linnerudでの実験}
+
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{linnerudでの実験と設定}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        設定名 & 設定1 & 設定2 \\
+        \hline
+        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        イニシャライザ       & Xavier & kaiming uniform \\
+        optimizer           & SGD & Adam \\
+        レギュラライザー     & L1 & なし \\
+        \end{tabular}
+    \end{center}
+\end{table}
 
 
 
 \section{実験2}
 \label{exp2}
-２つ目の実験では推論した活性化関数の形を観測し、既存の活性化関数との違いを定性評価を行う
-\subsection{比較データ}
+
+2つ目の実験では推論した活性化関数の形を\ref{dataset_name}に記載したデータセット観測し、既存の活性化関数との違いを定性評価を行う。
+活性化関数の種類を分割すると以下のようになっている。
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{活性化関数の関数的な意味}
+        \label{af-class}
+        \vspace{5mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
+        ○ or × & ○ or × & ○ or ×  \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\ref{af-class}を軸に、K-AFの形を分析し、既存の活性化関数と比べて何が違うか評価を行う。
+
+
+
+
 
 
 \section{実験3}
 \label{exp3}
-K-AFにおける学習の難点である、勾配消失について定量評価を行う。
-\subsection{比較データ}
+各種データセットのでK-AFでの結果を出す前に、K-AFが一般的にどのような場合に性能を出しやすいか\ref{exp_list}での設定をランダムに組み合わせて、どの結果が一番性能が出たか評価する。
+実験1ではデータセットとしてirisとdigitsにおいて性能評価を行う。その際のニューラルネットワークの設定は\ref{dataset_name}を軸に設定する。
+他に実験において必要なパラメータを以下に設定する。
+
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{実験のデータセットの名称}
+        \vspace{5mm} 
+        \scalebox{0.7}[0.7]{
+            \begin{tabular}{||c | c |c||}
+              & irisの場合 & digitsの場合 \\
+            \hline
+            epoch数                           & 200       & 200  \\
+            実験回数                           & 10     & 10 \\
+            カーネル密度推定に使うデータ数        & 50           & 50  \\
+            \end{tabular}
+        }
+    \end{center}
+\end{table}
+
+
+
+
+
+
+
+
 
 
 %%% Local Variables:

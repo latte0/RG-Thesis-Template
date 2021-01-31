@@ -30,7 +30,7 @@
 $ w_i$ を重み、$ x_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
 $ z=g(y)=g(\sum w_i x_i+b) $ 
 このように用いられる。
-その後TanHやReLUなどといったより計算に適した活性化関数が発見されてきた。
+その後TanhやReLUなどといったより計算に適した活性化関数が発見されてきた。
 特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
 
 長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}などが含まれる。
@@ -43,12 +43,12 @@ Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが�
         \caption{活性化関数の種類}
         \vspace{5mm} 
         \label{class_af}
-        \begin{tabular}{c|c}
+        \begin{tabular}{cp{5cm}cc}
         活性化関数の数式              & 数式 \\
         \hline
         Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
         \vspace{5mm} 
-        TanH               & tanh(x) \\
+        Tanh               & tanh(x) \\
         \vspace{-5mm} 
         \multirow{5}{*}{ReLU}        &  \[l=
             \begin{cases} 
@@ -138,19 +138,19 @@ G(Y)=X\cdot W
 G=\log \bigl(\frac{y}{1-y}\bigr)
 \end{eqnarray}
 とする。一般的にこれはロジット関数と呼ばれる。
-これを左辺がyになるように変形すると,
+これを左辺が$ y $になるように変形すると,
 
 \begin{eqnarray}
 \log \bigl(\frac{y}{1-y}\bigr) = z \\
 y = \frac{1}{1 + \exp(-z)}
 \end{eqnarray}
-右辺をzを関数にすると
+右辺を$ z $を関数にすると
 
 \begin{eqnarray}
 g(z) = \frac{1}{1 + \exp(-z)}
 \end{eqnarray}
 となり、これはシグモイド関数である。
-g(z)はロジスティック関数でもあり、
+$ g(z) $はロジスティック関数でもあり、
 
 
 \begin{eqnarray}
@@ -302,17 +302,17 @@ w_{i + 1} = w_i - \mu \frac{\partial E}{\partial w}
 この問題を解消するために、学習のテクニックとして以下のような手法がある。
 
 \subsubsection{Xavier initializer}
-Xavier~\cite{xavier}によって提唱された重みの初期化手法の一つで、現在最もニューラルネットワークの学習で利用されてる手法である。
+Xavier(2010)~\cite{xavier}によって提唱された重みの初期化手法の一つで、現在最もニューラルネットワークの学習で利用されてる手法である。
 ニューラルネットワークの$ i $層の重みの数を$ n_{i} $、重みを$ w_i $、一様分布を$U$ で表現した時
 
 \begin{eqnarray}
 w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1} }} \bigr]
 \end{eqnarray}
 で初期化する手法である。これにより初期化すると、重みの分布が広がりを持つことが知られている。
-活性化関数がlinear、sigmoid、tanhの時に有効に働く。
+活性化関数がlinear、Sigmoid、Tanhの時に有効に働く。
 
 \subsubsection{kaiming uniform}
-Kaiming He~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。
+Kaiming He(2015)~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。
 
 \begin{eqnarray}
 w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{ n_{i+1} }} \bigr]
@@ -398,7 +398,7 @@ L2 < L1
 
 \begin{itemize}
   \item 損失関数の形が変わらないため、最適化の手法によっては学習が停滞してしまう。
-  \item Kernel AFはさまざまなデータセットにおいて既存の活性化関数によりより良い精度を出すことを達成した。
+  \item K-AFはさまざまなデータセットにおいて既存の活性化関数によりより良い精度を出すことを達成した。
 \end{itemize}
 
 また、オンライン学習は局所界に陥りにくいというメリットがあるものの、以下欠点が存在する。
@@ -476,7 +476,7 @@ AdaGradは以下の数式で表現できる。
 
 
 \subsubsection{Adam}
-物理的なテクニックを応用するMomentumと学習係数を調整するAdaGradを掛け合わせたせるのがAdamAdam~\cite{adam} である。
+物理的なテクニックを応用するMomentumと学習係数を調整するAdaGradを掛け合わせたせるのがDiederik P(2014)~\cite{adam} である。
 機械学習の世界では最も頻繁に用いられる。
 
 
@@ -494,16 +494,17 @@ AdaGradは以下の数式で表現できる。
 
 ReLUやSwish, Mishといった\ref{trend_af}であげたような活性化関数は、どれも実験的に精度が向上すると言う理由で選択したものである。
 そのため、あらゆるパターンにおいて最適かどうかは未知数である。
-Alberto Marchisio~\cite{automatic_af}が提案した手法では、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出し精度を向上させる方法を見出した。
+Alberto Marchisio(2018)~\cite{automatic_af}が提案した手法では、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出し精度を向上させる方法を見出した。
 
 しかし、この方法にも欠点があり既知の活性化関数が問題に応じた適切な活性化関数かどうか判断する方法は存在しない。
-Garrett Bingham~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $や $ \sin (x) $といった原始的関数を組み合わせ最適な活性化関数を見つけることが提唱されているが、計算量が重く、関数全体の空間を探査できるかどうかは原始的関数の組み合わせに依存してしまう。
+Garrett Bingham(2020)~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $や $ \sin (x) $といった原始的関数を組み合わせ最適な活性化関数を見つけることが提唱されているが、計算量が重く、関数全体の空間を探査できるかどうかは原始的関数の組み合わせに依存してしまう。
 より良い活性化関数を選択して精度を向上させ、パラメータ数を減らすことは、より良いモデルを学習・発見するための重要な課題である。
 
 
 
 
 \section{本研究が取り組むべき課題}
+\label{kadai}
 
 以上のような背景の中で活性化関数は、今もなお汎用的で精度が向上するような手法が模索されている。
 またこれまで用いてきた活性化関数が、問題に対して最適だったか確認する手立てが求められている。

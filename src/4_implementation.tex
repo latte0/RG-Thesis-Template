@@ -88,7 +88,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \item 初期値 [ Xavier, kaiming uniform]
     \item レギュラライザー [ 何もなし, L1ノルム, L2ノルム]
     \item optimizer [ SGD, Momentum, AdaGrad, Adam]
-    \item データセット [ iris, digits, wine, boston, linnerud]
+    \item データセット [ iris, digits, wine, boston, breast\_cancer ]
 \end{itemize}
 
 \subsection{比較データ}
@@ -101,14 +101,14 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \caption{実験のデータセットの名称}
         \label{dataset_name}
         \vspace{5mm} 
-        \begin{tabular}{ |c|c|c|c|c| }
-        データセット名 & 入力の次元 & 出力の次元 & 出力の形式 & 中間層の数$ {l_1} $\\
+        \begin{tabular}{ |c|c|c|c|c|c| }
+        データセット名 & サンプル数 & 入力の次元 & 出力の次元 & 出力の形式 & 中間層の数 $ {l_1} $ \\
         \hline
-        iris         & 3         & 3        & 分類      & 4 \\
-        digits       & 3         & 64       & 分類      & 100 \\
-        wine        & 3         & 13       & 分類      & 40 \\
-        boston       & 3         & 13        & 回帰      & 20 \\
-        linnerud     & 3         & 3        & 回帰      & 10 \\
+        iris           & 150    & 3         & 3        & 分類      & 4 \\
+        digits         & 1797   & 3         & 64       & 分類      & 100 \\
+        wine           & 178    & 3         & 13       & 分類      & 40 \\
+        boston         & 506    & 13        & 1        & 回帰      & 20 \\
+        breast\_cancer & 569    & 30        & 2        & 分類      & 30 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -123,11 +123,11 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \vspace{5mm} 
         \scalebox{0.7}[0.7]{
             \begin{tabular}{||c | c |c||}
-            ハイパーパラメータ & 記号 & 説明 \\
+            ハイパーパラメータ & 説明 \\
             \hline
-            epoch数                           & epoch       & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
+            epoch数                           & epoch\_num      & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
             実験回数                           & exp\_num     & 数回実験を行なった平均をとり、結果を保証する。 \\
-            カーネル密度推定に使うデータ数        & n           & $ X^{calc} $ に使うデータ数を表す。  \\
+            カーネル密度推定に使うデータ数        & calc\_num           & $ X^{calc} $ に使うデータ数を表す。  \\
             \end{tabular}
         }
     \end{center}
@@ -137,8 +137,9 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
+\vspace{-15mm} 
 
-\section{実験1}
+\section{実験1 既存の活性化関数との比較実験}
 \label{exp1}
 \subsection{実装手法}
 
@@ -146,7 +147,8 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 学習率 、optimizer、イニシャライザ、レギュラライザーを変更しながら実験した。
 K-AFの性能が有利にならないように、可能な限り任意の組み合わせで実験を行い性能の評価を行う。
 
-\subsubsection{irisでの実験}
+\subsubsection{irisでの比較実験}
+\label{impl:iris}
 
 irisはアヤメの分類問題であり、統計学の分野で最も一般的に性能評価がおなわれるものである。
 optimzerにSGD、レギュラライザーを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
@@ -162,13 +164,17 @@ optimzerにSGD、レギュラライザーを特に使わない理由はirisは�
         イニシャライザ       & Xavier &  kaiming uniform \\
         optimizer           & SGD & SGD \\
         レギュラライザー     & なし & なし \\
+        epoch\_num       & 1 &  1 \\
+        exp\_num         & 1 & 1 \\
+        calc\_num        & 1 & 1 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
 
-\subsubsection{digitsでの実験}
+\subsubsection{digitsでの比較実験}
+\label{impl:digits}
 
 digitsは数字の画像の分類問題であり、機械学習の分野で一般的に性能評価の対象として使用されるものである。
 digitsは次元数が高いデータセットであるため、optimizerにはAdamとSGD, レギュライザーにはL1とL2を使用した。
@@ -184,13 +190,17 @@ digitsは次元数が高いデータセットであるため、optimizerにはAd
         イニシャライザ       & Xavier & kaiming uniform \\
         optimizer           & SGD & Adam \\
         レギュラライザー     & L1 & L2 \\
+        epoch\_num       & 1 &  1 \\
+        exp\_num         & 1 & 1 \\
+        calc\_num        & 1 & 1 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
 
-\subsubsection{wineでの実験}
+\subsubsection{wineでの比較実験}
+\label{impl:wine}
 
 wineとはワインの種類の判別を13個の入力次元の性質を用いて３つにカテゴライズするデータセットである。
 主に決定木の性能評価に使われることが多い。本実験では以下のデータセットを用いて行う。
@@ -206,12 +216,16 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         イニシャライザ       & Xavier & kaiming uniform \\
         optimizer           & SGD & Adam \\
         レギュラライザー     & L1 & なし \\
+        epoch\_num       & 1 &  1 \\
+        exp\_num         & 1 & 1 \\
+        calc\_num        & 1 & 1 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
-\subsubsection{bostonでの実験}
+\subsubsection{bostonでの比較実験}
+\label{impl:boston}
 
 bostonはボストンの住宅価格を回帰で推定する問題である。K-AFが回帰問題に対しても有効であることを示すため、この実験を行う。
 
@@ -226,18 +240,24 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         イニシャライザ       & Xavier & kaiming uniform \\
         optimizer           & SGD & Adam \\
         レギュラライザー     & L1 & なし \\
+        epoch\_num       & 1 &  1 \\
+        exp\_num         & 1 & 1 \\
+        calc\_num        & 1 & 1 \\
         \end{tabular}
     \end{center}
 \end{table}
 
+\vspace{-15mm} 
 
 
-\subsubsection{linnerudでの実験}
+\subsubsection{breast\_cancerでの比較実験}
+\label{impl:breastcancer}
 
+breast\_cancerは乳がんのデータセットである。
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{linnerudでの実験と設定}
+        \caption{breast\_cancerでの実験と設定}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -246,17 +266,22 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         イニシャライザ       & Xavier & kaiming uniform \\
         optimizer           & SGD & Adam \\
         レギュラライザー     & L1 & なし \\
+        epoch\_num       & 1 &  1 \\
+        exp\_num         & 1 & 1 \\
+        calc\_num        & 1 & 1 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
+\vspace{-5mm} 
 
-\section{実験2}
+\section{実験2 K-AFの関数形状の調査}
 \label{exp2}
 
 2つ目の実験では推論した活性化関数の形を\ref{dataset_name}に記載したデータセット観測し、既存の活性化関数との違いを定性評価を行う。
 活性化関数の種類を分割すると以下のようになっている。
+また、ニューラルネットワークの設定は\ref{exp1}の設定で各データセットごとに二つずつ結果を取得する。
 
 \begin{table}[htbp]
     \begin{center}
@@ -271,14 +296,16 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
     \end{center}
 \end{table}
 
-\ref{af-class}を軸に、K-AFの形を分析し、既存の活性化関数と比べて何が違うか評価を行う。
+\vspace{-5mm} 
+
+\ref{af-class}を軸に、K-AFの形状を分析し、既存の活性化関数と比べて何が違うか評価を行う。
 
 
 
 
 
 
-\section{実験3}
+\section{実験3 K-AFの性能が上がる条件探査}
 \label{exp3}
 各種データセットのでK-AFでの結果を出す前に、K-AFが一般的にどのような場合に性能を出しやすいか\ref{exp_list}での設定をランダムに組み合わせて、どの結果が一番性能が出たか評価する。
 実験1ではデータセットとしてirisとdigitsにおいて性能評価を行う。その際のニューラルネットワークの設定は\ref{dataset_name}を軸に設定する。
@@ -302,6 +329,7 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
 \end{table}
 
 
+\vspace{-15mm} 
 
 
 

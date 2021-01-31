@@ -24,7 +24,7 @@
 また、概要を述べるにあたってニューラルネットワークの用語を定義する。活性化関数は
 図の黄色で囲った活性化関数を出力層の活性化関数、赤色部分を中間層の活性化関数、緑色部分を入力そうの活性化関数と呼ぶことにする。
 
-ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている。~\cite{study_af}
+ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている~\cite{study_af}。
 活性化関数の歴史はシグモイドという統計学的にも馴染み深いロジスティック回帰のモデルから始まった。
 ニューラルネットワークの層に活性化関数を適用する過程を以下に示す。
 $ w_i$ を重み、$ x_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
@@ -34,9 +34,9 @@ $ z=g(y)=g(\sum w_i x_i+b) $
 特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
 
 長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}などが含まれる。
-Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
+Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
 活性化関数はそれまで単調増加な関数が使われることが多かったが、Swishで単調増加である必要なく、汎用的に精度が向上することがわかった。
-またそのような活性化関数の例としてMish~\cite{Mish}と言うものもあげらている。
+またそのような活性化関数の例としてDiganta. MisraのMish(2019)~\cite{Mish}と言うものもあげらている。
 
 \begin{table}[htbp]
     \begin{center}
@@ -66,7 +66,6 @@ Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが�
 \end{table}
 
 
-\vspace{-15mm} 
 \subsection{勾配の消失}
 勾配消失問題とは、ニューラルネットワークの設計において、勾配が消失することで学習が進まなくなる技術的な問題のことである。
 Sigmoidなどの場合、勾配が0に近い領域が存在するため、勾配消失に陥ると重みがほぼ修正されなくなる。
@@ -165,9 +164,6 @@ y = \frac{1}{1 + \exp (X \cdot W)}
 
 
 
-
-\subsection{ノンパラメトリックモデルとカーネル密度推定}
-
 \begin{figure}[hbtp]
     \begin{center}
         \begin{tabular}{c}
@@ -196,7 +192,7 @@ y = \frac{1}{1 + \exp (X \cdot W)}
 
 \subsection{ノンパラメトリックとカーネル密度推定}
 統計学において、パラメータで表現されるモデルや確率分布を使用すものをパラメトリックな手法として分類するが、パラメータを使用せずモデルを表現する手法をノンパラメトリック手法という。
-ノンパラメトリックを代表する手法の一つにカーネル密度推定と呼ばれる手法がある。~\cite{kernel_density}
+ノンパラメトリックを代表する手法の一つにカーネル密度推定と呼ばれる手法がある~\cite{kernel_density}。
 これは、ある母集団のデータが与えられたとき、カーネル関数を用いてその関数を推定する手法である。
 カーネル関数とは、与えられた領域内で積分した時に1となり、対称性を持つものとしてイメージして良い。
 カーネル関数の代表例としてガウス関数があげられる。
@@ -252,13 +248,13 @@ isotonic regressionは単調増加性等の制約を仮定したSIMの一つで�
 
 \subsection {セミパラメトリックモデルと機械学習学習}
 
-セミパラメトリックにモデルを推定する手法は統計学ではIchimura~\cite{ichimura}から始まり、PAVアルゴリズムとしてAdam Tauman Kalai~\cite{isotron}によりその有用性が確かめられた。
+セミパラメトリックにモデルを推定する手法は統計学ではIchimura~\cite{ichimura}から始まり、PAVアルゴリズムとしてAdam Tauman Kalai(2008)~\cite{isotron}によりその有用性が確かめられた。
 
 \subsubsection{Ichimuraの手法}
 
-SIMの未知の関数をleave one out法を用いたカーネル密度推定法と最尤推定により導く試みはIchimura~\cite{ichimura}や Klein~\cite{klein}によって提案され始めた。
+SIMの未知の関数をleave one out法を用いたカーネル密度推定法と最尤推定により導く試みはIchimura(1993)~\cite{ichimura}や Klein(1993)~\cite{klein}によって提案され始めた。
 
-Ichimuraの手法はSingleIndexModelのノンパラメトリック関数を以下の式で近似する手法である。
+Ichimura(1993)の手法はSingleIndexModelのノンパラメトリック関数を以下の式で近似する手法である。
 
 
 \begin{eqnarray}
@@ -274,7 +270,7 @@ G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\n
 
 SIMやisotonic regressionを機械学習に応用する試みはAdam Tauman Kalai~\cite{isotron}のPAVアルゴリズムと呼ばれる手法で、分類問題の応用へと繋がった。
 isotonic regression自体は回帰問題として発明された手法であったが、これによりアルゴリズム的に分類問題がセミパラメトリックな手法を用いて解くことが可能であることが発見された。
-この手法をベースにSham Kakade~\cite{efficient_sim}やRavi Ganti~\cite{lsim}などによってより高速で汎用的なisotonic regressionを応用したセミパラメトリックモデルの分類問題の解法のアルゴリズムが導かれた。
+この手法をベースにSham Kakade(2011)~\cite{efficient_sim}やRavi Ganti(2015)~\cite{lsim}などによってより高速で汎用的なisotonic regressionを応用したセミパラメトリックモデルの分類問題の解法のアルゴリズムが導かれた。
 
 
 \section{勾配法と学習における知識}
@@ -309,7 +305,7 @@ Xavier(2010)~\cite{xavier}によって提唱された重みの初期化手法の
 w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1} }} \bigr]
 \end{eqnarray}
 で初期化する手法である。これにより初期化すると、重みの分布が広がりを持つことが知られている。
-活性化関数がlinear、Sigmoid、Tanhの時に有効に働く。
+活性化関数がLinear、Sigmoid、Tanhの時に有効に働く。
 
 \subsubsection{kaiming uniform}
 Kaiming He(2015)~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。
@@ -424,7 +420,7 @@ SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一�
 
 \begin{eqnarray}
 \mathrm{W} \leftarrow \mathrm{W} - \mu \frac{\partial E}{\partial \mathrm{W}} \\
-\label{eq:norm uneq}
+\label{eq:sgd}
 \end{eqnarray}
 
 ここで、$ \mathrm{W} $ は各パラメータ $ w_i $をベクトルで表現したものである。
@@ -442,7 +438,7 @@ SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一�
 
 \subsubsection{Momentum}
 
-モーメンタム(Momentum)~\cite{momentum}はSGDの勾配の方向が本来の最小値ではないという考えから、物理の法則を応用するような形で生まれた勾配法の一つである。
+Ning QianのMomentum(1999)~\cite{momentum}はSGDの勾配の方向が本来の最小値ではないという考えから、物理の法則を応用するような形で生まれた勾配法の一つである。
 
 
 Momentum という手法は、数式で次のように表される。
@@ -450,7 +446,7 @@ Momentum という手法は、数式で次のように表される。
 \begin{eqnarray}
     \mathrm{v} \leftarrow \alpha \mathrm{v} - \mu \frac {\partial E }{\partial \mathrm{W}} \\
     \mathrm{W} \leftarrow \mathrm{W+v}
-\label{eq:norm uneq}
+\label{eq:momentum}
 \end{eqnarray}
 
 ここで新しく$ \mathrm{v} $という変数が登場する。これは一つ前の勾配の速度のようなものを記録しており、勾配が急なところでは大きな値になり、小さなところでは値が小さくなる。
@@ -467,7 +463,7 @@ AdaGradは以下の数式で表現できる。
 \begin{eqnarray}　
     \mathrm{h} \leftarrow \alpha \mathrm{h} + \frac {\partial E }{\partial \mathrm{W}} \odot \frac {\partial E }{\partial \mathrm{W}}  \\
     \mathrm{W} \leftarrow \mathrm{W}  - \mu \frac{ 1 }{\sqrt{\mathrm{h}}} \frac{ \partial E }{\mathrm{W}} 
-\label{eq:norm uneq}
+\label{eq:adagrad}
 \end{eqnarray}
 
 ここで$ \odot $は行列の要素ごとの掛け算を意味する。パラメータ更新の際に$ \frac{ 1 }{\sqrt{\mathrm{h}}} $を乗算することで、学習スケールを調整するという手法である。
@@ -476,7 +472,7 @@ AdaGradは以下の数式で表現できる。
 
 
 \subsubsection{Adam}
-物理的なテクニックを応用するMomentumと学習係数を調整するAdaGradを掛け合わせたせるのがDiederik P(2014)~\cite{adam} である。
+物理的なテクニックを応用するMomentumと学習係数を調整するAdaGradを掛け合わせたせるのがDiederik P. Kingma(2014)~\cite{adam} である。
 機械学習の世界では最も頻繁に用いられる。
 
 

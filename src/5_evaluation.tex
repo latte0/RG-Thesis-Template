@@ -1,56 +1,14 @@
 \chapter{評価}
 \label{evaluation}
-本章では，提案システムの評価に大きく二つ述べる。一つは他の活性化関数との比較。もう一つは、
 
-\section{実験内容}
-\subsubsection{実験1}
+本章では第4章の\ref{implementation}で設定した３つの実験の結果及び考察を行う。
+\section{実験1 既存の活性化関数との比較実験}
+\ref{exp1}で示した比較実験の結果を記述する。
 
-\subsubsection{実験3}
-勾配が消失する条件について実験した。
+\subsection{irisでの比較実験}
+\label{ev:iris}
 
-
-
-
-\section{評価内容}
-
-
-
-\subsection{既存の活性化関数との比較実験}
-
-
-
-\subsubsection{実験1}
-
-以下の条件で実験した。
-
-\begin{table}[htbp]
-    \begin{center}
-        \caption{実験１の実行条件}
-        \vspace{5mm} 
-        \begin{tabular}{l*{2}{c}r}
-        設定              & パラメータ \\
-        \hline
-        データセット            & ボストンの土地の価格 \\
-        入力層 の次元            & 10 \\
-        中間層 の次元            & 40 \\
-        出力層 の次元            & 13 \\
-        学習率              & 0.000001 \\
-        勾配アルゴリズム       & SGD \\
-        イニシャライザ               & kaiming normal \\
-        ステップ数        & 200 \\
-        レギュラライザー           & なし \\
-        \end{tabular}
-    \end{center}
-\end{table}
-
-
-\begin{figure}[hbtp]
-    \begin{center}
-        \includegraphics[width=10cm]{asset/boston_0000001_SGDkaiming_normal__non_200_function_2.png}
-            \caption{活性化関数の形}
-            \label{boston}
-    \end{center}
-\end{figure}
+\subsubsection{設定1}
 
 
 \begin{figure}[hbtp]
@@ -62,10 +20,38 @@
 \end{figure}
 
 
+\begin{table}[htbp]
+    \begin{center}
+        \caption{設定1の結果まとめ}
+        \vspace{5mm} 
+        \begin{tabular}{l*{2}{c}r}
+            活性化関数              & loss \\
+            \hline
+            K-AF            & 0.0 \\
+            Sigmoid            & -22.0 \\
+            Linear            & 0.0 \\
+            ReLU        & -22.0 \\
+            Swish           & 0.0 \\
+            Mish           & -1.0 \\
+    
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\subsubsection{設定2}
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/boston_0000001_SGDkaiming_normal__non_200.png}
+            \caption{Lossの比較データ}
+            \label{boston}
+    \end{center}
+\end{figure}
+
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{実験１の結果まとめ}
+        \caption{設定1の結果まとめ}
         \vspace{5mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & loss \\
@@ -82,7 +68,38 @@
 \end{table}
 
 
+\subsubsection{irisまとめ}
 
+irisでは十分な性能を出すことができた。
+
+
+\subsection{digitsでの比較実験}
+\label{ev:digitsでの比較実験}
+
+\subsection{wineでの実験と設定}
+\label{ev:wineでの実験と設定}
+
+\subsection{bostonでの比較実験}
+\label{ev:bostonでの比較実験}
+
+\subsection{breast\_cancerでの比較実験}
+\label{ev:breastcancer}
+
+\section{実験2 K-AFの関数形状の調査}
+\ref{exp1}で示した比較実験の結果を記述する。
+
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/boston_0000001_SGDkaiming_normal__non_200_function_2.png}
+            \caption{活性化関数の形}
+            \label{boston}
+    \end{center}
+\end{figure}
+
+
+\section{実験3 K-AFの性能が上がる条件探査}
+\ref{exp1}で示した比較実験の結果を記述する。
 
 \section{まとめ}
 

@@ -68,7 +68,9 @@
 \subsubsection{irisでの実験結果の考察}
 
 
-irisは最も単純な分類問題の一つであるが結果\ref{iris:result}を見るに
+irisは最も単純な分類問題の一つであるが結果\ref{iris:result}を見るに特に学習を効率的にするテクニックを使わない場合は良い精度が出せている。
+Swishが高い性能を出していることもわかる。
+また、L2のRegularizerを入れるとかなり精度が下がってしまうことから、K-AFは既存の学習テクニックとの組み合わせでは精度が向上しないことがわかる。
 
 
 
@@ -302,8 +304,9 @@ bostonは本実験で唯一の回帰のデータセットである。
 
 
 \subsection{実験1全体のまとめ}
-結果全体を見ると、K-AFは高いLearningRateに対してもロバストに学習を行うことができる。
-
+結果全体を見ると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば
+かなり高い精度でどのデータセットも学習できることがわかる。
+特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことがわかった。
 
 
 \section{実験2の結果 K-AFの関数形状の調査}
@@ -311,13 +314,116 @@ bostonは本実験で唯一の回帰のデータセットである。
 \ref{exp2}で示した比較実験の結果を記述する。
 
 
+
+
+
+\subsubsection{irisの活性化関数}
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:iris}のLR以外の設定を用いる。
+推論した活性化関数の形は図\ref{infer_iris}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
-        \includegraphics[width=10cm]{asset/boston_0000001_SGDkaiming_normal__non_200_function_2.png}
-            \caption{活性化関数の形}
-            \label{boston}
+        \includegraphics[width=10cm]{asset/iris-0.1.png}
+            \caption{irisで推論した活性化関数の形}
+            \label{ifer_iris}
     \end{center}
 \end{figure}
+
+またこれを\ref{af-class}の表に埋めると表\ref{anal_iris}のようになる。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{irisで推論した活性化関数の分析表}
+        \label{anal_iris}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
+        × & ○ & ○   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+
+単純な分類問題であるが、\ref{ifer_iris}を観察するにSigmoid等の活性化関数と違い単調増加もしくは単調減少しない活性化関数が導かれることがわかった。
+
+
+
+
+\subsubsection{digitsの活性化関数}
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:digits}のLR以外の設定を用いる。
+推論した活性化関数の形は図\ref{infer_digits}のようになる。
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/digits-0.1.png}
+            \caption{digitsで推論した活性化関数の形}
+            \label{ifer_digits}
+    \end{center}
+\end{figure}
+
+またこれを\ref{af-class}の表に埋めると表\ref{anal_digits}のようになる。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{digitsで推論した活性化関数の分析表}
+        \label{anal_digits}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
+        ▲ & ○ & ○   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+▲になる理由は単調増加とは対象的な単調減少の関数も推論した関数の中に存在するからである。
+推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考えられる。
+例外的に一つ形が崩れているが、Sigmoidと関数の形がにているため、使用する関数としてもSigmoidのような形のもので十分な精度が出ることが予想できる。
+実際に\ref{ev:wineでの実験と設定}ではSigmoidやTanhでも十分な性能を出している。
+
+
+
+
+
+\subsubsection{wineの活性化関数}
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:wine}のLR以外の設定を用いる。
+推論した活性化関数の形は図\ref{infer_wine}のようになる。
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/wine-0.1.png}
+            \caption{wineで推論した活性化関数の形}
+            \label{ifer_wine}
+    \end{center}
+\end{figure}
+
+またこれを\ref{af-class}の表に埋めると表\ref{anal_wine}のようになる。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{wineで推論した活性化関数の分析表}
+        \label{anal_wine}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
+        ▲ & ○ & ○   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \section{実験3の結果 K-AFの性能が上がる条件探査}

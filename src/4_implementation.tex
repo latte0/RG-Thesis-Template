@@ -84,10 +84,10 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \label{exp_list}
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
-    \item ラーニングレート(lr) [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
-    \item 初期値 [ Xavier, kaiming uniform]
-    \item レギュラライザー [ 何もなし, L1ノルム, L2ノルム]
-    \item optimizer [ SGD, Momentum, AdaGrad, Adam]
+    \item LearningRate(lr) [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
+    \item Initializer [ Xavier, kaiming uniform]
+    \item Regularizer [ 何もなし, L1ノルム, L2ノルム]
+    \item Optimizer [ SGD, Momentum, AdaGrad, Adam]
     \item データセット [ iris, digits, wine, boston, breast\_cancer ]
 \end{itemize}
 
@@ -144,14 +144,25 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \subsection{実装手法}
 
 \ref{exp_list}に記述した５つのデータセットを軸に\ref{list:active}の活性化関数での比較実験を
-学習率 、optimizer、イニシャライザ、レギュラライザーを変更しながら実験した。
+学習率 、Optimizer、Initializer、Regularizerを変更しながら実験した。
 K-AFの性能が有利にならないように、可能な限り任意の組み合わせで実験を行い性能の評価を行う。
+
+
+
+\subsection{評価手法}
+
+回帰問題と分類問題におけるれぞれの評価時における精度指標（Metrics）として、
+回帰問題では平均絶対誤差（MAE）を、分類問題では正解率（Accuracy）を用いる。
+これらは、最も基礎的で一般的な評価関数（Metric function）である。
+
+
+
 
 \subsubsection{irisでの比較実験}
 \label{impl:iris}
 
 irisはアヤメの分類問題であり、統計学の分野で最も一般的に性能評価がおなわれるものである。
-optimzerにSGD、レギュラライザーを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
+optimzerにSGD、Regularizerを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
 
 \begin{table}[htbp]
     \begin{center}
@@ -161,9 +172,9 @@ optimzerにSGD、レギュラライザーを特に使わない理由はirisは�
         設定名 & 設定1 & 設定2 \\
         \hline
         学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        イニシャライザ       & Xavier &  kaiming uniform \\
-        optimizer           & SGD & SGD \\
-        レギュラライザー     & なし & なし \\
+        Initializer       & Xavier &  kaiming uniform \\
+        Optimizer           & SGD & SGD \\
+        Regularizer     & なし & なし \\
         epoch\_num       & 1 &  1 \\
         exp\_num         & 1 & 1 \\
         calc\_num        & 1 & 1 \\
@@ -177,7 +188,7 @@ optimzerにSGD、レギュラライザーを特に使わない理由はirisは�
 \label{impl:digits}
 
 digitsは数字の画像の分類問題であり、機械学習の分野で一般的に性能評価の対象として使用されるものである。
-digitsは次元数が高いデータセットであるため、optimizerにはAdamとSGD, レギュライザーにはL1とL2を使用した。
+digitsは次元数が高いデータセットであるため、OptimizerにはAdamとSGD, レギュライザーにはL1とL2を使用した。
 
 \begin{table}[htbp]
     \begin{center}
@@ -187,9 +198,9 @@ digitsは次元数が高いデータセットであるため、optimizerにはAd
         設定名 & 設定1 & 設定2 \\
         \hline
         学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        イニシャライザ       & Xavier & kaiming uniform \\
-        optimizer           & SGD & Adam \\
-        レギュラライザー     & L1 & L2 \\
+        Initializer       & Xavier & kaiming uniform \\
+        Optimizer           & SGD & Adam \\
+        Regularizer     & L1 & L2 \\
         epoch\_num       & 1 &  1 \\
         exp\_num         & 1 & 1 \\
         calc\_num        & 1 & 1 \\
@@ -213,9 +224,9 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         設定名 & 設定1 & 設定2 \\
         \hline
         学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        イニシャライザ       & Xavier & kaiming uniform \\
-        optimizer           & SGD & Adam \\
-        レギュラライザー     & L1 & なし \\
+        Initializer       & Xavier & kaiming uniform \\
+        Optimizer           & SGD & Adam \\
+        Regularizer     & L1 & なし \\
         epoch\_num       & 1 &  1 \\
         exp\_num         & 1 & 1 \\
         calc\_num        & 1 & 1 \\
@@ -237,9 +248,9 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         設定名 & 設定1 & 設定2 \\
         \hline
         学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        イニシャライザ       & Xavier & kaiming uniform \\
-        optimizer           & SGD & Adam \\
-        レギュラライザー     & L1 & なし \\
+        Initializer       & Xavier & kaiming uniform \\
+        Optimizer           & SGD & Adam \\
+        Regularizer     & L1 & なし \\
         epoch\_num       & 1 &  1 \\
         exp\_num         & 1 & 1 \\
         calc\_num        & 1 & 1 \\
@@ -263,9 +274,9 @@ breast\_cancerは乳がんのデータセットである。
         設定名 & 設定1 & 設定2 \\
         \hline
         学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        イニシャライザ       & Xavier & kaiming uniform \\
-        optimizer           & SGD & Adam \\
-        レギュラライザー     & L1 & なし \\
+        Initializer       & Xavier & kaiming uniform \\
+        Optimizer           & SGD & Adam \\
+        Regularizer     & L1 & なし \\
         epoch\_num       & 1 &  1 \\
         exp\_num         & 1 & 1 \\
         calc\_num        & 1 & 1 \\

@@ -28,7 +28,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \label{impl_table}
     \begin{center}
         \caption{本研究の実行環境}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
         環境              & バージョン \\
         \hline
@@ -118,7 +118,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \begin{center}
         \caption{実験に用いるデータセットの情報}
         \label{dataset_name}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c|c|c|c| }
         データセット名 & サンプル数 & 入力の次元 & 出力の次元 & 出力の形式 & 中間層の数 $ {l_1} $ \\
         \hline
@@ -138,7 +138,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \begin{table}[htbp]
     \begin{center}
         \caption{本実験において使用するハイパーパラメータ}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \scalebox{0.7}[0.7]{
             \begin{tabular}{||c | c |c||}
             ハイパーパラメータ & 記号 & 説明 \\
@@ -212,7 +212,7 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
     \begin{center}
         \caption{irisでの実験と設定}
         \label{exp:iris}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
@@ -240,7 +240,7 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
     \begin{center}
         \caption{digitsでの実験と設定}
         \label{exp:digits}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
@@ -269,7 +269,7 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
     \begin{center}
         \caption{wineでの実験と設定}
         \label{exp:wine}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
@@ -295,7 +295,7 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
     \begin{center}
         \caption{bostonでの実験と設定}
         \label{exp:boston}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
@@ -320,7 +320,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
     \begin{center}
         \caption{breast\_cancerでの実験と設定}
         \label{exp:breastcancer}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
@@ -349,7 +349,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
     \begin{center}
         \caption{活性化関数の関数的な意味}
         \label{af-class}
-        \vspace{5mm} 
+        \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
@@ -374,13 +374,13 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
 他に実験において必要なパラメータを以下に設定する。
 
 
-\begin{table}[ht]
+\begin{table}[hbtp]
     \begin{center}
         \caption{実験のデータセットの名称}
-        \vspace{5mm} 
-        \scalebox{0.9}[0.9]{
+        \vspace{2mm} 
+        \scalebox{1.0}[1.0]{
             \begin{tabular}{||c | c |c||}
-              & irisの場合 & digitsの場合 \\
+            ハイパーパラメータ  & irisの場合 & digitsの場合 \\
             \hline
             epoch数                           & 200       & 200  \\
             実験回数                           & 10     & 10 \\

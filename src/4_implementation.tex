@@ -56,6 +56,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 比較用の活性化関数には以下を用いる。
 \begin{itemize}
+\ref{list:active}
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
     \item ReLU
@@ -72,6 +73,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 各種データセットの詳細については\url{https://scikit-learn.org/stable/datasets/toy_dataset.html}こちらのページが参考になる。
 
 \begin{itemize}
+\label{exp_list}
     \setlength{\parskip}{0cm} % 段落間
     \setlength{\itemsep}{0cm} % 項目間
     \item ラーニングレート(lr) [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
@@ -112,30 +114,27 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \begin{center}
         \caption{実験のデータセットの名称}
         \vspace{5mm} 
-        \begin{tabular}{||c c c||}
-        ハイパーパラメータ & 記号 & 説明 \\
-        \hline
-        epoch数                           & epoch       & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
-        実験回数                           & exp\_num     & 数回実験を行なった平均をとり、結果を保証する。 \\
-        カーネル密度推定に使うデータ数        & n           & $ X^{calc} $ に使うデータ数を表す。  \\
-        \end{tabular}
+        \scalebox{0.7}[0.7]{
+            \begin{tabular}{||c | c |c||}
+            ハイパーパラメータ & 記号 & 説明 \\
+            \hline
+            epoch数                           & epoch       & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
+            実験回数                           & exp\_num     & 数回実験を行なった平均をとり、結果を保証する。 \\
+            カーネル密度推定に使うデータ数        & n           & $ X^{calc} $ に使うデータ数を表す。  \\
+            \end{tabular}
+        }
     \end{center}
 \end{table}
 
 
 
-\begin{itemize}
-    \setlength{\parskip}{0cm} % 段落間
-    \setlength{\itemsep}{0cm} % 項目間
-    \item epoch数・・・学習に適切な数
-    \item 実験回数・・・最終的な精度の平均を取ることで初期パラメータに依存した偶然によるものではないことを示す。
-    \item カーネル密度推定に使う
-\end{itemize}
+\section{実験1}
 
+\subsection{実装手法}
 
-
-\subsection{実験1}
-\section{実装手法}
+\ref{exp_list}に記述した５つのデータセットを軸に\ref{list:active}の活性化関数での比較実験を
+ニューラルネットワーク、中間層、学習率 、勾配アルゴリズム、イニシャライザ、ステップ数 、ノーマライザー
+を変更しながら実験した。
 
 
 \section{活性化関数}

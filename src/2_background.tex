@@ -43,7 +43,7 @@ Swish~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが�
         \caption{活性化関数の種類}
         \vspace{5mm} 
         \label{class_af}
-        \begin{tabular}{cp{5cm}cc}
+        \begin{tabular}{c|c}
         活性化関数の数式              & 数式 \\
         \hline
         Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
@@ -116,11 +116,11 @@ Y = X \cdot W + \epsilon
 である。
 しかしながら、上記の式の展開では$ \epsilon $が正規分布に従うことを想定した、すなわち従属変数$ Y $がガウス分布に従うことを仮定したが、実際は図\ref{glm} のように、誤差の分布にガウス分布を仮定すると、正確さが失われることがある。
 そこで、従属変数をある関数 $ G $ で変換してからモデル化することでモデルの正確さが向上する。
-すなわち、$ \mathrm{E}[Y|X] = X \dot W $ に対して$ G(\mathrm{E}[Y|X]) = X \dot W $ となるような$ G $ を取り入流。
+すなわち、$ \mathrm{E}[Y|X] = X \cdot W $ に対して$ G(\mathrm{E}[Y|X]) = X \cdot W $ となるような$ G $ を取り入流。
 またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
 一般線形モデルに対して、リンク関数を加えた式を以下に記す。
 \begin{eqnarray}
-E[Y|X]=G^{-1} (X\dot W)
+E[Y|X]=G^{-1} (X\cdot W)
 \label{eq:link}
 \end{eqnarray}
 
@@ -131,7 +131,7 @@ E[Y|X]=G^{-1} (X\dot W)
 
 \subsection{シグモイド関数とロジスティック回帰}
 \begin{eqnarray}
-G(Y)=X\dot W
+G(Y)=X\cdot W
 \end{eqnarray}
 とした時、
 \begin{eqnarray}
@@ -154,7 +154,7 @@ g(z)はロジスティック関数でもあり、
 
 
 \begin{eqnarray}
-y = \frac{1}{1 + \exp (X \dot W)}
+y = \frac{1}{1 + \exp (X \cdot W)}
 \end{eqnarray}
 より、ロジスティック回帰であることも示される。 \\
 
@@ -230,7 +230,7 @@ f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
 シングルインデックスモデル(SIM)とは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
 
 \begin{eqnarray}
-Y = g(X \dot W) + \epsilon
+Y = g(X \cdot W) + \epsilon
 \label{eq:k-af}
 \end{eqnarray}
 
@@ -497,7 +497,7 @@ ReLUやSwish, Mishといった\ref{trend_af}であげたような活性化関数
 Alberto Marchisio~\cite{automatic_af}が提案した手法では、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出し精度を向上させる方法を見出した。
 
 しかし、この方法にも欠点があり既知の活性化関数が問題に応じた適切な活性化関数かどうか判断する方法は存在しない。
-Garrett Bingham~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $や $ sin(x) $といった原始的関数を組み合わせ最適な活性化関数を見つけることが提唱されているが、計算量が重く、関数全体の空間を探査できるかどうかは原始的関数の組み合わせに依存してしまう。
+Garrett Bingham~\cite{evo_af}は進化的アルゴリズムを用いて$ x^2 $や $ \sin (x) $といった原始的関数を組み合わせ最適な活性化関数を見つけることが提唱されているが、計算量が重く、関数全体の空間を探査できるかどうかは原始的関数の組み合わせに依存してしまう。
 より良い活性化関数を選択して精度を向上させ、パラメータ数を減らすことは、より良いモデルを学習・発見するための重要な課題である。
 
 

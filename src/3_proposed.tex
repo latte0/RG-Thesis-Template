@@ -59,12 +59,12 @@ isotonic regression同様に単調増加性について仮定しているよう�
 本論文で私が提案する活性化関数を数式\ref{eq:k-af}で表現する。
 
 \begin{eqnarray}
-G(X_iw, X^{calc}, Y^{calc})=\frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)Y^{calc}_j}{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}}\right)}
+G(\mathbf{X}_iw, \mathbf{X}^{calc}, \mathbf{Y}^{calc})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)}
 \label{eq:k-af}
 \end{eqnarray}
 
 
-$ X^{calc}_j $及び$ Y^{calc}_j $ は計算用に用いるデータ点である。
+$ \mathbf{X}^{calc}_j $及び$ \mathbf{Y}^{calc}_j $ は計算用に用いるデータ点である。
 現在の機械学習における問題の多くは学習に用いるデータセットが非常に大きい。
 そのため、Ichimura(1993)~\cite{ichimura}ではデータセットの数だけで表現していたが、一部を省略することにより少ないデータ点で表現する。
 少ないデータ点で記述することは、活性化関数の形の単純化と計算量を減らすことにも直結する。
@@ -103,7 +103,7 @@ $ X^{calc}_j $及び$ Y^{calc}_j $ は計算用に用いるデータ点である
 K-AFのアルゴリズムの概要を\ref{alg:fixed-u-alg}に記述した。
 
 入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
-また、$x$のデータセットの集合を$ \mathcal{D}_x $　$y$のデータセットの集合を$ \mathcal{D}_y $、それらから$n$個サンプリングすることを$ Y^{calc} \sim_n \mathcal{D}_y $と記述する。
+また、$x$のデータセットの集合を$ \mathcal{D}_x $　$y$のデータセットの集合を$ \mathcal{D}_y $、それらから$n$個サンプリングすることを$ \mathbf{Y}^{calc} \sim_n \mathcal{D}_y $と記述する。
 $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適化を表現することができる。
 
 
@@ -112,19 +112,19 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 	\caption{\KAF}
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
-	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
+	\STATE {\bfseries Input:} data $\langle (\mathbf{X}_i, y_i) \rangle_{i=1}^m \in
 	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^n, \reals^n ) \rightarrow  \reals^e$.
-	\STATE $X^{calc} \sim_n \mathcal{D}(X)$;
-    \STATE $Y^{calc} \sim_n \mathcal{D}(Y)$;
+	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}(X)$;
+    \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}(Y)$;
 	\FOR {$t = 1, 2, \ldots$}
-	\STATE $g^t(x) := G(X \cdot w^t, X^{calc}, Y^{calc} )$;
-	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(x_i))^2 $
+	\STATE $g^t(x) := G(\mathbf{X} \cdot  \mathbf{W}^t, \mathbf{X}^{calc}, \mathbf{Y}^{calc} )$;
+	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(\mathbf{X}_i))^2 $
 	\ENDFOR
 \end{algorithmic}
 \end{algorithm}
 
 \begin{itemize}
-  \item データセット$\mathcal{D}_x$,$\mathcal{D}_y$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
+  \item データセット$\mathcal{D}_x$,$\mathcal{D}_y$から任意個数の$ \mathbf{X}^{calc} $と$ \mathbf{Y}^{calc} $から取り出す。
   \item 現状のパラメータ$ w $, $\mathcal{D}_x$, $\mathcal{D}_y$を用いて、リンク関数$ g^t $の計算を行う。
   \item そのリンク関数を用いて$ y $の値との最小二乗誤差を取り$ w $に対して最適化を行う。
 \end{itemize}

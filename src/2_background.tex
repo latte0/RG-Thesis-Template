@@ -27,8 +27,8 @@
 ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている~\cite{study_af}。
 活性化関数の歴史はシグモイドという統計学的にも馴染み深いロジスティック回帰のモデルから始まった。
 ニューラルネットワークの層に活性化関数を適用する過程を以下に示す。
-$ w_i$ を重み、$ x_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
-$ z=g(y)=g(\sum w_i x_i+b) $ 
+$ w_i$ を重み、$ \mathbf{X}_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
+$ z=g(y)=g(\sum w_i \mathbf{X}_i+b) $ 
 このように用いられる。
 その後TanhやXavier. GlorotのReLU(2011)~\cite{ReLU}などといったより計算に適した活性化関数が発見されてきた。
 特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
@@ -102,24 +102,24 @@ Sigmoidなどの場合、勾配が0に近い領域が存在するため、勾配
 説明変数を$ X $, パラメータを$ W $で表現し、従属変数を$ Y $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
 
 \begin{eqnarray}
-Y = X \cdot W + \epsilon
+Y = \mathbf{X} \cdot  \mathbf{W} + \epsilon
 \label{eq:senkei}
 \end{eqnarray}
 またこれは$ Y $の期待値を使って表現すると上記は
 \begin{eqnarray}
-    \mathrm{E}[Y] &=& \mathrm{E}[X \cdot W + \epsilon] \\
-    \mathrm{E}[Y] &=& \mathrm{E}[X \cdot W] + \mathrm{E}[\epsilon] \\
-    \mathrm{E}[Y] &=& X \cdot W
+    \mathrm{E}[Y] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W} + \epsilon] \\
+    \mathrm{E}[Y] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W}] + \mathrm{E}[\epsilon] \\
+    \mathrm{E}[Y] &=& \mathbf{X} \cdot  \mathbf{W}
 \label{eq:link}
 \end{eqnarray}
 である。
 しかしながら、上記の式の展開では$ \epsilon $が正規分布に従うことを想定した、すなわち従属変数$ Y $がガウス分布に従うことを仮定したが、実際は図\ref{glm} のように、誤差の分布にガウス分布を仮定すると、正確さが失われることがある。
 そこで、従属変数をある関数 $ G $ で変換してからモデル化することでモデルの正確さが向上する。
-すなわち、$ \mathrm{E}[Y|X] = X \cdot W $ に対して$ G(\mathrm{E}[Y|X]) = X \cdot W $ となるような$ G $ を取り入流。
+すなわち、$ \mathrm{E}[Y|X] = \mathbf{X} \cdot  \mathbf{W} $ に対して$ G(\mathrm{E}[Y|X]) = \mathbf{X} \cdot  \mathbf{W} $ となるような$ G $ を取り入流。
 またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
 一般線形モデルに対して、リンク関数を加えた式を以下に記す。
 \begin{eqnarray}
-E[Y|X]=G^{-1} (X\cdot W)
+E[Y|X]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
 \label{eq:link}
 \end{eqnarray}
 
@@ -130,7 +130,7 @@ E[Y|X]=G^{-1} (X\cdot W)
 
 \subsection{シグモイド関数とロジスティック回帰}
 \begin{eqnarray}
-G(Y)=X\cdot W
+G(Y)=\mathbf{X}\cdot  \mathbf{W}
 \end{eqnarray}
 とした時、
 \begin{eqnarray}
@@ -153,7 +153,7 @@ $ g(z) $はロジスティック関数でもあり、
 
 
 \begin{eqnarray}
-y = \frac{1}{1 + \exp (X \cdot W)}
+y = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
 \end{eqnarray}
 より、ロジスティック回帰であることも示される。 \\
 
@@ -205,11 +205,11 @@ $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定�
 \end{itemize}
 
 
-この時、カーネル密度推定法とは、$ x_n $をデータ、推定すべき関数を$ f $ カーネル関数を $ K $ バンド幅を $ h $ としたとき、以下の式で表現することができる。
+この時、カーネル密度推定法とは、$ \mathbf{X}_n $をデータ、推定すべき関数を$ f $ カーネル関数を $ K $ バンド幅を $ h $ としたとき、以下の式で表現することができる。
 
 
 \begin{eqnarray}
-f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
+f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - \mathbf{X}_i}{h}\bigr)
 \label{eq:k-af}
 \end{eqnarray}
 \ref{k_af_band1}のようにまばらに存在するデータ点の周辺に、\ref{k_af_band2}のようにカーネル関数をおき、任意のバンド幅で足し合わせ近似していくようなものである。
@@ -226,7 +226,7 @@ f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
 シングルインデックスモデル(SIM)とは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
 
 \begin{eqnarray}
-Y = g(X \cdot W) + \epsilon
+Y = g(\mathbf{X} \cdot  \mathbf{W}) + \epsilon
 \label{eq:k-af}
 \end{eqnarray}
 
@@ -258,11 +258,11 @@ Ichimura(1993)の手法はSingleIndexModelのノンパラメトリック関数�
 
 
 \begin{eqnarray}
-G(X_iw)=\frac{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)Y_j}{\sum_{i\neq j} K\left(\frac{X_j w - X_i w}{h}\right)}
+G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)Y_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
 \label{eq:ichimura}
 \end{eqnarray}
 
-ここで、$ K $はカーネル関数である。$ i \neq j $ とすることにより、$ x_i $を入力した時の値が$ y_i $へと過剰適合しないようにするためである。
+ここで、$ K $はカーネル関数である。$ i \neq j $ とすることにより、$ \mathbf{X}_i $を入力した時の値が$ y_i $へと過剰適合しないようにするためである。
 
 
 
@@ -383,9 +383,9 @@ L2 < L1
         \begin{tabular}{l*{2}{c}r}
         扱うデータ      & 名称 & 説明 \\
         \hline
-        $ D_i \subseteq D $          & ミニバッチ学習  & データを部分的にランダムで取り出して学習を行う \\
-        $ d_i \in D $                & オンライン学習 & データを一つ取り出して学習を行う  \\
-        D        & バッチ学習 & 全てのデータを用いて学習する \\
+        $ \mathcal{D}_i \subseteq \mathcal{D} $          & ミニバッチ学習  & データを部分的にランダムで取り出して学習を行う \\
+        $ d_i \in \mathcal{D} $                & オンライン学習 & データを一つ取り出して学習を行う  \\
+        $ \mathcal{D}  $      & バッチ学習 & 全てのデータを用いて学習する \\
         \end{tabular}
     \end{center}
 \end{table}

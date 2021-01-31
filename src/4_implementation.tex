@@ -7,7 +7,7 @@
 実装環境 (\ref{impl_env})では本研究における実験のための実行環境及び事前知識について述べる。
 \ref{exp_common}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
 実験1 (\ref{exp1})ではK-AFの性能を既存の活性化関数と比較する実験を行う。
-実験2 (\ref{exp2})では各データセットにおいての活性化関数の形を調査する実験をこなう。
+実験2 (\ref{exp2})では各データセットにおいての活性化関数の形を調査する実験を行う。また、関数の形状を学習すると同時にどのように損失関数が小さくなるかLossのグラフを取得する。
 実験3 (\ref{exp3})では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
 
 これら3つの実験を踏まえて、K-AFの課題に対しての実用性だけでなく、K-AFの性質についても調査し、今後の発展のための鍵となる結論へとつなげる。
@@ -85,7 +85,8 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
-活性化関数の性能の比較実験のために、以下の表項目\ref{list:learning_algorithm_change}を変えながら実験する。データセットにはsckit-learn~\cite{scikit-learn}のライブラリのデータセットに対してデフォルトで入ってるものを想定する。
+活性化関数の性能の比較実験のために、以下の表項目\ref{list:learning_algorithm_change}を変えながら実験する。
+データセットにはsckit-learn~\cite{scikit-learn}のライブラリのデータセットに対してデフォルトで入ってるものを想定する。
 各種データセットの詳細については\url{https://scikit-learn.org/stable/datasets/toy_dataset.html}こちらのページが参考になる。
 
 
@@ -98,8 +99,8 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \begin{tabular}{ |c|c| }
         学習においての変更項目 & 変更のリスト\\
         \hline
-        LearningRate           & [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]    \\
-        Initializer         & [ Xavier, kaiming uniform]   \\
+        LearningRate           & [  $10^{-1}$,  $10^{-2}$,  $10^{-3}$,  $10^{-4}$, $10^{-5}$, $10^{-6}$ ,$10^{-7}$]    \\
+        Initializer         & [ He, Xavier, kaiming uniform]   \\
         Regularizer           & [ 何もなし, L1ノルム, L2ノルム]     \\
         Optimizer         & [ SGD, Momentum, AdaGrad, Adam]   \\
         データセット &  [ iris, digits, wine, boston, breast\_cancer ]    \\
@@ -161,7 +162,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \subsection{実装手法}
 
 表\ref{list:learning_algorithm_change}に記述した5つのデータセットを軸に\ref{list:af_table}の活性化関数での比較実験を
-学習率 、Optimizer、Initializer、Regularizerを変更しながら実験した。
+LearningRate 、Optimizer、Initializer、Regularizerを変更しながら実験した。
 K-AFの性能が有利にならないように、可能な限り任意の組み合わせで実験を行い性能の評価を行う。
 
 
@@ -216,7 +217,7 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
         Initializer       & Xavier &  kaiming uniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
@@ -244,13 +245,13 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
         Initializer       & Xavier & kaiming uniform \\
         Optimizer           & SGD & Adam \\
         Regularizer     & L1 & L2 \\
-        epoch\_num       & 1 &  1 \\
-        exp\_num         & 1 & 1 \\
-        calc\_num        & 1 & 1 \\
+        epoch\_num       & 2000 &  2000 \\
+        exp\_num         & 3 & 3 \\
+        calc\_num        & 18 & 18 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -273,7 +274,7 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
         Initializer       & Xavier & kaiming uniform \\
         Optimizer           & SGD & Adam \\
         Regularizer     & L1 & なし \\
@@ -299,7 +300,7 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
         Initializer       & Xavier & kaiming uniform \\
         Optimizer           & SGD & Adam \\
         Regularizer     & L1 & なし \\
@@ -324,7 +325,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        学習率(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
+        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
         Initializer       & Xavier & kaiming uniform \\
         Optimizer           & SGD & Adam \\
         Regularizer     & L1 & なし \\
@@ -338,7 +339,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
 
 \vspace{-5mm} 
 
-\section{実験2 K-AFの関数形状の調査}
+\section{実験2 K-AFの関数形状の調査及び損失関数の詳細調査}
 \label{exp2}
 
 2つ目の実験では推論した活性化関数の形を表\ref{dataset_name}に記載したデータセット観測し、既存の活性化関数との違いを定性評価を行う。
@@ -358,9 +359,27 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
     \end{center}
 \end{table}
 
-\vspace{-5mm} 
 
 表\ref{af-class}を軸に、K-AFの形状を分析し、既存の活性化関数と比べて何が違うか評価を行う。
+
+またそのような活性化関数を計算するためのニューラルネットワークの設定を以下の表に示した設定で行う。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{実験に用いるデータセットの情報}
+        \label{dataset_name}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c|c|c|c| }
+        データセット名 & LearningRate & Optimizer & Initializer & Reguralizer \\
+        \hline
+        iris           & $ 10^{-3} $    & 3         & 3        & 分類      & 4 \\
+        digits         & $ 10^{-3} $    & 3         & 64       & 分類      & 100 \\
+        wine           & $ 10^{-3} $    & 3         & 13       & 分類      & 40 \\
+        boston         & $ 10^{-3} $    & 13        & 1        & 回帰      & 20 \\
+        breast\_cancer & $ 10^{-3} $    & 30        & 2        & 分類      & 30 \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
 
 
 

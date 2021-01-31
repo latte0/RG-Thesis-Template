@@ -29,20 +29,50 @@
         \begin{tabular}{l*{2}{c}r}
             活性化関数  & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
-            K-AF            & 0.0 & 0.0 \\
-            Sigmoid            & -22.0 & 0.0\\
-            Linear            & 0.0 & 0.0\\
-            ReLU        & -22.0 & 0.0\\
-            Swish           & 0.0 & 0.0 \\
-            Mish           & -1.0 & 0.0\\
+            K-AF            & 72.0 & 26.0 \\
+            Sigmoid            & 68.0 & 77.3\\
+            Linear            & 20.0 & 53.0\\
+            ReLU        &  49.6 &  38.3\\
+            Swish           & 87.3 & 47.3 \\
+            Mish           & 60.0 & 65.0 \\
     
         \end{tabular}
     \end{center}
 \end{table}
 
 
+\subsubsection{設定1及び設定2のLossTrainig}
+\label{iris:loss}
 
-irisでは十分な性能を出すことができた。
+
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_non_kaiming_uniform.png}
+                    \caption{irisの設定1の結果のLossTraining}
+                    \label{iris_1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_l2_kaiming_uniform.png}
+                    \caption{irisの設定2の結果のLossTraining}
+                    \label{iris_2}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+
+\subsubsection{irisでの実験結果の考察}
+
+
+irisは最も単純な分類問題の一つであるが結果\ref{iris:result}を見るに
+
+
+
+
 
 
 \subsection{digitsでの比較実験}
@@ -85,7 +115,7 @@ irisでは十分な性能を出すことができた。
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
-                \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_sgd_non_kaiming_uniform.png}
+                \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_adam_non_kaiming_uniform.png}
                     \caption{digitsの設定2の結果のLossTraining}
                     \label{digits_2}
             \end{minipage}
@@ -95,16 +125,17 @@ irisでは十分な性能を出すことができた。
 
 
 \subsubsection{digitsでの実験結果の考察}
-結果\ref{digits:result}を見ると設定1の場合では91.6%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
+結果\ref{digits:result}を見ると設定1の場合では91.6\%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
 設定2の場合でもSigmoidやTanhほどの成果は出なかったものの、上限値が存在しない関数よりはいい性能を出すことができた。
 
 TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
-
+設定1の方で途中でTanhを追い抜いている理由は、活性化関数の形が急激に変わる瞬間があるからである。
 
 
 \subsection{wineでの実験と設定}
 \label{ev:wineでの実験と設定}
 
+第4章の\ref{impl:wine}で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2の結果と考察}
 
 
@@ -115,25 +146,55 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
-            K-AF            & 0.0 & 0.0 \\
-            Sigmoid            & -22.0 & 0.0\\
-            Linear            & 0.0 & 0.0\\
-            ReLU        & -22.0 & 0.0\\
-            Swish           & 0.0 & 0.0 \\
-            Mish           & -1.0 & 0.0\\
+            K-AF            & 72.0 & 27.0 \\
+            Sigmoid            & 33.3 & 43.0\\
+            Linear            & 33.3 & 38.3\\
+            ReLU        & 33.3 & 0.0\\
+            Swish           & 33.3 & 27 \\
+            Mish           & 33.3 &  27.0\\
     
         \end{tabular}
     \end{center}
 \end{table}
 
 
+\subsubsection{設定1及び設定2のLossTrainig}
+\label{digits:loss}
 
-irisでは十分な性能を出すことができた。
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_sgd_non_kaiming_uniform.png}
+                    \caption{wineの設定1の結果のLossTraining}
+                    \label{wine_1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_adam_non_kaiming_uniform}
+                    \caption{wineの設定2の結果のLossTraining}
+                    \label{wine_2}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+
+\subsubsection{wineでの実験結果の考察}
+結果\ref{wine:result}を見るとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることがわかる。
+また、設定2はoptimizerをadamに変えただけ、学習が失敗することがわかった。
+全体を通してもSGDのK-AFが最大のAccuracyを叩き出している。
+
+
+
+
+
 
 
 \subsection{bostonでの比較実験}
 \label{ev:bostonでの比較実験}
 
+第4章の\ref{impl:boston}で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2の結果と考察}
 
 
@@ -142,22 +203,47 @@ irisでは十分な性能を出すことができた。
         \caption{bostonの設定1及び設定2のAccuracy}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
-            活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
+            活性化関数              & 設定1のMSE &  設定2のMSE \\
             \hline
-            K-AF            & 0.0 & 0.0 \\
-            Sigmoid            & -22.0 & 0.0\\
-            Linear            & 0.0 & 0.0\\
-            ReLU        & -22.0 & 0.0\\
-            Swish           & 0.0 & 0.0 \\
-            Mish           & -1.0 & 0.0\\
+            K-AF            & 49.4 & 69.4 \\
+            Sigmoid            & 523.0 & 541.4 \\
+            Tanh            & 540.6 &  567.8 \\
+            ReLU        & 359.2 & 473.4 \\
+            Swish           & 257.0 & 372.4 \\
+            Mish           & 360.0 & 472.4 \\
     
         \end{tabular}
     \end{center}
 \end{table}
 
 
+\subsubsection{設定1及び設定2のLossTrainig}
+\label{boston:loss}
 
-irisでは十分な性能を出すことができた。
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_kaiming_uniform.png}
+                    \caption{bostonの設定1の結果のLossTraining}
+                    \label{boston_1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_xavier_uniform.png}
+                    \caption{bostonの設定2の結果のLossTraining}
+                    \label{boston_2}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+
+\subsubsection{bostonでの実験結果の考察}
+bostonは本実験で唯一の回帰のデータセットである。
+結果\ref{boston:result}を見るに、SigomoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
+
+
 
 
 
@@ -174,12 +260,12 @@ irisでは十分な性能を出すことができた。
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
-            K-AF            & 0.0 & 0.0 \\
-            Sigmoid            & -22.0 & 0.0\\
-            Linear            & 0.0 & 0.0\\
-            ReLU        & -22.0 & 0.0\\
-            Swish           & 0.0 & 0.0 \\
-            Mish           & -1.0 & 0.0\\
+            K-AF            & 43.0 & 90.3 \\
+            Sigmoid            & 47.3 & 78.3\\
+            Linear            & 60.0 & 29.0\\
+            ReLU        & 43.0 & 29.0\\
+            Swish           & 55.3 & 42.6\\
+            Mish           & 47.3 & 42.6\\
     
         \end{tabular}
     \end{center}
@@ -187,8 +273,32 @@ irisでは十分な性能を出すことができた。
 
 
 
-irisでは十分な性能を出すことができた。
 
+\subsubsection{設定1及び設定2のLossTrainig}
+\label{breastcancer:loss}
+
+\begin{figure}[hbtp]
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_005_sgd_non_kaiming_uniform}
+                    \caption{breastcancerの設定1の結果のLossTraining}
+                    \label{breastcancer_1}
+            \end{minipage}
+            \hspace{10pt}
+            \begin{minipage}{0.5\hsize}
+                \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_05_sgd_non_kaiming_uniform}
+                    \caption{breastcancerの設定2の結果のLossTraining}
+                    \label{breastcancer_2}
+            \end{minipage}
+        \end{tabular}
+    \end{center}
+\end{figure}
+
+
+\subsubsection{breastcancerでの実験結果の考察}
+結果\ref{breastcancer:result}を見るに、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
+こちらも決定木の性能評価でよく疲れるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
 
 
 \subsection{実験1全体のまとめ}

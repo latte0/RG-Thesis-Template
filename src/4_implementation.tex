@@ -219,13 +219,13 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
+        LearningRate(lr)         & $ 10^{-1} $ & $ 10^{-2} $ \\
         Initializer       & kaiming uniform &  kaiming uniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
-        epoch\_num       & 4000 &  10000 \\
+        epoch\_num       & 1000 &  1000 \\
         exp\_num         & 3 & 3 \\
-        calc\_num        & 36 & 36 \\
+        calc\_num        & 30 & 30 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -276,13 +276,13 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        Initializer       & Xavier & kaiming uniform \\
+        LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-4} $ \\
+        Initializer       & kaiming uniform & kaiming uniform \\
         Optimizer           & SGD & Adam \\
-        Regularizer     & L1 & なし \\
-        epoch\_num       & 1 &  1 \\
-        exp\_num         & 1 & 1 \\
-        calc\_num        & 1 & 1 \\
+        Regularizer     & なし & なし \\
+        epoch\_num       & 3000 &  3000 \\
+        exp\_num         & 3 & 3 \\
+        calc\_num        & 27 & 36 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -302,13 +302,13 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        Initializer       & Xavier & kaiming uniform \\
+        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-5} $ \\
+        Initializer       & kaiming uniform  & Xavier \\
         Optimizer           & SGD & Adam \\
-        Regularizer     & L1 & なし \\
-        epoch\_num       & 1 &  1 \\
-        exp\_num         & 1 & 1 \\
-        calc\_num        & 1 & 1 \\
+        Regularizer     & なし & なし \\
+        epoch\_num       & 1000 &  1000 \\
+        exp\_num         & 5 & 5 \\
+        calc\_num        & 26 & 26 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -327,13 +327,13 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-6} $ \\
-        Initializer       & Xavier & kaiming uniform \\
-        Optimizer           & SGD & Adam \\
-        Regularizer     & L1 & なし \\
-        epoch\_num       & 1 &  1 \\
-        exp\_num         & 1 & 1 \\
-        calc\_num        & 1 & 1 \\
+        LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-3} $ \\
+        Initializer       & kaiming uniform & kaiming uniform \\
+        Optimizer           & SGD & SGD \\
+        Regularizer     & なし & なし \\
+        epoch\_num       & 1000 &  1000 \\
+        exp\_num         & 5 & 5 \\
+        calc\_num        & 29 & 285 \\
         \end{tabular}
     \end{center}
 \end{table}

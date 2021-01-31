@@ -36,8 +36,24 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
+\vspace{-15mm} 
 \section{実験1}
 \label{exp1}
+
+実験に用いる活性化関数の形を図\ref{k-af-net}に示す。
+\begin{figure}[hbtp]
+\label{k-af-net}
+    \begin{center}
+        \includegraphics[width=10cm]{asset/k-af-net.png}
+            \caption{実験で使うニューラルネットワークの概要図}
+            \label{neural_network1}
+    \end{center}
+\end{figure}
+
+今回の実験では、簡易的なモデルで活性化関数の性能を試していく。
+中間層の数を$ l_1 $とし、\textcircled{\scriptsize 1}にはReLUを用いる。\textcircled{\scriptsize 2}の部分を可変的にさまざまな活性化関数へと変えていく。
+本論文で提案する、K-AFは\textcircled{\scriptsize 2}の部分において性能を評価する。
+
 比較用の活性化関数には以下を用いる。
 \begin{itemize}
     \setlength{\parskip}{0cm} % 段落間

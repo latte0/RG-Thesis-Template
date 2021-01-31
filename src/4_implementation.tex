@@ -4,11 +4,11 @@
 \ref{kadai}を踏まえつつ\ref{propsed}で解決に近づけるために、本章では3つの実験とその設定内容について述べる。
 
 本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
-\ref{impl_env}では本研究における実験のための実行環境及び事前知識について述べる。
+実装環境 (\ref{impl_env})では本研究における実験のための実行環境及び事前知識について述べる。
 \ref{exp_common}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
-\ref{exp1}ではK-AFの性能を既存の活性化関数と比較する実験を行う。
-\ref{exp2}では各データセットにおいての活性化関数の形を調査する実験をこなう。
-\ref{exp3}では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
+実験1 (\ref{exp1})ではK-AFの性能を既存の活性化関数と比較する実験を行う。
+実験2 (\ref{exp2})では各データセットにおいての活性化関数の形を調査する実験をこなう。
+実験3 (\ref{exp3})では、K-AFの性能を最も引き出す可能性がある、学習の設定を調査する。
 
 これら3つの実験を踏まえて、K-AFの課題に対しての実用性だけでなく、K-AFの性質についても調査し、今後の発展のための鍵となる結論へとつなげる。
 
@@ -44,7 +44,6 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 
-\vspace{-15mm} 
 \section{本実験での共通項目}
 \label{exp_common}
 
@@ -53,7 +52,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \label{k-af-net}
     \begin{center}
         \includegraphics[width=10cm]{asset/k-af-net.png}
-            \caption{実験で使うニューラルネットワークの概要図}
+            \caption{実験で用いるニューラルネットワークの概要図}
             \label{neural_network1}
     \end{center}
 \end{figure}
@@ -98,7 +97,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{実験のデータセットの名称}
+        \caption{実験に用いるデータセットの情報}
         \label{dataset_name}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c|c|c|c| }
@@ -119,7 +118,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{実験のデータセットの名称}
+        \caption{本実験において使用するハイパーパラメータ}
         \vspace{5mm} 
         \scalebox{0.7}[0.7]{
             \begin{tabular}{||c | c |c||}
@@ -127,7 +126,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
             \hline
             epoch数                           & epoch\_num      & 学習の速度、最終的なval-Lossを見るのに十分なepoch数を取る。  \\
             実験回数                           & exp\_num     & 数回実験を行なった平均をとり、結果を保証する。 \\
-            カーネル密度推定に使うデータ数        & calc\_num           & $ \mathbf{X}^{calc} $ に使うデータ数を表す。  \\
+            カーネル密度推定に用いるデータ数        & calc\_num           & $ \mathbf{X}^{calc} $ に用いるデータ数を表す。  \\
             \end{tabular}
         }
     \end{center}
@@ -153,20 +152,48 @@ K-AFの性能が有利にならないように、可能な限り任意の組み�
 
 回帰問題と分類問題におけるれぞれの評価時における精度指標（Metrics）として、
 回帰問題では平均絶対誤差（MAE）を、分類問題では正解率（Accuracy）を用いる。
-これらは、最も基礎的で一般的な評価関数（Metric function）である。
+これらは、最も基礎的で一般的な評価関数である。
 
 
+\subsubsection{MAEの数式}
 
+
+評価に用いる推論したデータの集合$n$個を$ y_i \sim_n \mathcal{D}$と正解のラベル$ y_i^{true} $
+
+\begin{eqnarray}
+\mathbf{MAE} = \frac{\sum_n \|y_i - y_i^{true}\|}{n}
+\label{eq:accuracy}
+\end{eqnarray}
+
+で計算することとする。
+
+
+\subsubsection{Accuracyの数式}
+
+評価に用いる推論したデータの集合$n$個を$ y_i \sim_n \mathcal{D}$と正解のラベル$ y_i^{true} $
+
+\begin{eqnarray}
+\mathbf{Acc} = \frac{\sum_n \|y_i == y_i^{true}\|}{n}
+\label{eq:accuracy}
+\end{eqnarray}
+
+ここで、$ \|y_i == y_i^{true}\| $とは$ y_i $と $ y_i^{true} $が等しければ$ 1 $、等しくなければ $ 0 $を表現する数式とする。
+
+\subsection{各種データセットでの比較実験の詳細}
 
 \subsubsection{irisでの比較実験}
 \label{impl:iris}
 
 irisはアヤメの分類問題であり、統計学の分野で最も一般的に性能評価がおなわれるものである。
-optimzerにSGD、Regularizerを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
+optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純なデータセットのため、収束することを前提に考えているからである。
+実験に用いる設定と環境を表\ref{exp:iris}に示した。
+
 
 \begin{table}[htbp]
+\label{exp:iris}
     \begin{center}
         \caption{irisでの実験と設定}
+        \label{exp:iris}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -188,11 +215,13 @@ optimzerにSGD、Regularizerを特に使わない理由はirisは単純なデー
 \label{impl:digits}
 
 digitsは数字の画像の分類問題であり、機械学習の分野で一般的に性能評価の対象として使用されるものである。
-digitsは次元数が高いデータセットであるため、OptimizerにはAdamとSGD, レギュライザーにはL1とL2を使用した。
+digitsは次元数が高いデータセットであるため、OptimizerにはAdamとSGD, レギュライザーにはL1ノルムとL2ノルムを使用した。
+実験に用いる設定と環境を表\ref{exp:digits}に示した。
 
 \begin{table}[htbp]
     \begin{center}
         \caption{digitsでの実験と設定}
+        \label{exp:digits}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -215,10 +244,13 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
 
 wineとはワインの種類の判別を13個の入力次元の性質を用いて3つにカテゴライズするデータセットである。
 主に決定木の性能評価に使われることが多い。本実験では以下のデータセットを用いて行う。
+実験に用いる設定と環境を表\ref{exp:wine}に示した。
+
 
 \begin{table}[htbp]
     \begin{center}
         \caption{wineでの実験と設定}
+        \label{exp:wine}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -239,10 +271,12 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
 \label{impl:boston}
 
 bostonはボストンの住宅価格を回帰で推定する問題である。K-AFが回帰問題に対しても有効であることを示すため、この実験を行う。
+実験に用いる設定と環境を表\ref{exp:boston}に示した。
 
 \begin{table}[htbp]
     \begin{center}
         \caption{bostonでの実験と設定}
+        \label{exp:boston}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -258,17 +292,16 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
     \end{center}
 \end{table}
 
-\vspace{-15mm} 
-
 
 \subsubsection{breast\_cancerでの比較実験}
 \label{impl:breastcancer}
 
-breast\_cancerは乳がんのデータセットである。
+breast\_cancerは乳がんのデータセットである。実験に用いる設定と環境を表\ref{exp:breastcancer}に示した。
 
 \begin{table}[htbp]
     \begin{center}
         \caption{breast\_cancerでの実験と設定}
+        \label{exp:breastcancer}
         \vspace{5mm} 
         \begin{tabular}{ |c|c|c| }
         設定名 & 設定1 & 設定2 \\
@@ -290,9 +323,9 @@ breast\_cancerは乳がんのデータセットである。
 \section{実験2 K-AFの関数形状の調査}
 \label{exp2}
 
-2つ目の実験では推論した活性化関数の形を\ref{dataset_name}に記載したデータセット観測し、既存の活性化関数との違いを定性評価を行う。
+2つ目の実験では推論した活性化関数の形を表\ref{dataset_name}に記載したデータセット観測し、既存の活性化関数との違いを定性評価を行う。
 活性化関数の種類を分割すると以下のようになっている。
-また、ニューラルネットワークの設定は\ref{exp1}の設定で各データセットごとに二つずつ結果を取得する。
+また、ニューラルネットワークの設定は表\ref{exp1}の設定で各データセットごとに二つずつ結果を取得する。
 
 \begin{table}[htbp]
     \begin{center}
@@ -309,7 +342,7 @@ breast\_cancerは乳がんのデータセットである。
 
 \vspace{-5mm} 
 
-\ref{af-class}を軸に、K-AFの形状を分析し、既存の活性化関数と比べて何が違うか評価を行う。
+表\ref{af-class}を軸に、K-AFの形状を分析し、既存の活性化関数と比べて何が違うか評価を行う。
 
 
 
@@ -318,8 +351,8 @@ breast\_cancerは乳がんのデータセットである。
 
 \section{実験3 K-AFの性能が上がる条件探査}
 \label{exp3}
-各種データセットのでK-AFでの結果を出す前に、K-AFが一般的にどのような場合に性能を出しやすいか\ref{exp_list}での設定をランダムに組み合わせて、どの結果が一番性能が出たか評価する。
-実験1ではデータセットとしてirisとdigitsにおいて性能評価を行う。その際のニューラルネットワークの設定は\ref{dataset_name}を軸に設定する。
+各種データセットのでK-AFでの結果を出す前に、K-AFが一般的にどのような場合に性能を出しやすいか表\ref{exp_list}での設定をランダムに組み合わせて、どの結果が一番性能が出たか評価する。
+実験1 (\ref{exp1})ではデータセットとしてirisとdigitsにおいて性能評価を行う。その際のニューラルネットワークの設定は表\ref{dataset_name}を軸に設定する。
 他に実験において必要なパラメータを以下に設定する。
 
 
@@ -327,20 +360,19 @@ breast\_cancerは乳がんのデータセットである。
     \begin{center}
         \caption{実験のデータセットの名称}
         \vspace{5mm} 
-        \scalebox{0.7}[0.7]{
+        \scalebox{0.9}[0.9]{
             \begin{tabular}{||c | c |c||}
               & irisの場合 & digitsの場合 \\
             \hline
             epoch数                           & 200       & 200  \\
             実験回数                           & 10     & 10 \\
-            カーネル密度推定に使うデータ数        & 50           & 50  \\
+            カーネル密度推定に用いるデータ数        & 50           & 50  \\
             \end{tabular}
         }
     \end{center}
 \end{table}
 
 
-\vspace{-15mm} 
 
 
 

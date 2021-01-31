@@ -34,10 +34,11 @@ G(X_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{X^{calc}_j w - X_i w}{h_{calc}
 \section{クラス}
 
 
-中間層が一つのK-AFの計算を考慮した実装クラスを以下に示す。
+中間層が一つのK-AFの計算を考慮した実装クラスを\ref{python_impl}に示す。
 
+実装の全ては \href{https://github.com/latte0/graduation\_thesis}{graduation\_thesis}. に公開している。
 
-\begin{lstlisting}[caption=Pytorchを用いたK-AFの計算用のクラス,label=fuga]
+\begin{lstlisting}[caption=Pytorchを用いたK-AFの計算用のクラス,label=python_impl]
 class Net(nn.Module):
 
     def __init__(self, Y, calc_Y, X, calc_X, settings):
@@ -85,3 +86,16 @@ class Net(nn.Module):
 
 
 \end{lstlisting}
+
+また、活性化関数の学習が進んでいく様子を録画し、youtubeに公開している。
+
+
+
+\begin{itemize}
+  \item \href{https://github.com/latte0/graduation\_thesis}{実験１のwineの学習サンプル}
+  \item \href{https://github.com/latte0/graduation\_thesis}{実験１のwineの学習サンプル}
+  \item \href{https://github.com/latte0/graduation\_thesis}{実験１のwineの学習サンプル}
+  \item \href{https://github.com/latte0/graduation\_thesis}{実験１のwineの学習サンプル}
+  \item \href{https://github.com/latte0/graduation\_thesis}{実験１のwineの学習サンプル}
+\end{itemize}
+

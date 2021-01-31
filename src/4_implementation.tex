@@ -15,7 +15,7 @@
 
 
 本研究において利用した実装環境を \ref{impl_table} に示す. 提案手法の実装は Pytorch 及
-を用いた.  PyTorch~\cite{pytorch}, Chainer~\cite{chainer} は計算グラフの自動微分ライブラリであり, 深層ニューラルネットワークの研究や開発にも用いられる.
+を用いた.  PyTorch~\cite{pytorch}, Chainer~\cite{chainer},  Tensorflow~\cite{tensorflow} は計算グラフの自動微分ライブラリであり, 深層ニューラルネットワークの研究や開発にも用いられる.
 Pytorchを用いた理由は実装コストが低く研究領域に従事できるところにある。
 
 
@@ -27,9 +27,8 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         \begin{tabular}{l*{2}{c}r}
         ソフトウェア              & バージョン \\
         \hline
-        Python            & 3.6.2 or above \\
-        CPU               & intel core i7 \\
-        Tensorflow        & 2.1.0-rc0 \\
+        Python            & 3.8.5  \\
+        CPU               & Intel core i7  \\
         PyTorch           & 6 \\
         \end{tabular}
     \end{center}
@@ -60,7 +59,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
     \setlength{\itemsep}{0cm} % 項目間
     \item ラーニングレート [ $10^{-5}$, $10^{-6}$ ,$10^{-7}$]
     \item 初期値 [ Xavier, kaiming uniform]
-    \item レギュラライザー [ 何もなし,L1ノルム, L2ノルム]
+    \item レギュラライザー [ 何もなし, L1ノルム, L2ノルム]
     \item optimizer [ SGD, Momentum, AdaGrad, Adam]
     \item データセット [ アヤメ, MNIST, wine, 住宅の価格, 健康の状態]
 \end{itemize}

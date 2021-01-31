@@ -101,7 +101,7 @@ $ X^{calc}_j $及び$ Y^{calc}_j $ は計算用に用いるデータ点である
 K-AFのアルゴリズムの概要を\ref{alg:fixed-u-alg}に記述した。
 
 入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
-また、$x$のデータセットの集合を$ D_x $　$y$のデータセットの集合を$ D_y $、それらから$n$個サンプリングすることを$ Y^{calc} \sim_n D_y $と記述する。
+また、$x$のデータセットの集合を$ \mathcal{D}_x $　$y$のデータセットの集合を$ \mathcal{D}_y $、それらから$n$個サンプリングすることを$ Y^{calc} \sim_n \mathcal{D}_y $と記述する。
 $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適化を表現することができる。
 
 
@@ -111,7 +111,7 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
 	\STATE {\bfseries Input:} data $\langle (x_i, y_i) \rangle_{i=1}^m \in
-	\reals^d \times \reals^e$, $G: \reals^d, \reals^n, \reals^n \rightarrow  \reals^e$.
+	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^n, \reals^n ) \rightarrow  \reals^e$.
 	\STATE $X^{calc} \sim_n \mathcal{D}(X)$;
     \STATE $Y^{calc} \sim_n \mathcal{D}(Y)$;
 	\FOR {$t = 1, 2, \ldots$}
@@ -122,8 +122,8 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 \end{algorithm}
 
 \begin{itemize}
-  \item データセット$\mathcal{D_x}$,$\mathcal{D_y}$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
-  \item 現状のパラメータ$ w $, $\mathcal{D_x}$, $\mathcal{D_y}$を用いて、リンク関数$ g^t $の計算を行う。
+  \item データセット$\mathcal{D}_x$,$\mathcal{D}_y$から任意個数の$ X^{calc} $と$ Y^{calc} $から取り出す。
+  \item 現状のパラメータ$ w $, $\mathcal{D}_x$, $\mathcal{D}_y$を用いて、リンク関数$ g^t $の計算を行う。
   \item そのリンク関数を用いて$ y $の値との最小二乗誤差を取り$ w $に対して最適化を行う。
 \end{itemize}
 

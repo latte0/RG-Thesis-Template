@@ -24,7 +24,7 @@ G(\mathbf{X}_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w
 \label{calc:k-af-2}
 \end{eqnarray}
 
-以上により、Ichimura(1993)raの手法に対してデータ点を減らしても近似できることを示した。
+以上により、Ichimura(1993)の手法に対してデータ点を減らしても近似できることを示した。
 
 
 \chapter{カーネル活性化関数の実装}
@@ -122,49 +122,49 @@ class Net(nn.Module):
         \hline
         kaiming\_uniform & Adagrad & l2 & 613 & 61.3\% \\
         \hline
-        kaiming\_uniform & Adagrad & non & 635 & 63.5\% \\
+        kaiming\_uniform & Adagrad & なし & 635 & 63.5\% \\
         \hline
         kaiming\_uniform & Adam & l1 & 632 & 63.2\% \\
         \hline
         kaiming\_uniform & Adam & l2 & 615 & 61.5\% \\
         \hline
-        kaiming\_uniform & Adam & non & 628 & 62.8\% \\
+        kaiming\_uniform & Adam & なし & 628 & 62.8\% \\
         \hline
         kaiming\_uniform & RMSprop & l1 & 639 & 63.9\% \\
         \hline
         kaiming\_uniform & RMSprop & l2 & 622 & 62.2\% \\
         \hline
-        kaiming\_uniform & RMSprop & non & 629 & 62.9\% \\
+        kaiming\_uniform & RMSprop & なし & 629 & 62.9\% \\
         \hline
         kaiming\_uniform & SGD & l2 & 585 & 58.5\% \\
         \hline
         kaiming\_uniform & SGD & l1 & 619 & 61.9\% \\
         \hline
-        kaiming\_uniform & SGD & non & 601 & 60.1\% \\
+        kaiming\_uniform & SGD & なし & 601 & 60.1\% \\
         \hline
         Xavier & Adagrad & l1 & 312 & 31.2\% \\
         \hline
         Xavier & Adagrad & l2 & 321 & 32.1\% \\
         \hline
-        Xavier & Adagrad & non & 314 & 31.4\% \\
+        Xavier & Adagrad & なし & 314 & 31.4\% \\
         \hline
         Xavier & Adam & l1 & 290 & 29.0\% \\
         \hline
         Xavier & Adam & l2 & 294 & 29.4\% \\
         \hline
-        Xavier & Adam & non & 275 & 27.5\% \\
+        Xavier & Adam & なし & 275 & 27.5\% \\
         \hline
         Xavier & RMSprop & l1 & 298 & 29.8\% \\
         \hline
         Xavier & RMSprop & l2 & 313 & 31.3\% \\
         \hline
-        Xavier & RMSprop & non & 328 & 32.8\% \\
+        Xavier & RMSprop & なし & 328 & 32.8\% \\
         \hline
         Xavier & SGD & l1 & 294 & 29.4\% \\
         \hline
         Xavier & SGD & l2 & 309 & 30.9\% \\
         \hline
-        Xavier & SGD & non & 321 & 32.1\% \\
+        Xavier & SGD & なし & 321 & 32.1\% \\
         \hline
         \end{tabular}
     \end{center}

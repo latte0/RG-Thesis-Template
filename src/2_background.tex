@@ -125,7 +125,7 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
 またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
 一般線形モデルに対して、リンク関数を加えた式を以下に記す。
 \begin{eqnarray}
-E[\mathbf{Y|X}]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
+\mathrm{E}[\mathbf{Y|X}]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
 \label{eq:link}
 \end{eqnarray}
 
@@ -203,7 +203,7 @@ y = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
 カーネル関数とは、与えられた領域内で積分した時に1となり、対称性を持つものとしてイメージして良い。
 カーネル関数の代表例としてガウス関数があげられる。
 
-$ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定義は以下である。
+$ K $をカーネル関数 $ u \in \reals $ とした時、カーネル関数の定義は以下である。
 
 \begin{itemize}
   \item $ \int^{+ \infty}_{- \infty} K(u)du = 1 $
@@ -211,7 +211,7 @@ $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定�
 \end{itemize}
 
 
-この時、カーネル密度推定法とは、$ \mathbf{X}_n $をデータ、推定すべき関数を$ f $ カーネル関数を $ K $ バンド幅を $ h $ としたとき、以下の式で表現することができる。
+この時、カーネル密度推定法とは、$ \mathbf{X}_n $をデータ、推定すべき関数を$ f $、カーネル関数を $ K $、バンド幅を $ h $ としたとき、以下の式で表現することができる。
 
 
 \begin{eqnarray}
@@ -225,11 +225,11 @@ f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - \mathbf{X}_i}{h}\bigr)
 
 
 
-\subsection{セミパラメトリックモデルとシングルインデックスモデル}
+\subsection{セミパラメトリックモデルとSingleIndexModel}
 
 統計学の世界では、セミパラメトリックモデルというノンパラメトリックな手法とセミパラメトリックな手法を組み合わせた手法が存在する。
-その中の一つの代表的な手法の中にシングルインデックスモデルと呼ばれる手法が存在する。
-シングルインデックスモデル(SIM)とは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
+その中の一つの代表的な手法の中にSingleIndexModel(SIM)と呼ばれる手法が存在する。
+SIMとは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
 
 \begin{eqnarray}
 Y = g(\mathbf{X} \cdot  \mathbf{W}) + \epsilon
@@ -244,7 +244,7 @@ SIMの有名なモデルの一つにisotonic regressionと呼ばれるものが�
 
     \begin{center}
         \includegraphics[width=10cm]{asset/isotonic_regression.png}
-            \caption{シングルインデックスモデルの例の一つのisotonic regression}
+            \caption{SingleIndexModelの例の一つのisotonic regression}
             \label{isotonic_regression}
     \end{center}
 \end{figure}
@@ -387,12 +387,16 @@ L2 < L1
     \begin{center}
         \caption{実験に用いるデータ集合の表現方法}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|}
+        \hline
         扱うデータ      & 名称 & 説明 \\
         \hline
         $ \mathcal{D}_i \subseteq \mathcal{D} $          & ミニバッチ学習  & データを部分的にランダムで取り出して学習を行う \\
+        \hline
         $ d_i \in \mathcal{D} $                & オンライン学習 & データを一つ取り出して学習を行う  \\
+        \hline
         $ \mathcal{D}  $      & バッチ学習 & 全てのデータを用いて学習する \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -464,12 +468,12 @@ Momentum という手法は、数式で次のように表される。
 
 ニューラルネットワークの学習では学習係数の値が重要になる。
 これを初めは大きく学習し、次第に小さ学習する、学習係数の減衰(learning rate decay)という方法がよく使われる。
-これを発展させた方法にJohn DuchiのAdaGrad(2011)~\cite{momentum}というものがある。
+これを発展させた方法にJohn DuchiのAdaGrad(2011)~\cite{adagrad}というものがある。
 AdaGradは以下の数式で表現できる。
 
 \begin{eqnarray}　
     \mathrm{h} \leftarrow \alpha \mathrm{h} + \frac {\partial E }{\partial \mathrm{W}} \odot \frac {\partial E }{\partial \mathrm{W}}  \\
-    \mathrm{W} \leftarrow \mathrm{W}  - \mu \frac{ 1 }{\sqrt{\mathrm{h}}} \frac{ \partial E }{\mathrm{W}} 
+    \mathrm{W} \leftarrow \mathrm{W}  - \mu \frac{ 1 }{\sqrt{\mathrm{h}}} \frac{ \partial E }{\partial \mathrm{W}} 
 \label{eq:adagrad}
 \end{eqnarray}
 
@@ -495,7 +499,7 @@ AdaGradは以下の数式で表現できる。
 
 \section{汎用的な活性化関数}
 
-ReLUやSwish, Mishといった\ref{trend_af}であげたような活性化関数は、どれも実験的に精度が向上すると言う理由で選択したものである。
+ReLUやSwish, Mishといった活性化関数は、どれも実験的に精度が向上すると言う理由で選択されたものである。
 そのため、あらゆるパターンにおいて最適かどうかは未知数である。
 Alberto Marchisio(2018)~\cite{automatic_af}が提案した手法では、このような問題を解決するため、既存の活性化関数の中から最適な活性化関数を見出し精度を向上させる方法を見出した。
 
@@ -517,7 +521,6 @@ Garrett Bingham(2020)~\cite{evo_af}は進化的アルゴリズムを用いて$ x
   \item 関数全体から活性化関数が推定でき、扱っていた活性化関数との差分を確認できるようにすること。
 \end{itemize}
 
-
-\ref{proposed}では、実用的にこれらの課題を解決に導く手法を提案する。
+第\ref{proposed}章では、実用的にこれらの課題を解決に導く手法を提案する。
 
 

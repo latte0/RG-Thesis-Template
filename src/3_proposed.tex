@@ -10,13 +10,13 @@
 \end{figure}
 
 
-\ref{background}では本論文の提案手法を理解するための知識と、その背景から現状の課題点について述べた。
+第\ref{background}章では本論文の提案手法を理解するための知識と、その背景から現状の課題点について述べた。
 
-本章では、背景を整理しつつ\ref{kadai}で述べた課題を解決する本論文の提案手法の位置付けについて述べる。
-\ref{history_activation}では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
-\ref{position_proposed}では本研究の研究的な位置付けについて解説する。
-\ref{math}ではK-AFの数式について解説し、活性化関数として使用できることを示す。
-\ref{al}ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
+本章では、背景を整理しつつ\ref{kadai}節で述べた課題を解決する本論文の提案手法の位置付けについて述べる。
+\ref{history_activation}節では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
+\ref{position_proposed}節では本研究の研究的な位置付けについて解説する。
+\ref{math}節ではK-AFの数式について解説し、活性化関数として使用できることを示す。
+\ref{al}節ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
 
 
 
@@ -50,7 +50,7 @@ isotonic regression同様に単調増加性について仮定しているよう�
 \label {position_proposed}
 
 本研究の提案手法の位置付けをまとめた図を\ref{proposed_method}に示した。
-統計学の世界でSingleIndexModelにおけるIchimuraの手法を多次元化し、学習アルゴリズムにPAVアルゴリズムを組み合わせた手法をニューラルネットワークの活性化関数に応用する。
+統計学の世界でSingleIndexModelにおけるIchimura(1993)の手法を多次元化し、学習アルゴリズムにPAVアルゴリズムを組み合わせた手法をニューラルネットワークの活性化関数に応用する。
 
 
 
@@ -95,12 +95,12 @@ $ \mathbf{X}^{calc}_j $及び$ \mathbf{Y}^{calc}_j $ は計算用に用いるデ
 カーネル密度推定は関数の形状を推定するにあたってバンド幅の大きさが非常に重要になる。
 バンド幅は大きいほど関数の自由度が減り、小さいほど自由度が大きくなることが容易に推定できる。
 
-\ref{k_af_band_small}の方が表現の幅が広いが、勾配爆発の問題や過学習の問題が考えらる。
+図\ref{k_af_band_small}の方が表現の幅が広いが、勾配爆発の問題や過学習の問題が考えらる。
 本実験ではこのバンド幅も学習のパラメータに含めることで最適なバンド幅を推定できるようにした。
 
 \section{アルゴリズム}
 \label{al}
-K-AFのアルゴリズムの概要を\ref{alg:fixed-u-alg}に記述した。
+K-AFのアルゴリズムの概要を{\bf Algorithm}\ref{alg:fixed-u-alg}に記述した。
 
 入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
 また、$x$のデータセットの集合を$ \mathcal{D}_x $　$y$のデータセットの集合を$ \mathcal{D}_y $、それらから$n$個サンプリングすることを$ \mathbf{Y}^{calc} \sim_n \mathcal{D}_y $と記述する。
@@ -114,8 +114,8 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 \begin{algorithmic}
 	\STATE {\bfseries Input:} data $\langle (\mathbf{X}_i, y_i) \rangle_{i=1}^m \in
 	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^n, \reals^n ) \rightarrow  \reals^e$.
-	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}(X)$;
-    \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}(Y)$;
+	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}(\mathbf{X})$;
+    \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}(\mathbf{Y})$;
 	\FOR {$t = 1, 2, \ldots$}
 	\STATE $g^t(x) := G(\mathbf{X} \cdot  \mathbf{W}^t, \mathbf{X}^{calc}, \mathbf{Y}^{calc} )$;
 	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(\mathbf{X}_i))^2 $

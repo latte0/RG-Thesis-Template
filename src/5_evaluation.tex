@@ -54,13 +54,13 @@ ValidationLossのログデータを図\ref{iris:loss_image1}と図\ref{iris:loss
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_non_kaiming_uniform.png}
-                    \caption{irisの設定1の結果のTrainingLoss}
+                    \caption{irisの設定1の結果のValidationLoss}
                     \label{iris:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_l2_kaiming_uniform.png}
-                    \caption{irisの設定2の結果のTrainingLoss}
+                    \caption{irisの設定2の結果のValidationLoss}
                     \label{iris:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -119,13 +119,13 @@ ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.01_4000_3_002_sgd_non_kaiming_uniform.png}
-                    \caption{digitsの設定1の結果のTrainingLoss}
+                    \caption{digitsの設定1の結果のValidationLoss}
                     \label{digits:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_adam_non_kaiming_uniform.png}
-                    \caption{digitsの設定2の結果のTrainingLoss}
+                    \caption{digitsの設定2の結果のValidationLoss}
                     \label{digits:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -138,7 +138,7 @@ ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:
 設定2の場合でもSigmoidやTanhほどの成果は出なかったものの、上限値が存在しない関数よりはいい性能を出すことができた。
 
 TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
-設定1の方で途中でTanhを追い抜いている理由は、活性化関数の形が急激に変わる瞬間があるからである。
+設定1の方で途中でTanhを追い抜いている理由は、活性化関数の形が急激に変わる瞬間があるからだと推測できる。
 
 
 \subsection{wineでの実験と設定}
@@ -180,13 +180,13 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_sgd_non_kaiming_uniform.png}
-                    \caption{wineの設定1の結果のTrainingLoss}
+                    \caption{wineの設定1の結果のValidationLoss}
                      \label{wine:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_adam_non_kaiming_uniform}
-                    \caption{wineの設定2の結果のTrainingLoss}
+                    \caption{wineの設定2の結果のValidationLoss}
                      \label{wine:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -208,7 +208,7 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 \subsection{bostonでの比較実験}
 \label{ev:bostonでの比較実験}
 
-第4章の\ref{impl:boston}で設定した実験を行い、結果を以下にまとめた。
+第4章の\ref{impl:boston}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
 bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})に記す。
@@ -219,15 +219,22 @@ bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})
         \caption{bostonの設定1及び設定2のAccuracy}
         \label{result:bostontable}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|}
+            \hline
             活性化関数              & 設定1のMSE &  設定2のMSE \\
             \hline
             K-AF            & 49.4 & 69.4 \\
+            \hline
             Sigmoid            & 523.0 & 541.4 \\
+            \hline
             Tanh            & 540.6 &  567.8 \\
+            \hline
             ReLU        & 359.2 & 473.4 \\
+            \hline
             Swish           & 257.0 & 372.4 \\
+            \hline
             Mish           & 360.0 & 472.4 \\
+            \hline
     
         \end{tabular}
     \end{center}
@@ -244,14 +251,14 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_kaiming_uniform.png}
-                    \caption{bostonの設定1の結果のTrainingLoss}
+                    \caption{bostonの設定1の結果のValidationLoss}
                     \label{boston:loss_image1}
                     
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_xavier_uniform.png}
-                    \caption{bostonの設定2の結果のTrainingLoss}
+                    \caption{bostonの設定2の結果のValidationLoss}
                     \label{boston:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -278,16 +285,22 @@ bostonは本実験で唯一の回帰のデータセットである。
         \caption{breast\_cancerの設定1及び設定2のAccuracy}
         \label{result:breastcancer}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|}
+            \hline
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
             K-AF            & 43.0 & 90.3 \\
+            \hline
             Sigmoid            & 47.3 & 78.3\\
+            \hline
             Tanh            & 60.0 & 29.0\\
+            \hline
             ReLU        & 43.0 & 29.0\\
+            \hline
             Swish           & 55.3 & 42.6\\
+            \hline
             Mish           & 47.3 & 42.6\\
-    
+            \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -305,13 +318,13 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_005_sgd_non_kaiming_uniform}
-                    \caption{breastcancerの設定1の結果のTrainingLoss}
+                    \caption{breastcancerの設定1の結果のValidationLoss}
                     \label{breastcancer:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_05_sgd_non_kaiming_uniform}
-                    \caption{breastcancerの設定2の結果のTrainingLoss}
+                    \caption{breastcancerの設定2の結果のValidationLoss}
                     \label{breastcancer:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -346,7 +359,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \begin{center}
         \includegraphics[width=10cm]{asset/iris-0.1.png}
             \caption{irisで推論した活性化関数の形}
-            \label{ifer_iris}
+            \label{infer_iris}
     \end{center}
 \end{figure}
 
@@ -357,16 +370,18 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \label{anal_iris}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
         × & ○ & ○   \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
 
 
 
-単純な分類問題であるが、\ref{ifer_iris}を観察するにSigmoid等の活性化関数と違い単調増加もしくは単調減少しない活性化関数が導かれることがわかった。
+単純な分類問題であるが、\ref{infer_iris}を観察するにSigmoid等の活性化関数と違い単調増加もしくは単調減少しない活性化関数が導かれることがわかった。
 
 
 
@@ -378,7 +393,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \begin{center}
         \includegraphics[width=10cm]{asset/digits-0.1.png}
             \caption{digitsで推論した活性化関数の形。出力層は10次元なので10個の関数が存在する。}
-            \label{ifer_digits}
+            \label{infer_digits}
     \end{center}
 \end{figure}
 
@@ -389,9 +404,11 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \label{anal_digits}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
         ▲ & ○ & ○   \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -409,7 +426,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \begin{center}
         \includegraphics[width=10cm]{asset/wine-0.01.png}
             \caption{wineで推論した活性化関数の形。出力層が3次元なので３つの関数が存在する。}
-            \label{ifer_wine}
+            \label{infer_wine}
     \end{center}
 \end{figure}
 
@@ -420,9 +437,11 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \label{anal_wine}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
         × & ○ & ○   \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -444,7 +463,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \begin{center}
         \includegraphics[width=10cm]{asset/boston-0.00001.png}
             \caption{bostonで推論した活性化関数の形}
-            \label{ifer_boston}
+            \label{infer_boston}
     \end{center}
 \end{figure}
 
@@ -455,9 +474,11 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \label{anal_boston}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
         × & ○ & ▲   \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -465,7 +486,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 bostonは回帰問題であるため、分類問題とは違い上限値が30になり、その中間の値も出力するようになった。
 複雑な関数の形も推論できていることがわかると同時に、このような問題に適した活性化関数がないことが原因でbostonでの実験\ref{ev:bostonでの比較実験}は圧倒的な性能を出したのではないかと考察することもできる。
-\ref{ifer_boston}のような形をした活性化関数は現状発表されてないので、既存の活性化関数では表現の幅が狭いことがわかる良い例である。
+\ref{infer_boston}のような形をした活性化関数は現状発表されてないので、既存の活性化関数では表現の幅が狭いことがわかる良い例である。
 
 
 
@@ -478,7 +499,7 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
     \begin{center}
         \includegraphics[width=10cm]{asset/breastcancer-0.01.png}
             \caption{breast\_cancerで推論した活性化関数の形}
-            \label{ifer_breastcancer}
+            \label{infer_breastcancer}
     \end{center}
 \end{figure}
 
@@ -489,9 +510,11 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
         \label{anal_breastcancer}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
         ▲ & ○ & ○   \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -519,12 +542,12 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \section{実験3の結果 K-AFの性能が上がる条件探査}
 \label{evo3}
-実験3の調査結果をそれぞれ\ref{evo3.1}と\ref{evo3.2}にて評価を行う。
+実験3の調査結果をそれぞれ\ref{evo3.1}項と\ref{evo3.2}項にて評価を行う。
 
 
 \subsection{実験3.1 ニューラルネットワークの設定変更により精度向上の条件調査の結果}
 \label{evo3.1}
-\ref{exp3.1}で示した比較実験の結果を記述する。
+\ref{exp3.1}項で示した比較実験の結果を記述する。
 
 
 \subsubsection{bostonにおいて勾配発散の確率の少ないニューラルネットワークの構成}
@@ -537,6 +560,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
         \label{bostonbest}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c|c|c| }
+        \hline
         Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
         \hline
         Xavier & Adam & non & 275 & 27.5\%　\\
@@ -571,11 +595,13 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
         \label{clipping_boston}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
-        構成 & error\_count & \\
+        \hline
+        構成 & 勾配発散の回数 & 勾配発散の確率\\
         \hline
         クリッピングなし  & 648 & 64.8\% \\
         \hline
         クリッピングあり  & 590 & 59.0\% \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}

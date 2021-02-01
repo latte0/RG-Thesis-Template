@@ -1,7 +1,7 @@
 \chapter{実装}
 \label{implementation}
 
-\ref{kadai}を踏まえつつ\ref{propsed}で解決に近づけるために、本章では3つの実験とその設定内容について述べる。
+\ref{kadai}節を踏まえつつ\ref{proposed}節で解決に近づけるために、本章では3つの実験とその設定内容について述べる。
 
 本章では本研究における実装環境,提案手法の実装,提案手法の評価に用いるデータセットについて述べる.
 実装環境 (\ref{impl_env})では本研究における実験のための実行環境及び事前知識について述べる。
@@ -25,19 +25,26 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 
 \begin{table}[htbp]
-\label{impl_table}
     \begin{center}
         \caption{本研究の実行環境}
+        \label{impl_table}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|}
+        \hline
         環境              & バージョン \\
         \hline
         CPU               & Intel core i7 6コア 2.2GHz \\
+        \hline
         メモリ             & 16GB \\
+        \hline
         Python            & 3.8.5  \\
+        \hline
         scikit-learn      & 0.23.2\\
+        \hline
         numpy             & 1.18.5 \\
+        \hline
         pytorch           & 2.5.0 \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -49,11 +56,10 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 
 実験に用いる活性化関数の形を図\ref{k-af-net}に示す。
 \begin{figure}[hbtp]
-\label{k-af-net}
     \begin{center}
         \includegraphics[width=10cm]{asset/k-af-net.png}
             \caption{実験で用いるニューラルネットワークの概要図}
-            \label{neural_network1}
+            \label{k-af-net}
     \end{center}
 \end{figure}
 

@@ -231,6 +231,7 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         \label{exp:iris}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-1} $ & $ 10^{-2} $ \\
@@ -295,15 +296,23 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         \label{exp:wine}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-4} $ \\
+        \hline
         Initializer       & KaimingUniform & KaimingUniform \\
+        \hline
         Optimizer           & SGD & Adam \\
+        \hline
         Regularizer     & なし & なし \\
+        \hline
         epoch\_num       & 3000 &  3000 \\
+        \hline
         exp\_num         & 3 & 3 \\
+        \hline
         calc\_num        & 27 & 36 \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -321,15 +330,23 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         \label{exp:boston}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-5} $ \\
+        \hline
         Initializer       & KaimingUniform  & Xavier \\
+        \hline
         Optimizer           & SGD & Adam \\
+        \hline
         Regularizer     & なし & なし \\
+        \hline
         epoch\_num       & 1000 &  1000 \\
+        \hline
         exp\_num         & 5 & 5 \\
+        \hline
         calc\_num        & 26 & 26 \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -346,15 +363,23 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \label{exp:breastcancer}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-3} $ \\
+        \hline
         Initializer       & KaimingUniform & KaimingUniform \\
+        \hline
         Optimizer           & SGD & SGD \\
+        \hline
         Regularizer     & なし & なし \\
+        \hline
         epoch\_num       & 1000 &  1000 \\
+        \hline
         exp\_num         & 5 & 5 \\
+        \hline
         calc\_num        & 29 & 285 \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}

@@ -24,19 +24,16 @@
 また、概要を述べるにあたってニューラルネットワークの用語を定義する。活性化関数は
 図\ref{neural_network1}の\textcircled{\scriptsize 1}の部分で使用する活性化関数を「中間層の活性化関数」、\textcircled{\scriptsize 2}の部分で使用する活性化関数を「中間層の活性化関数」と記述することとする。
 
-ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている~\cite{study_af}。
-活性化関数の歴史はSigmoidという統計学的にも馴染み深いロジスティック回帰のモデルから始まった。
-ニューラルネットワークの層に活性化関数を適用する過程を以下に示す。
-$ w_i$ を重み、$ \mathbf{X}_i $ は入力の値、$ b $はバイアス、$z$ は出力、$ g $ を活性化関数とした時
-$ z=g(y)=g(\sum w_i \mathbf{X}_i+b) $ 
-このように用いられる。
-その後TanhやXavierのReLU(2011)~\cite{ReLU}などといったより計算に適した活性化関数が発見されてきた。
-特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されていることがわかる。
 
-長年にわたり、性能を向上させ、ReLUの欠点に対処する多くの活性化関数が提案されてきたが、その中にはLeaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}などが含まれる。
-Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta x) $ と定義できるが、よりロバストな活性化関数であることが証明され、ReLUと比較して結果が大幅に改善された。
-活性化関数はそれまで単調増加な関数が使われることが多かったが、Swishで単調増加である必要なく、汎用的に精度が向上することがわかった。
-またそのような活性化関数の例としてDiganta. MisraのMish(2019)~\cite{Mish}と言う活性化関数も提唱されている。
+
+
+\subsection{活性化関数とは}
+活性化関数とは端的に表現すると、ニューラルネットワークの表現できる関数の空間を広げるための数学的な関数である。
+ニューラルネットワークは図\ref{neural_network1}のように多数の層に別れていて、その層同士の結合部分に活性化関数を置くことで、
+ニューラルネットワーク自体の精度を向上させることができる。
+
+
+\subsection{さまざまな活性化関数とその歴史}
 
 \begin{table}[htbp]
     \begin{center}
@@ -67,15 +64,16 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
     \end{center}
 \end{table}
 
+活性化関数に関する研究は近年も精力的に行われており、実務的にも有用な多くの関数が見つけれている。~\cite{study_af}。
 
+その始まりは、Sigmoidという統計学的にも馴染み深いロジスティック回帰の参考にしたモデルから始まった。
 
-\begin{eqnarray}
-\dot g = \frac{M}{\|g\|} g
-\label{eq:hassan}
-\end{eqnarray}
-
-
-
+その後TanhやXavierのReLU(2011)~\cite{ReLU}などといったより計算に適した活性化関数が発見されてきた。
+特にReLUに関しては現在のディープラーニングなどの深層ニューラルネットワークにおいても未だ応用されており、実用的にもその有用性が示されている。
+ReLUには勾配消失が発生するという欠点があるが、解決するモデルとして、Leaky ReLU ~\cite{leaky_relu}、ELU~\cite{elu}、SELU~\cite{selu}なども考案されている。
+また、それまで以上に精度が良いモデルを探すために強化学習を用いた手法で、Prajit RamachandranのSwish(2017)~\cite{swish}やDiganta. MisraのMish(2019)~\cite{Mish}という活性化関数も発見された。
+SwishやMishはReLUやSigmoidの前提にあった単調増加性という性質の前提を覆し、大きく性能を向上させるきっかけとなった。
+これらの活性化関数の式を表\ref{|class_af|}に記す。より高度で複雑化していることがわかる。
 
 \section{統計学における位置付け}
 
@@ -487,6 +485,12 @@ AdaGradは以下の式で表現できる。
 勾配発散の問題はRNN~\cite{rnn}などの行列の積が絡む問題やGAN~\cite{gan}などの誤差関数が不連続のな場合では簡単に発生する問題である。
 これを対処するためには簡単な手法としてパラメータの勾配の上限値を決めるクリッピングという操作を用いる方法などが挙げられる。
 勾配を$ g $、勾配の上限値を$ M $で表現した場合に、勾配を以下式(\ref{eq:hassan})のように変換する。
+
+
+\begin{eqnarray}
+\dot g = \frac{M}{\|g\|} g
+\label{eq:hassan}
+\end{eqnarray}
 
 
 

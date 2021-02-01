@@ -43,7 +43,7 @@ irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に�
 \end{table}
 
 
-\subsubsection{設定1及び設定2のLossTrainig}
+\subsubsection{設定1及び設定2のValidationLoss}
 \label{iris:loss}
 
 
@@ -107,12 +107,14 @@ digitsを用いた活性化関数の比較結果を表(\ref{result:digitstable})
 \end{table}
 
 
-\subsubsection{設定1及び設定2のLossTrainig}
+\subsubsection{設定1及び設定2のValidationLoss}
 \label{digits:loss}
 
+validationデータを用いた学習途中の損失関数のログデータを\ref{digits:loss_image}に示す。
 
 
 \begin{figure}[hbtp]
+\label{digits:loss_image}
     \begin{center}
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
@@ -168,7 +170,7 @@ wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に�
 \end{table}
 
 
-\subsubsection{設定1及び設定2のLossTrainig}
+\subsubsection{設定1及び設定2のValidationLoss}
 \label{digits:loss}
 
 \begin{figure}[hbtp]
@@ -230,7 +232,7 @@ bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})
 \end{table}
 
 
-\subsubsection{設定1及び設定2のLossTrainig}
+\subsubsection{設定1及び設定2のValidationLoss}
 \label{boston:loss}
 
 \begin{figure}[hbtp]
@@ -288,7 +290,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 
 
 
-\subsubsection{設定1及び設定2のLossTrainig}
+\subsubsection{設定1及び設定2のValidationLoss}
 \label{breastcancer:loss}
 
 \begin{figure}[hbtp]

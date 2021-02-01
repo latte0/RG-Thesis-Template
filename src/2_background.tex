@@ -257,11 +257,11 @@ Ichimura(1993)の手法はSingleIndexModelのノンパラメトリック関数�
 
 
 \begin{eqnarray}
-G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)\mathrm{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
+G(\mathbf{X}_i\mathbf{W})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right)\mathbf{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right)}
 \label{eq:ichimura}
 \end{eqnarray}
 
-ここで、$ K $はカーネル関数である。$ i \neq j $ とすることにより、$ \mathbf{X}_i $を入力した時の値が$ y_i $へと過剰適合しないようにするためである。
+ここで、$ K $はカーネル関数である。$ i \neq j $ とすることにより、$ \mathbf{X}_i $を入力した時の値が$ \mathbf{Y}_i $へと過剰適合しないようにするためである。
 
 
 
@@ -275,10 +275,10 @@ isotonic regression自体は回帰問題として発明された手法であっ�
 \section{勾配法と学習における知識}
 機械学習の問題の多くは学習の際の最適なパラメータを探索する。最適なパラメータとは損失関数が最小値を撮る時の値のことである。
 勾配法とは関数の勾配方向に閾値を移動させることで、関数の最小値を見つける方法のことである。特にニューラルネットにおいては最小値を見つけるために、勾配法がよく用いられる。
-損失関数を$ E $, $ w_i $をiステップ目のパラメータとした時、勾配法を式で表すと以下のようになる。
+損失関数を$ \mathrm{E} $, $ \mathbf{W_i} $をiステップ目のパラメータとした時、勾配法を式で表すと以下のようになる。
 
 \begin{eqnarray}
-w_{i + 1} = w_i - \mu \frac{\partial E}{\partial w}
+\mathbf{W_{i+1}} = \mathbf{W_i} - \mu \frac{\partial \mathrm{E}}{\partial \mathbf{W}}
 \label{eq:learning_rate}
 \end{eqnarray}
 
@@ -286,7 +286,7 @@ w_{i + 1} = w_i - \mu \frac{\partial E}{\partial w}
 本項ではこれらについて必要な概念を述べる。
 \subsection{LearningRate（学習率）}
 
-LearningRateとはハイパーパラメータの一つで、式(\ref{eq:learning_rate})の$ \mu $に相当する部分である。
+LearningRateとはハイパーパラメータの一つで、式\ref{eq:learning_rate}の$ \mu $に相当する部分である。
 LearningRateは大きいほど収束の可能性は小さくなり、小さいほど学習が遅くなる。
 また、高いLearningRateでも安定して学習できる活性化関数が求められている。
 
@@ -322,15 +322,15 @@ w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{
 これはモデルが訓練データに対して過剰に学習したために、はずれ値やノイズまで学習してしまうことに起因する問題である。
 このような現象を過学習というが、この過学習を防ぐためにパラメータに対して一種の罰則をかけるようなことが一般的に行われている。
 
-損失関数を$ E(w) $とした時に、最適化する関数を$E(w)$の代わりに以下の式を用いる。
+損失関数を$ \mathrm{E}(w) $とした時に、最適化する関数を$\mathrm{E}(w)$の代わりに以下の式を用いる。
 
 \begin{eqnarray}
-E(w) + \lambda \frac{1}{p}\|w\|^p_p
+\mathrm{E}(w) + \lambda \frac{1}{p}\|w\|_p
 \label{eq:regu}
 \end{eqnarray}
 
 
-ここで$ w $はパラメータベクトルで$　\| \cdot \| $はL1ノルム(p=1)やL2ノルム(p=2)などである。$ \lambda $ はハイパーパラメータである。
+ここで$ w $はパラメータベクトルで$　\| \cdot \|_p $はL1ノルム(p=1)やL2ノルム(p=2)などである。$ \lambda $ はハイパーパラメータである。
 
 
 \begin{figure}[hbtp]
@@ -465,7 +465,7 @@ AdaGradは以下の式で表現できる。
 
 \begin{eqnarray}　
     \mathbf{h} \leftarrow \alpha \mathbf{h} + \frac {\partial \mathrm{E} }{\partial \mathbf{W}} \odot \frac {\partial \mathrm{E} }{\partial \mathbf{W}}  \\
-    \mathbf{W} \leftarrow \mathbf{W}  - \mu \frac{ 1 }{\sqrt{\mathbf{h}}} \frac{ \partial E }{\partial \mathbf{W}} 
+    \mathbf{W} \leftarrow \mathbf{W}  - \mu \frac{ 1 }{\sqrt{\mathbf{h}}} \frac{ \partial \mathrm{E} }{\partial \mathbf{W}} 
 \label{eq:adagrad}
 \end{eqnarray}
 

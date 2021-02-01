@@ -234,7 +234,7 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         \hline
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-1} $ & $ 10^{-2} $ \\
+        LearningRate         & $ 10^{-1} $ & $ 10^{-2} $ \\
         \hline
         Initializer       & KaimingUniform &  KaimingUniform \\
         \hline
@@ -267,15 +267,23 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
         \label{exp:digits}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
+        \hline
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
+        LearningRate         & $ 10^{-2} $ & $ 10^{-3} $ \\
+        \hline
         Initializer       & KaimingUniform &  KaimingUniform \\
+        \hline
         Optimizer           & SGD & SGD \\
+        \hline
         Regularizer     & なし & なし \\
+        \hline
         epoch\_num       & 2000 &  10000 \\
+        \hline
         exp\_num         & 3 & 3 \\
+        \hline
         calc\_num        & 36 & 36 \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -299,7 +307,7 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         \hline
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-4} $ \\
+        LearningRate         & $ 10^{-3} $ & $ 10^{-4} $ \\
         \hline
         Initializer       & KaimingUniform & KaimingUniform \\
         \hline
@@ -333,7 +341,7 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         \hline
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-5} $ \\
+        LearningRate         & $ 10^{-5} $ & $ 10^{-5} $ \\
         \hline
         Initializer       & KaimingUniform  & Xavier \\
         \hline
@@ -366,7 +374,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \hline
         設定名 & 設定1 & 設定2 \\
         \hline
-        LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-3} $ \\
+        LearningRate         & $ 10^{-3} $ & $ 10^{-3} $ \\
         \hline
         Initializer       & KaimingUniform & KaimingUniform \\
         \hline

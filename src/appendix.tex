@@ -10,17 +10,17 @@ Ichimura(1993)~\cite{ichimura}の手法を用いてまずは以下の式に変�
 
 
 \begin{eqnarray}
-G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)\mathbf{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
+G(\mathbf{X}_i, \mathbf{W})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right)\mathbf{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right)}
 \label{calc:k-af}
 \end{eqnarray}
 
-ここで、$ \sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right) \approx	\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)$
+ここで、$ \sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right) \approx	\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)$
 となるようなバンド幅$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ \mathbf{X}_{calc} $を用いて\ref{calc:k-af}を近似することができる。
 
 これにより\ref{calc:k-af}は以下の式に直すことができる。
 
 \begin{eqnarray}
-G(\mathbf{X}_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)}
+G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc})) \approx \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
 \label{calc:k-af-2}
 \end{eqnarray}
 

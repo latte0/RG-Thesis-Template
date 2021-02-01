@@ -95,7 +95,7 @@ ReLU自体も実験的に精度が良いと導出されただけのものであ�
 本論文で提案する活性化関数を式\ref{eq:k-af}で表現する。
 
 \begin{eqnarray}
-G(\mathbf{X}_iw, \mathbf{X}^{calc}, \mathbf{Y}^{calc})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)}
+\tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
 \label{eq:k-af}
 \end{eqnarray}
 
@@ -136,10 +136,9 @@ $ \mathbf{X}^{calc}_j $及び$ \mathbf{Y}^{calc}_j $ は計算用に用いるデ
 
 \section{アルゴリズム}
 \label{al}
-K-AFのアルゴリズムの概要を{\bf Algorithm}\ref{alg:fixed-u-alg}に記述した。
+K-AFのアルゴリズムの概要を{\bf Algorithm \ref{alg:fixed-u-alg}}に記述した。
 
-入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ w^t $を$t$ステップ目の重みのパラメータとする。
-また、$x$のデータセットの集合を$ \mathcal{D}_x $　$y$のデータセットの集合を$ \mathcal{D}_y $、それらから$n$個サンプリングすることを$ \mathbf{Y}^{calc} \sim_n \mathcal{D}_y $と記述する。
+入力の次元を$ d $　出力の次元を$ e $とする。$ m $をミニバッチのサイズ、$ \mathbf{W}^t $を$t$ステップ目の重みのパラメータとする。
 $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適化を表現することができる。
 
 
@@ -148,21 +147,21 @@ $ \mathrm{E} $を目的関数とした時、以下のアルゴリズムで最適
 	\caption{\KAF}
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
-	\STATE {\bfseries Input:} data $\langle (\mathbf{X}_i, y_i) \rangle_{i=1}^m \in
-	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^n, \reals^n ) \rightarrow  \reals^e$.
-	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}(\mathbf{X})$;
-    \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}(\mathbf{Y})$;
+	\STATE {\bfseries Input:} data $\langle (\mathbf{X}_i, \mathbf{Y}_i) \rangle_{i=1}^m \in
+	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^{d \times n}, \reals^{e \times n}, ) \rightarrow  \reals^e$.
+	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}_x$;
+    \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}_y$;
 	\FOR {$t = 1, 2, \ldots$}
-	\STATE $g^t(x) := G(\mathbf{X} \cdot  \mathbf{W}^t, \mathbf{X}^{calc}, \mathbf{Y}^{calc} )$;
-	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (y_i - g^t(\mathbf{X}_i))^2 $
+	\STATE $g^t := \tilde{G}(\mathbf{W}^t, \mathbf{X}^{calc}, \mathbf{Y}^{calc} )$;
+	\STATE $ \displaystyle{\min_{w} \mathrm{E}(w)} = \frac{1}{2}\sum_m (\mathbf{Y}^{true} - g^t(\mathbf{X}_i))^2 $
 	\ENDFOR
 \end{algorithmic}
 \end{algorithm}
 
 \begin{itemize}
   \item データセット$\mathcal{D}_x$,$\mathcal{D}_y$から任意個数の$ \mathbf{X}^{calc} $と$ \mathbf{Y}^{calc} $から取り出す。
-  \item 現状のパラメータ$ w $, $\mathcal{D}_x$, $\mathcal{D}_y$を用いて、リンク関数$ g^t $の計算を行う。
-  \item そのリンク関数を用いて$ y $の値との最小二乗誤差を取り$ w $に対して最適化を行う。
+  \item 現状のパラメータ$ \mathbf{W}^t $, $\mathcal{D}_x$, $\mathcal{D}_y$を用いて、リンク関数$ g^t $のカリー化を行う。
+  \item そのリンク関数を用いて$ \mathbf{Y}^{true} $の値との最小二乗誤差を取り$ \mathbf{W}^{t+1} $を求める。
 \end{itemize}
 
 

@@ -322,13 +322,13 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 \subsubsection{breastcancerでの実験結果の考察}
 結果\ref{breastcancer:result}を見るに、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
 こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
-設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配発散が原因であると考えられる。
+設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 
 \subsection{実験1全体のまとめ}
 結果全体を見ると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば
 かなり高い精度でどのデータセットも学習できることがわかる。
 特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことがわかった。
-複雑な問題に対しては、LearnigRateが大きいばいやcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことがわかった。
+複雑な問題に対しては、LearnigRateが大きい場合やcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことがわかった。
 
 
 \section{実験2の結果 K-AFの関数形状の調査}
@@ -519,32 +519,17 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \section{実験3の結果 K-AFの性能が上がる条件探査}
 \label{evo3}
-\ref{exp3}で示した比較実験の結果を記述する。
-実験中・・・・
-wine及びbostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{winebest}と表\ref{bostonbest}に記述する。
+実験3の調査結果をそれぞれ\ref{evo3.1}と\ref{evo3.2}にて評価を行う。
+
+
+\subsection{実験3.1 ニューラルネットワークの設定変更により精度向上の条件調査の結果}
+\label{evo3.1}
+\ref{exp3.1}で示した比較実験の結果を記述する。
+
+
+\subsubsection{bostonにおいてエラー確率の少ないニューラルネットワークの構成}
+bostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{bostonbest}に記述する。
 それぞれの表の組み合わせは[ Initializer, Optimizer, Regularizer ]の順番でリストを作って表記する。
-\subsubsection{wineの場合}
-
-\begin{table}[htbp]
-    \begin{center}
-        \caption{wineを推論するときの最もいい設定}
-        \label{winebest}
-        \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
-        組み合わせ & Acc & エラーの回数 \\
-        \hline
-        iris           & $ 0.5 $    & 3 \\
-        digits         & $ 0.5 $    & 3 \\
-        wine           & $ 0.5 $    & 3 \\
-        boston         & $ 0.5 $    & 13  \\
-        breast\_cancer & $ 0.5 $    & 30 \\
-        \end{tabular}
-    \end{center}
-\end{table}
-
-表\ref{winebest}を参考にすると
-
-\subsubsection{bostonの場合}
 
 \begin{table}[htbp]
     \begin{center}
@@ -564,17 +549,46 @@ wine及びbostonのデータセットで最も性能が良かったニューラ�
 \end{table}
 
 
+\subsubsection{性能評価まとめ}
+\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
+また、Appendixの表(\ref{appendix:error})よりXavierはkaiming uniform によりもどの条件においてもエラーの発生回数が半分程度だったことがわかった。
+この議論において大切なことは、どのinitializer性能が向上したかということではなく、initializerそのものがK-AFの性能に大きく影響しているということである。
+またinitializer以外は性能に大きく影響したようなものは見つけられなかった。
 
 
-\subsection{性能評価まとめ}
-Adamを使う場合が多くの確率で最も性能が高いことが示された。
-以上により、活性化関数に使用するデータセット数やLearningRate以外にも、発散の可能性を減らす学習アルゴリズムの規則性を見ることができた。
+\subsection{実験3.2 クリッピングを用いた性能評価}
+\label{evo3.2}
+\ref{exp3.2}で示した比較実験の結果を記述する。
 
 
+\begin{table}[htbp]
+    \begin{center}
+        \caption{bostonを推論するときの最もいい設定}
+        \label{clipping_boston}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        構成 & Acc & エラーの回数 \\
+        \hline
+        クリッピングあり  & $ 0.5 $    & 48 \\
+        クリッピングなし  & $ 0.5 $    & 30 \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+\subsubsection{クリッピングの性能まとめ}
+\ref{clipping_boston}の結果により、クリッピングがK-AFのエラーを減らす要素として非常に重要であることがわかった。
+また、性能も向上させることがわかった。
+
+
+
+\subsection{実験3まとめ}
+実験3.1により、K-AFの性能を引き出す最大の要素はinitializerに関わっていることがわかった。
+また、実験3.2により勾配消失の可能性を下げることに成功した。
 
 \section{まとめ}
 
-K-AFの精度、勾配消失の有無、実用性の観点から先行研究との比較を行った。
+K-AFの精度、勾配爆発の有無、実用性の観点から先行研究との比較を行った。
 実験結果を踏まえ, 第 6 章で解決した課題をまとめ、将来への展望を述べる。
 
 

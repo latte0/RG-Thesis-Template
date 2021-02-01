@@ -102,3 +102,26 @@ class Net(nn.Module):
   \item 実験2\ref{exp2}のdostonのK-AFの学習過程 \\ \href{https://github.com/latte0/RG-Thesis-Template/blob/main/asset/boston.mov?raw=true}{https://github.com/latte0/RG-Thesis-Template/blob/main/asset/boston.mov?raw=true}
 \end{itemize}
 
+
+
+\chapter{bostonエラー回数の記録}
+\label{appendix:error}
+
+各活性化関数の設定においてのエラーの頻度を以下の表に記述する。
+
+
+
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{bostonを推論した時のエラーの頻度と性能}
+        \label{error_count}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        構成 & Acc & エラーの回数 \\
+        \hline
+        クリッピングあり  & $ 0.5 $    & 48 \\
+        クリッピングなし  & $ 0.5 $    & 30 \\
+        \end{tabular}
+    \end{center}
+\end{table}

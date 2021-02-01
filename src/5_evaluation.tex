@@ -19,12 +19,14 @@
 \label{ev:iris}
 
 第4章の\ref{impl:iris}で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2の結果と考察}
+\subsubsection{設定1及び設定2のの結果}
 
+irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に記す。
 
 \begin{table}[htbp]
     \begin{center}
         \caption{irisの設定1及び設定2のAccuracy}
+        \label{result:iristable}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数  & 設定1のAccuracy &  設定2のAccuracy \\
@@ -83,9 +85,12 @@ Swishが高い性能を出していることもわかる。
 \subsubsection{設定1及び設定2の結果}
 \label{digits:result}
 
+digitsを用いた活性化関数の比較結果を表(\ref{result:digitstable})に記す。
+
 \begin{table}[htbp]
     \begin{center}
         \caption{digitsの設定1及び設定2のAccuracy}
+        \label{result:digitstable}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
@@ -138,12 +143,15 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
 \label{ev:wineでの実験と設定}
 
 第4章の\ref{impl:wine}で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2の結果と考察}
+\subsubsection{設定1及び設定2のの結果}
+
+wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に記す。
 
 
 \begin{table}[htbp]
     \begin{center}
         \caption{wineの設定1及び設定2の結果Accuracy}
+        \label{result:winetable}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
@@ -197,12 +205,15 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
 \label{ev:bostonでの比較実験}
 
 第4章の\ref{impl:boston}で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2の結果と考察}
+\subsubsection{設定1及び設定2のの結果}
+
+bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})に記す。
 
 
 \begin{table}[htbp]
     \begin{center}
         \caption{bostonの設定1及び設定2のAccuracy}
+        \label{result:bostontable}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のMSE &  設定2のMSE \\
@@ -252,12 +263,13 @@ bostonは本実験で唯一の回帰のデータセットである。
 \subsection{breast\_cancerでの比較実験}
 \label{ev:breastcancer}
 
-\subsubsection{設定1及び設定2の結果と考察}
+\subsubsection{設定1及び設定2のの結果}
 
 
 \begin{table}[htbp]
     \begin{center}
         \caption{breast\_cancerの設定1及び設定2のAccuracy}
+        \label{result:breastcancer}
         \vspace{2mm} 
         \begin{tabular}{l*{2}{c}r}
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
@@ -356,7 +368,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 \begin{figure}[hbtp]
     \begin{center}
         \includegraphics[width=10cm]{asset/digits-0.1.png}
-            \caption{digitsで推論した活性化関数の形}
+            \caption{digitsで推論した活性化関数の形。出力層は10次元なので10個の関数が存在する。}
             \label{ifer_digits}
     \end{center}
 \end{figure}
@@ -387,7 +399,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 \begin{figure}[hbtp]
     \begin{center}
         \includegraphics[width=10cm]{asset/wine-0.01.png}
-            \caption{wineで推論した活性化関数の形}
+            \caption{wineで推論した活性化関数の形。出力層が3次元なので３つの関数が存在する。}
             \label{ifer_wine}
     \end{center}
 \end{figure}
@@ -395,7 +407,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 またこれを\ref{af-class}の表に埋めると表\ref{anal_wine}のようになる。
 \begin{table}[htbp]
     \begin{center}
-        \caption{wineで推論した活性化関数の分析表}
+        \caption{wineで推論した活性化関数の分析表。出力層が1次元の回帰問題なので、関数は一つだけである。}
         \label{anal_wine}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }

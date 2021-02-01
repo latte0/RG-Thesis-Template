@@ -47,6 +47,7 @@ irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に�
 \label{iris:loss}
 
 
+ValidationLossのログデータを図\ref{iris:loss_image1}と図\ref{iris:loss_image2}に示す。
 
 \begin{figure}[hbtp]
     \begin{center}
@@ -54,13 +55,13 @@ irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に�
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_non_kaiming_uniform.png}
                     \caption{irisの設定1の結果のLossTraining}
-                    \label{iris_1}
+                    \label{iris:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_l2_kaiming_uniform.png}
                     \caption{irisの設定2の結果のLossTraining}
-                    \label{iris_2}
+                    \label{iris:loss_image2}
             \end{minipage}
         \end{tabular}
     \end{center}
@@ -110,23 +111,22 @@ digitsを用いた活性化関数の比較結果を表(\ref{result:digitstable})
 \subsubsection{設定1及び設定2のValidationLoss}
 \label{digits:loss}
 
-validationデータを用いた学習途中の損失関数のログデータを\ref{digits:loss_image}に示す。
+ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:loss_image2}に示す。
 
 
 \begin{figure}[hbtp]
-\label{digits:loss_image}
     \begin{center}
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.01_4000_3_002_sgd_non_kaiming_uniform.png}
                     \caption{digitsの設定1の結果のLossTraining}
-                    \label{digits_1}
+                    \label{digits:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_adam_non_kaiming_uniform.png}
                     \caption{digitsの設定2の結果のLossTraining}
-                    \label{digits_2}
+                    \label{digits:loss_image2}
             \end{minipage}
         \end{tabular}
     \end{center}
@@ -171,7 +171,9 @@ wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に�
 
 
 \subsubsection{設定1及び設定2のValidationLoss}
-\label{digits:loss}
+\label{wine:loss}
+
+ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss_image2}に示す。
 
 \begin{figure}[hbtp]
     \begin{center}
@@ -179,13 +181,13 @@ wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に�
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_sgd_non_kaiming_uniform.png}
                     \caption{wineの設定1の結果のLossTraining}
-                    \label{wine_1}
+                     \label{wine:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_adam_non_kaiming_uniform}
                     \caption{wineの設定2の結果のLossTraining}
-                    \label{wine_2}
+                     \label{wine:loss_image2}
             \end{minipage}
         \end{tabular}
     \end{center}
@@ -235,19 +237,22 @@ bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})
 \subsubsection{設定1及び設定2のValidationLoss}
 \label{boston:loss}
 
+ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:loss_image2}に示す。
+
 \begin{figure}[hbtp]
     \begin{center}
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_kaiming_uniform.png}
                     \caption{bostonの設定1の結果のLossTraining}
-                    \label{boston_1}
+                    \label{boston:loss_image1}
+                    
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_xavier_uniform.png}
                     \caption{bostonの設定2の結果のLossTraining}
-                    \label{boston_2}
+                    \label{boston:loss_image2}
             \end{minipage}
         \end{tabular}
     \end{center}
@@ -292,6 +297,8 @@ bostonは本実験で唯一の回帰のデータセットである。
 
 \subsubsection{設定1及び設定2のValidationLoss}
 \label{breastcancer:loss}
+ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{breastcancer:loss_image2}に示す。
+
 
 \begin{figure}[hbtp]
     \begin{center}
@@ -299,13 +306,13 @@ bostonは本実験で唯一の回帰のデータセットである。
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_005_sgd_non_kaiming_uniform}
                     \caption{breastcancerの設定1の結果のLossTraining}
-                    \label{breastcancer_1}
+                    \label{breastcancer:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_05_sgd_non_kaiming_uniform}
                     \caption{breastcancerの設定2の結果のLossTraining}
-                    \label{breastcancer_2}
+                    \label{breastcancer:loss_image2}
             \end{minipage}
         \end{tabular}
     \end{center}

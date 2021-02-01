@@ -103,14 +103,15 @@ class Net(nn.Module):
 
 
 
-\chapter{bostonエラー回数の記録}
+\chapter{boston勾配発散回数の記録}
 \label{appendix:error}
 
-各活性化関数の設定においてのエラーの頻度を以下の表に記述する。
+実験3.1\ref{exp3.1}の表\ref{bostonbest}を導くために必要な情報をまとめた。
+各活性化関数の設定においての勾配発散の頻度を記した結果を以下の表\ref{appendix:errorcount_table}に記述する。
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論した時のエラーの頻度と性能。LearningRateは $ 10^{-5} $ }
+        \caption{bostonを推論した時の勾配発散の頻度と性能。LearningRateは $ 10^{-5} $で固定する。 }
         \label{appendix:errorcount_table}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c|c|c| }

@@ -71,7 +71,7 @@ ValidationLossのログデータを図\ref{iris:loss_image1}と図\ref{iris:loss
 \subsubsection{irisでの実験結果の考察}
 
 
-irisは最も単純な分類問題の一つであるが結果\ref{iris:result}を見るに特に学習を効率的にするテクニックを使わない場合は良い精度が出せている。
+irisは最も単純な分類問題の一つであるが結果\ref{result:iristable}を分析すると特に学習を効率的にするテクニックを使わない場合は良い精度が出せている。
 Swishが高い性能を出していることもわかる。
 また、L2のRegularizerを入れるとかなり精度が下がってしまうことから、K-AFは既存の学習テクニックとの組み合わせでは精度が向上しないことがわかる。
 
@@ -195,8 +195,8 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 
 
 \subsubsection{wineでの実験結果の考察}
-結果\ref{wine:result}を見るとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることがわかる。
-また、設定2はoptimizerをadamに変えただけ、学習が失敗することがわかった。
+結果\ref{result:winetable}を見るとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることがわかる。
+また、設定2はOptimizerをAdamに変えただけ、学習が失敗することがわかった。
 全体を通してもSGDのK-AFが最大のAccuracyを叩き出している。
 
 
@@ -261,7 +261,7 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
 
 \subsubsection{bostonでの実験結果の考察}
 bostonは本実験で唯一の回帰のデータセットである。
-結果\ref{boston:result}を見るに、SigomoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
+結果\ref{breastcancer:result}を分析すると、SigomoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
 
 
 
@@ -320,7 +320,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{breastcancerでの実験結果の考察}
-結果\ref{breastcancer:result}を見るに、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
+結果\ref{breastcancer:result}を分析すると、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
 こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
 設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 
@@ -505,9 +505,9 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \subsection{実験2全体のまとめ}
 実験2\ref{evo2}により、K-AFが活性化関数を最適に推論してることが視覚的に理解できた。
-また表(\label{af-class})を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることがわかった。
+また表(\ref{af-class})を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることがわかった。
 
-また、iris、digits、wine、bostonのK-AFの学習過程の動きを\label{appendix:movie}でリンクを紹介している。
+また、iris、digits、wine、bostonのK-AFの学習過程の動きをAppendix\ref{appendix:movie}で紹介している。
 
 
 
@@ -527,7 +527,7 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 \ref{exp3.1}で示した比較実験の結果を記述する。
 
 
-\subsubsection{bostonにおいてエラー確率の少ないニューラルネットワークの構成}
+\subsubsection{bostonにおいて勾配発散の確率の少ないニューラルネットワークの構成}
 bostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{bostonbest}に記述する。
 それぞれの表の組み合わせは[ Initializer, Optimizer, Regularizer ]の順番でリストを作って表記する。
 
@@ -536,14 +536,14 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
         \caption{bostonを推論するときの最もいい設定}
         \label{bostonbest}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
-        組み合わせ & Acc & エラーの回数 \\
+        \begin{tabular}{ |c|c|c|c| }
+        組み合わせ & Acc & 勾配発散の回数 & 勾配発散確率 \\
         \hline
-        Adam      & $ 0.5 $    & 48 \\
-        Adam      & $ 0.5 $    & 30 \\
-        Adam      & $ 0.5 $    & 30 \\
-        Adam      & $ 0.5 $    & 30 \\
-        Adam      & $ 0.5 $    & 30 \\
+        Adam      & $ 0.5 $    & 48 & 48 \\
+        Adam      & $ 0.5 $    & 30 & 48 \\
+        Adam      & $ 0.5 $    & 30 & 48 \\
+        Adam      & $ 0.5 $    & 30 & 48 \\
+        Adam      & $ 0.5 $    & 30 & 48 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -551,7 +551,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \subsubsection{性能評価まとめ}
 \ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
-また、Appendixの表(\ref{appendix:error})よりXavierはkaiming uniform によりもどの条件においてもエラーの発生回数が半分程度だったことがわかった。
+また、Appendixの表(\ref{appendix:error})よりXavierはkaiming uniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
 この議論において大切なことは、どのinitializer性能が向上したかということではなく、initializerそのものがK-AFの性能に大きく影響しているということである。
 またinitializer以外は性能に大きく影響したようなものは見つけられなかった。
 
@@ -563,28 +563,31 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論するときの最もいい設定}
+        \caption{bostonを用いたK-AFにクリッピングを用いた際の勾配発散の回数と確率}
         \label{clipping_boston}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
-        構成 & Acc & エラーの回数 \\
+        構成 & error\_count & \\
         \hline
-        クリッピングあり  & $ 0.5 $    & 48 \\
-        クリッピングなし  & $ 0.5 $    & 30 \\
+        クリッピングあり  & 648 & 648 \\
+        クリッピングなし  & 590 & 648 \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
+
 \subsubsection{クリッピングの性能まとめ}
-\ref{clipping_boston}の結果により、クリッピングがK-AFのエラーを減らす要素として非常に重要であることがわかった。
-また、性能も向上させることがわかった。
+\ref{clipping_boston}の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことがわかった。
+これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
 
 
 
 \subsection{実験3まとめ}
 実験3.1により、K-AFの性能を引き出す最大の要素はinitializerに関わっていることがわかった。
-また、実験3.2により勾配消失の可能性を下げることに成功した。
+これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
+
+
 
 \section{まとめ}
 

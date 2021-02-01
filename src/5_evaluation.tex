@@ -209,8 +209,8 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 
 \subsubsection{wineでの実験結果の考察}
 結果\ref{result:winetable}を見るとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることがわかる。
-また、設定2はOptimizerをAdamに変えただけ、学習が失敗することがわかった。
-全体を通してもSGDのK-AFが最大のAccuracyを叩き出している。
+また、設定2はOptimizerをAdamに変えただけ、学習が失敗することが明らかになった。
+全体を通してもSGDのK-AFが最大のAccuracyを出している。
 
 
 
@@ -281,7 +281,7 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
 
 \subsubsection{bostonでの実験結果の考察}
 bostonは本実験で唯一の回帰のデータセットである。
-結果\ref{result:bostontable}を分析すると、SigmoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
+結果\ref{result:bostontable}を考察した結果、ReLU等の関数よりも高い精度が出ることが判明した。
 
 
 
@@ -346,15 +346,15 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{breastcancerでの実験結果の考察}
-結果\ref{result:breastcancer}を分析すると、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
+結果\ref{result:breastcancer}を考察した結果、勾配発散が起きる条件に関わるものとして、カーネル密度関数を推定するためのデータセットの数が関与してることが明らかになった。
 こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
 設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 
 \subsection{実験1全体のまとめ}
 結果全体を見ると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば
 かなり高い精度でどのデータセットも学習できることがわかる。
-特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことがわかった。
-複雑な問題に対しては、LearnigRateが大きい場合やcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことがわかった。
+特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことが明らかになった。
+複雑な問題に対しては、LearnigRateが大きい場合やcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことが判明した。
 
 
 \section{実験2の結果 K-AFの関数形状の調査}
@@ -394,7 +394,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 
-単純な分類問題であるが、\ref{infer_iris}を観察するにSigmoid等の活性化関数と違い単調増加もしくは単調減少しない活性化関数が導かれることがわかった。
+単純な分類問題であるが、\ref{infer_iris}を観察するにSigmoid等の活性化関数と違い単調増加もしくは単調減少しない活性化関数が導かれることが明らかになった。
 
 
 
@@ -541,7 +541,7 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \subsection{実験2全体のまとめ}
 実験2\ref{evo2}により、K-AFが活性化関数を最適に推論してることが視覚的に理解できた。
-また表\ref{af-class}を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることがわかった。
+また表\ref{af-class}を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることが判明した。
 
 また、iris、digits、wine、bostonのK-AFの学習過程の動きをAppendix\ref{appendix:movie}で紹介している。
 
@@ -593,10 +593,10 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 
 \subsubsection{性能評価まとめ}
-表\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
-また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
+表\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることが明らかになった。
+また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことが判明した。
 この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
-Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いようである。
+Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いことが明らかになった。
 
 \subsection{実験3.2 クリッピングを用いた性能評価}
 \label{evo3.2}
@@ -623,13 +623,13 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 
 \subsubsection{クリッピングの性能まとめ}
-\ref{clipping_boston}節の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことがわかった。
+\ref{clipping_boston}節の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことが明らかになった。
 これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
 
 
 
 \subsection{実験3まとめ}
-実験3.1により、K-AFの性能を引き出す最大の要素はInitializerに関わっていることがわかった。
+実験3.1により、K-AFの性能を引き出す最大の要素はInitializerに関わっていることが明らかになった。
 これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
 
 

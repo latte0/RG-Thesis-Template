@@ -22,7 +22,7 @@
 
 本研究において利用した実装環境を 表\ref{impl_table} に示す. 提案手法の実装は Pytorch 及
 を用いた.  PyTorch~\cite{pytorch}, Chainer~\cite{chainer},  Tensorflow~\cite{tensorflow} は計算グラフの自動微分ライブラリであり, 深層ニューラルネットワークの研究や開発にも用いられる.
-Pytorchを用いた理由は実装コストが低く研究領域に従事できるところにある。
+Pytorchを用いた理由は実装コストが低く研究領域に適応しやすいところにある。
 
 
 \begin{table}[htbp]
@@ -187,7 +187,7 @@ K-AFの性能が有利にならないように、可能な限り任意の組み�
 また本実験ではValidationDataはTrainingDataと等しいものとして実験を進める。
 
 
-\subsubsection{MAEの数式}
+\subsubsection{MAEの式}
 
 
 評価に用いる推論したデータの集合$n$個を$ y_i \sim_n \mathcal{D}$と正解のラベル$ y_i^{true} $
@@ -200,7 +200,7 @@ K-AFの性能が有利にならないように、可能な限り任意の組み�
 で計算することとする。
 
 
-\subsubsection{Accuracyの数式}
+\subsubsection{Accuracyの式}
 
 評価に用いる推論したデータの集合$n$個を$ y_i \sim_n \mathcal{D}$と正解のラベル$ y_i^{true} $
 
@@ -209,7 +209,7 @@ K-AFの性能が有利にならないように、可能な限り任意の組み�
 \label{eq:accuracy}
 \end{eqnarray}
 
-ここで、$ \|y_i == y_i^{true}\| $とは$ y_i $と $ y_i^{true} $が等しければ$ 1 $、等しくなければ $ 0 $を表現する数式とする。
+ここで、$ \|y_i == y_i^{true}\| $とは$ y_i $と $ y_i^{true} $が等しければ$ 1 $、等しくなければ $ 0 $を表現する式とする。
 
 \subsection{各種データセットでの比較実験の詳細}
 

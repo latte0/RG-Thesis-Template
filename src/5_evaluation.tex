@@ -19,7 +19,7 @@
 \label{ev:iris}
 
 第4章の\ref{impl:iris}項で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2のの結果}
+\subsubsection{設定1及び設定2の結果}
 
 irisを用いた活性化関数の比較結果を表\ref{result:iristable}に記す。
 
@@ -151,15 +151,15 @@ ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:
 結果\ref{digits:result}を見ると設定1の場合では91.6\%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
 設定2の場合でもSigmoidやTanhほどの成果は出なかったものの、上限値が存在しない関数よりはいい性能を出すことができた。
 
-TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
+ValidationLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
 設定1の方で途中でTanhを追い抜いている理由は、活性化関数の形が急激に変わる瞬間があるからだと推測できる。
 
 
 \subsection{wineでの実験と設定}
 \label{ev:wineでの実験と設定}
 
-第4章の\ref{impl:wine}項で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2のの結果}
+第\ref{implementation}章の\ref{impl:wine}項で設定した実験を行い、結果を以下にまとめた。
+\subsubsection{設定1及び設定2の結果}
 
 wineを用いた活性化関数の比較結果を\ref{result:winetable}に記す。
 
@@ -230,7 +230,7 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 \label{ev:bostonでの比較実験}
 
 第4章の\ref{impl:boston}項で設定した実験を行い、結果を以下にまとめた。
-\subsubsection{設定1及び設定2のの結果}
+\subsubsection{設定1及び設定2の結果}
 
 bostonを用いた活性化関数の比較結果を表\ref{result:bostontable}に記す。
 
@@ -298,7 +298,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 \subsection{breast\_cancerでの比較実験}
 \label{ev:breastcancer}
 
-\subsubsection{設定1及び設定2のの結果}
+\subsubsection{設定1及び設定2の結果}
 
 
 \begin{table}[htbp]
@@ -577,22 +577,22 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論するときの最も発散確率が低いニューラルネットワークの設定}
+        \caption{bostonを推論するときの最も発散確率が低いニューラルネットワークの設定の順位}
         \label{bostonbest}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c|c|c| }
+        \begin{tabular}{ |c||c|c|c|c|c| }
         \hline
-        Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
+        順位 & Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
         \hline
-        Xavier & Adam & non & 275 & 27.5\%　\\
+        1 & Xavier & Adam & non & 275 & 27.5\%　\\
         \hline
-        Xavier & Adam & l1 & 290 & 29.0\%　\\
+        2 & Xavier & Adam & l1 & 290 & 29.0\%　\\
         \hline
-        Xavier & Adam & l2 & 294 & 29.4\%　\\
+        3 & Xavier & Adam & l2 & 294 & 29.4\%　\\
         \hline
-        Xavier & SGD & l1 & 294 & 29.4\%　\\
+        4 & Xavier & SGD & l1 & 294 & 29.4\%　\\
         \hline
-        Xavier & RMSprop & l1 & 298 & 29.8\%　\\
+        5 & Xavier & RMSprop & l1 & 298 & 29.8\%　\\
         \hline
         \end{tabular}
     \end{center}
@@ -600,14 +600,14 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 
 \subsubsection{性能評価まとめ}
-\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
+表\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
 また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
 この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
 Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いようである。
 
 \subsection{実験3.2 クリッピングを用いた性能評価}
 \label{evo3.2}
-\ref{exp3.2}で示した比較実験の結果を記述する。
+\ref{exp3.2}節で示した比較実験の結果を記述する。
 
 
 \begin{table}[htbp]
@@ -630,7 +630,7 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 
 \subsubsection{クリッピングの性能まとめ}
-\ref{clipping_boston}の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことがわかった。
+\ref{clipping_boston}節の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことがわかった。
 これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
 
 
@@ -643,7 +643,7 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 \section{まとめ}
 \ref{result}
-
+TODO
 K-AFの精度、勾配爆発の有無、実用性の観点から先行研究との比較を行った。
 実験結果を踏まえ, 第 6 章で解決した課題をまとめ、将来への展望を述べる。
 

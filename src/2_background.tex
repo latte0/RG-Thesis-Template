@@ -43,8 +43,9 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
         \caption{活性化関数の種類}
         \vspace{2mm} 
         \label{|class_af|}
-        \begin{tabular}{cp{5cm}cc}
-        活性化関数の数式              & 数式 \\
+        \begin{tabular}{|cp{5cm}cc|}
+        \hline
+        活性化関数の式              & 式 \\
         \hline
         Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
         \hline
@@ -175,7 +176,7 @@ y = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
         \begin{tabular}{c}
             \begin{minipage}{0.40\hsize}
                 \includegraphics[clip, width=5cm]{asset/k_af_band1.png}
-                    \caption{データ点がまばらに存在する。}
+                    \caption{カーネル密度推定に用いるデータ点の集合}
                     \label{k_af_band1}
             \end{minipage}
             \hspace{10pt}
@@ -282,7 +283,7 @@ isotonic regression自体は回帰問題として発明された手法であっ�
 \section{勾配法と学習における知識}
 機械学習の問題の多くは学習の際の最適なパラメータを探索する。最適なパラメータとは損失関数が最小値を撮る時の値のことである。
 勾配法とは関数の勾配方向に閾値を移動させることで、関数の最小値を見つける方法のことである。特にニューラルネットにおいては最小値を見つけるために、勾配法がよく用いられる。
-損失関数を$ E $, $ w_i $をiステップ目のパラメータとした時、勾配法を数式で表すと以下のようになる。
+損失関数を$ E $, $ w_i $をiステップ目のパラメータとした時、勾配法を式で表すと以下のようになる。
 
 \begin{eqnarray}
 w_{i + 1} = w_i - \mu \frac{\partial E}{\partial w}
@@ -436,7 +437,7 @@ SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一�
 
 ここで、$ \mathrm{W} $ は各パラメータ $ w_i $をベクトルで表現したものである。
 
-しかしながら数式からもわかるようにSGDには欠点とした以下の二つが広く認知されている。
+しかしながら式からもわかるようにSGDには欠点とした以下の二つが広く認知されている。
 
 
 
@@ -452,7 +453,7 @@ SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一�
 Ning QianのMomentum(1999)~\cite{momentum}はSGDの勾配の方向が本来の最小値ではないという考えから、物理の法則を応用するような形で生まれた勾配法の一つである。
 
 
-Momentum という手法は、数式で次のように表される。
+Momentum という手法は、式で次のように表される。
 
 \begin{eqnarray}
     \mathrm{v} \leftarrow \alpha \mathrm{v} - \mu \frac {\partial E }{\partial \mathrm{W}} \\
@@ -469,7 +470,7 @@ Momentum という手法は、数式で次のように表される。
 ニューラルネットワークの学習では学習係数の値が重要になる。
 これを初めは大きく学習し、次第に小さ学習する、学習係数の減衰(learning rate decay)という方法がよく使われる。
 これを発展させた方法にJohn DuchiのAdaGrad(2011)~\cite{adagrad}というものがある。
-AdaGradは以下の数式で表現できる。
+AdaGradは以下の式で表現できる。
 
 \begin{eqnarray}　
     \mathrm{h} \leftarrow \alpha \mathrm{h} + \frac {\partial E }{\partial \mathrm{W}} \odot \frac {\partial E }{\partial \mathrm{W}}  \\

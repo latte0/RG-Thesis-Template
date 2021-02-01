@@ -15,7 +15,7 @@
 本章では、背景を整理しつつ\ref{kadai}節で述べた課題を解決する本論文の提案手法の位置付けについて述べる。
 \ref{history_activation}節では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
 \ref{position_proposed}節では本研究の研究的な位置付けについて解説する。
-\ref{math}節ではK-AFの数式について解説し、活性化関数として使用できることを示す。
+\ref{math}節ではK-AFの式について解説し、活性化関数として使用できることを示す。
 \ref{al}節ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
 
 
@@ -56,7 +56,7 @@ isotonic regression同様に単調増加性について仮定しているよう�
 
 \section{K-AF}
 \label {math}
-本論文で私が提案する活性化関数を数式\ref{eq:k-af}で表現する。
+本論文で提案する活性化関数を式\ref{eq:k-af}で表現する。
 
 \begin{eqnarray}
 G(\mathbf{X}_iw, \mathbf{X}^{calc}, \mathbf{Y}^{calc})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w - \mathbf{X}_i w}{h_{calc}}\right)}
@@ -69,7 +69,7 @@ $ \mathbf{X}^{calc}_j $及び$ \mathbf{Y}^{calc}_j $ は計算用に用いるデ
 そのため、Ichimura(1993)~\cite{ichimura}ではデータセットの数だけで表現していたが、一部を省略することにより少ないデータ点で表現する。
 少ないデータ点で記述することは、活性化関数の形の単純化と計算量を減らすことにも直結する。
 
-詳細な数式の導出はappendix\ref{appendix:calc}で述べた。
+詳細な式の導出はappendix\ref{appendix:calc}で述べた。
 
 
 \subsection{バンド幅推定}

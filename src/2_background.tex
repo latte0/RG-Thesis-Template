@@ -50,7 +50,7 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
         \hline
         Tanh               & tanh(x) \\
         \hline
-        \multirow{5}{*}{ReLU}        &  \[output =
+        \multirow{5}{*}{ReLU}        &  \[{\rm output} =
             \begin{cases} 
             0 &\text{when $ x < 0 $ }\\
             x &\text{when $ x \geq 0 $ else} \\
@@ -108,24 +108,24 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
 説明変数を$ X $, パラメータを$ W $で表現し、従属変数を$ Y $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
 
 \begin{eqnarray}
-Y = \mathbf{X} \cdot  \mathbf{W} + \epsilon
+\mathbf{Y} = \mathbf{X} \cdot  \mathbf{W} + \epsilon
 \label{eq:senkei}
 \end{eqnarray}
-またこれは$ Y $の期待値を使って表現すると上記は
+またこれは$ \mathbf{Y} $の期待値を使って表現すると上記は
 \begin{eqnarray}
-    \mathrm{E}[Y] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W} + \epsilon] \\
-    \mathrm{E}[Y] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W}] + \mathrm{E}[\epsilon] \\
-    \mathrm{E}[Y] &=& \mathbf{X} \cdot  \mathbf{W}
+    \mathrm{E}[\mathbf{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W} + \epsilon] \\
+    \mathrm{E}[\mathbf{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W}] + \mathrm{E}[\epsilon] \\
+    \mathrm{E}[\mathbf{Y}] &=& \mathbf{X} \cdot  \mathbf{W}
 \label{eq:link}
 \end{eqnarray}
 である。
 しかしながら、上記の式の展開では$ \epsilon $が正規分布に従うことを想定した、すなわち従属変数$ Y $がガウス分布に従うことを仮定したが、実際は図\ref{glm} のように、誤差の分布にガウス分布を仮定すると、正確さが失われることがある。
 そこで、従属変数をある関数 $ G $ で変換してからモデル化することでモデルの正確さが向上する。
-すなわち、$ \mathrm{E}[Y|X] = \mathbf{X} \cdot  \mathbf{W} $ に対して$ G(\mathrm{E}[Y|X]) = \mathbf{X} \cdot  \mathbf{W} $ となるような$ G $ を取り入流。
+すなわち、$ \mathrm{E}[\mathbf{Y|X}] = \mathbf{X} \cdot  \mathbf{W} $ に対して$ G(\mathrm{E}[Y|X]) = \mathbf{X} \cdot  \mathbf{W} $ となるような$ G $ を取り入流。
 またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
 一般線形モデルに対して、リンク関数を加えた式を以下に記す。
 \begin{eqnarray}
-E[Y|X]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
+E[\mathbf{Y|X}]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
 \label{eq:link}
 \end{eqnarray}
 
@@ -136,7 +136,7 @@ E[Y|X]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
 
 \subsection{シグモイド関数とロジスティック回帰}
 \begin{eqnarray}
-G(Y)=\mathbf{X}\cdot  \mathbf{W}
+G(\mathbf{Y})=\mathbf{X}\cdot  \mathbf{W}
 \end{eqnarray}
 とした時、
 \begin{eqnarray}
@@ -206,7 +206,7 @@ y = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
 $ K $をカーネル関数 $ u \in R $ とした時、カーネル関数の定義は以下である。
 
 \begin{itemize}
-  \item $ \int^{+ \inf}_{- \inf} K(u)du = 1 $
+  \item $ \int^{+ \infty}_{- \infty} K(u)du = 1 $
   \item $ K(-u) = K(u) $
 \end{itemize}
 
@@ -264,7 +264,7 @@ Ichimura(1993)の手法はSingleIndexModelのノンパラメトリック関数�
 
 
 \begin{eqnarray}
-G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)Y_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
+G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)\mathbf{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
 \label{eq:ichimura}
 \end{eqnarray}
 

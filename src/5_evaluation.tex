@@ -54,13 +54,13 @@ ValidationLossのログデータを図\ref{iris:loss_image1}と図\ref{iris:loss
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_non_kaiming_uniform.png}
-                    \caption{irisの設定1の結果のLossTraining}
+                    \caption{irisの設定1の結果のTrainingLoss}
                     \label{iris:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/iris_0.1_1000_3_02_sgd_l2_kaiming_uniform.png}
-                    \caption{irisの設定2の結果のLossTraining}
+                    \caption{irisの設定2の結果のTrainingLoss}
                     \label{iris:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -119,13 +119,13 @@ ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.01_4000_3_002_sgd_non_kaiming_uniform.png}
-                    \caption{digitsの設定1の結果のLossTraining}
+                    \caption{digitsの設定1の結果のTrainingLoss}
                     \label{digits:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/digits_0.001_10000_3_002_adam_non_kaiming_uniform.png}
-                    \caption{digitsの設定2の結果のLossTraining}
+                    \caption{digitsの設定2の結果のTrainingLoss}
                     \label{digits:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -180,13 +180,13 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_sgd_non_kaiming_uniform.png}
-                    \caption{wineの設定1の結果のLossTraining}
+                    \caption{wineの設定1の結果のTrainingLoss}
                      \label{wine:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/wine_0.001_3000_3_015_adam_non_kaiming_uniform}
-                    \caption{wineの設定2の結果のLossTraining}
+                    \caption{wineの設定2の結果のTrainingLoss}
                      \label{wine:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -244,14 +244,14 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_kaiming_uniform.png}
-                    \caption{bostonの設定1の結果のLossTraining}
+                    \caption{bostonの設定1の結果のTrainingLoss}
                     \label{boston:loss_image1}
                     
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/boston_0.00001_1000_3_005_sgd_non_xavier_uniform.png}
-                    \caption{bostonの設定2の結果のLossTraining}
+                    \caption{bostonの設定2の結果のTrainingLoss}
                     \label{boston:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -261,7 +261,7 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
 
 \subsubsection{bostonでの実験結果の考察}
 bostonは本実験で唯一の回帰のデータセットである。
-結果\ref{breastcancer:result}を分析すると、SigomoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
+結果\ref{result:bostontable}を分析すると、SigmoidとTanhは上限値のある関数のため、うまくいかないことは容易に想像がつくが、ReLU等の関数よりも高い精度が出ることがわかった。
 
 
 
@@ -305,13 +305,13 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \begin{tabular}{c}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_005_sgd_non_kaiming_uniform}
-                    \caption{breastcancerの設定1の結果のLossTraining}
+                    \caption{breastcancerの設定1の結果のTrainingLoss}
                     \label{breastcancer:loss_image1}
             \end{minipage}
             \hspace{10pt}
             \begin{minipage}{0.5\hsize}
                 \includegraphics[clip, width=7cm]{asset/breastcancer_0.001_1000_3_05_sgd_non_kaiming_uniform}
-                    \caption{breastcancerの設定2の結果のLossTraining}
+                    \caption{breastcancerの設定2の結果のTrainingLoss}
                     \label{breastcancer:loss_image2}
             \end{minipage}
         \end{tabular}
@@ -320,7 +320,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{breastcancerでの実験結果の考察}
-結果\ref{breastcancer:result}を分析すると、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
+結果\ref{result:breastcancer}を分析すると、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
 こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
 設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 

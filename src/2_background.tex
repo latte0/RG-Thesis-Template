@@ -6,7 +6,7 @@
 また、統計学において活性化関数に相当する概念がどのように応用されてきたか述べる。
 次に、活性化関数の他に、ニューラルネットワークにおける精度を向上させるいくつかの構成要素について述べる。
 本研究の問題点の解決に必要な、セミパラメトリックモデルとその具体例であるカーネル密度推定を導入する。
-最後に、本研究に必要な機械学習を行う上での問題点を述べる。
+最後に、本研究に必要な機械学習を行う上での社会的観点も踏まえた問題点を述べる。
 
 
 
@@ -97,27 +97,27 @@ SwishやMishはReLUやSigmoidの前提にあった単調増加性という性質
             \label{glm}
 \end{figure}
 
-説明変数を$ X $, パラメータを$ W $で表現し、従属変数を$ Y $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
+説明変数のベクトルを$ \mathbf{X} $, パラメータのベクトルを$ \mathbf{W} $で表現し、従属変数を$ \mathrm{Y} $、誤差を$ \epsilon \sim \mathcal{G}(0, \sigma^2) $で表現すると、一般線形モデルは以下の式で表現することができる。
 
 \begin{eqnarray}
-\mathbf{Y} = \mathbf{X} \cdot  \mathbf{W} + \epsilon
+\mathrm{Y}= \mathbf{X} \cdot  \mathbf{W} + \epsilon
 \label{eq:senkei}
 \end{eqnarray}
-またこれは$ \mathbf{Y} $の期待値を使って表現すると上記は
+またこれは$ \mathrm{Y}$の期待値を使って表現すると上記は
 \begin{eqnarray}
-    \mathrm{E}[\mathbf{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W} + \epsilon] \\
-    \mathrm{E}[\mathbf{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W}] + \mathrm{E}[\epsilon] \\
-    \mathrm{E}[\mathbf{Y}] &=& \mathbf{X} \cdot  \mathbf{W}
+    \mathrm{E}[\mathrm{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W} + \epsilon] \\
+    \mathrm{E}[\mathrm{Y}] &=& \mathrm{E}[\mathbf{X} \cdot  \mathbf{W}] + \mathrm{E}[\epsilon] \\
+    \mathrm{E}[\mathrm{Y}] &=& \mathbf{X} \cdot  \mathbf{W}
 \label{eq:link}
 \end{eqnarray}
 である。
 しかしながら、上記の式の展開では実際は図\ref{glm}左のように$ \epsilon $が正規分布に従うことを想定した、すなわち従属変数$ Y $がガウス分布に従うことを仮定したが、実際は図\ref{glm}右のように、誤差の分布にガウス分布を仮定すると、正確さが失われることがある。
 そこで、従属変数をある関数 $ G $ で変換してからモデル化することでモデルの正確さが向上する。
-すなわち、$ \mathrm{E}[\mathbf{Y|X}] = \mathbf{X} \cdot  \mathbf{W} $ に対して$ G(\mathrm{E}[Y|X]) = \mathbf{X} \cdot  \mathbf{W} $ となるような$ G $ を取り入流。
+すなわち、$ \mathrm{E}[\mathrm{Y}|\mathbf{X}] = \mathbf{X} \cdot  \mathbf{W} $ に対して$ G(\mathrm{E}[Y|\mathbf{X}]) = \mathbf{X} \cdot  \mathbf{W} $ となるような$ G $ を取り入れる。
 またこの$ G $ の逆関数 $ G^{-1} $をリンク関数と呼ぶ。
 一般線形モデルに対して、リンク関数を加えた式を以下に記す。
 \begin{eqnarray}
-\mathrm{E}[\mathbf{Y|X}]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
+\mathrm{E}[\mathrm{Y}|\mathbf{X}]=G^{-1} (\mathbf{X}\cdot  \mathbf{W})
 \label{eq:link}
 \end{eqnarray}
 
@@ -129,18 +129,18 @@ SwishやMishはReLUやSigmoidの前提にあった単調増加性という性質
 \subsection{Sigmoid関数とロジスティック回帰}
 \label{history_sigmoid}
 \begin{eqnarray}
-G(\mathbf{Y})=\mathbf{X}\cdot  \mathbf{W}
+G(\mathrm{Y})=\mathbf{X}\cdot  \mathbf{W}
 \end{eqnarray}
 とした時、
 \begin{eqnarray}
-G=\log \bigl(\frac{y}{1-y}\bigr)
+G=\log \bigl(\frac{\mathrm{Y}}{1-\mathrm{Y}}\bigr)
 \end{eqnarray}
 とする。一般的にこれはロジット関数と呼ばれる。
-これを左辺が$ y $になるように変形すると,
+これを左辺が$ \mathrm{Y} $になるように変形すると,
 
 \begin{eqnarray}
-\log \bigl(\frac{y}{1-y}\bigr) = z \\
-y = \frac{1}{1 + \exp(-z)}
+\log \bigl(\frac{\mathrm{Y}}{1-\mathrm{Y}}\bigr) = z \\
+\mathrm{Y} = \frac{1}{1 + \exp(-z)}
 \end{eqnarray}
 右辺を$ z $を関数にすると
 
@@ -152,7 +152,7 @@ $ g(z) $はロジスティック関数でもあり、
 
 
 \begin{eqnarray}
-y = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
+\mathrm{Y} = \frac{1}{1 + \exp (\mathbf{X} \cdot  \mathbf{W})}
 \end{eqnarray}
 より、ロジスティック回帰であることも示される。 \\
 
@@ -204,11 +204,11 @@ $ K $をカーネル関数 $ u \in \reals $ とした時、カーネル関数の
 \end{itemize}
 
 
-この時、カーネル密度推定法とは、$ \mathbf{X}_n $をデータ、推定すべき関数を$ f $、カーネル関数を $ K $、バンド幅を $ h $ としたとき、以下の式で表現することができる。
+この時、カーネル密度推定法とは、$ x_n $をデータ、推定すべき関数を$ f $、カーネル関数を $ K $、バンド幅を $ h $ としたとき、以下の式で表現することができる。
 
 
 \begin{eqnarray}
-f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - \mathbf{X}_i}{h}\bigr)
+f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - x_i}{h}\bigr)
 \label{eq:k-af}
 \end{eqnarray}
 図\ref{k_af_band1}のようにまばらに存在するデータ点の周辺に、図\ref{k_af_band2}のようにカーネル関数をおき、任意のバンド幅で足し合わせ近似していくようなものである。
@@ -222,14 +222,14 @@ f(x) = \frac{1}{nh} \sum^n_{i=1}K \bigl( \frac{x - \mathbf{X}_i}{h}\bigr)
 
 統計学の世界では、セミパラメトリックモデルというノンパラメトリックな手法とセミパラメトリックな手法を組み合わせた手法が存在する。
 その中の一つの代表的な手法の中にSingleIndexModel(SIM)と呼ばれる手法が存在する。
-SIMとは、未知の関数 $ g $、従属変数 $ Y $、説明変数$ X $、パラメータ$ W $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
+SIMとは、未知の関数 $ g $、従属変数を $ \mathrm{Y} $、説明変数のベクトルを$ \mathbf{X} $、パラメータのベクトルを$ \mathbf{W} $、誤差項 $ \epsilon $と置いた時、以下のように表される式である。
 
 \begin{eqnarray}
 Y = g(\mathbf{X} \cdot  \mathbf{W}) + \epsilon
 \label{eq:k-af}
 \end{eqnarray}
 
-SIMは未知の関数$ g $を推定しながらパラメータ $ W $を求めていく問題に帰着されるため、ノンパラメトリックとパラメトリックが混ざった手法であるセミパラメトリックモデルとして表現される理由である。
+SIMは未知の関数$ g $を推定しながらパラメータのベクトル $ \mathbf{W} $を求めていく問題に帰着されるため、ノンパラメトリックとパラメトリックが混ざった手法であるセミパラメトリックモデルとして表現される理由である。
 この$ g $は、一般化線形モデルのリンク関数$ G^{-1} $ をさらに一般化した単調増加性を無くしたモデルだと考えることができる。
 SIMの有名なモデルの一つにisotonic regressionと呼ばれるものがある。
 
@@ -245,7 +245,7 @@ SIMの有名なモデルの一つにisotonic regressionと呼ばれるものが�
 isotonic regressionは単調増加性等の制約を仮定したSIMの一つで、化学分野や経済分野に応用されている。
 
 
-\subsection {セミパラメトリックモデルと機械学習学習}
+\subsection {セミパラメトリックモデルと機械学習}
 
 セミパラメトリックにモデルを推定する手法は統計学ではIchimura(1993)~\cite{ichimura}から始まり、PAVアルゴリズムとしてAdam Tauman Kalai(2008)~\cite{isotron}によりその有用性が確かめられた。
 
@@ -257,7 +257,7 @@ Ichimura(1993)の手法はSingleIndexModelのノンパラメトリック関数�
 
 
 \begin{eqnarray}
-G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)\mathbf{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
+G(\mathbf{X}_iw)=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)\mathrm{Y}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j w - \mathbf{X}_i w}{h}\right)}
 \label{eq:ichimura}
 \end{eqnarray}
 
@@ -419,14 +419,14 @@ L2 < L1
 しかしながら、SGD以外にもパラメータをよりよく最適化する方法は多く研究されている。
 
 \subsubsection{SGD}
-SGDは(\ref{eq:learning_rate})でも記したように以下の式の形で一般的に広く知れ渡り、実装が簡単な手法として認知されている。
+SGDは式\ref{eq:learning_rate}でも記したように以下の式の形で一般的に広く知れ渡り、実装が簡単な手法として認知されている。
 
 \begin{eqnarray}
-\mathrm{W} \leftarrow \mathrm{W} - \mu \frac{\partial E}{\partial \mathrm{W}} \\
+\mathbf{W} \leftarrow \mathbf{W} - \mu \frac{\partial \mathrm{E}}{\partial \mathbf{W}} \\
 \label{eq:sgd}
 \end{eqnarray}
 
-ここで、$ \mathrm{W} $ は各パラメータ $ w_i $をベクトルで表現したものである。
+ここで、$ \mathbf{W} $ は各パラメータ $ w_i $をベクトルで表現したものである。
 
 しかしながら式からもわかるようにSGDには欠点とした以下の二つが広く認知されている。
 
@@ -447,12 +447,12 @@ Ning QianのMomentum(1999)~\cite{momentum}はSGDの勾配の方向が本来の�
 Momentum という手法は、式で次のように表される。
 
 \begin{eqnarray}
-    \mathrm{v} \leftarrow \alpha \mathrm{v} - \mu \frac {\partial E }{\partial \mathrm{W}} \\
-    \mathrm{W} \leftarrow \mathrm{W+v}
+    \mathbf{v} \leftarrow \alpha \mathbf{v} - \mu \frac {\partial \mathrm{E} }{\partial \mathbf{W}} \\
+    \mathbf{W} \leftarrow \mathbf{W+v}
 \label{eq:momentum}
 \end{eqnarray}
 
-ここで新しく$ \mathrm{v} $という変数が登場する。これは一つ前の勾配の速度のようなものを記録しており、勾配が急なところでは大きな値になり、小さなところでは値が小さくなる。
+ここで新しく$ \mathbf{v} $という変数が登場する。これは一つ前の勾配の速度のようなものを記録しており、勾配が急なところでは大きな値になり、小さなところでは値が小さくなる。
 これによりSGDに比べると更新するときの"ジグザグ度合い"のようなものが軽減され、学習が安定し高速化することが知られている。
 
 
@@ -464,12 +464,12 @@ Momentum という手法は、式で次のように表される。
 AdaGradは以下の式で表現できる。
 
 \begin{eqnarray}　
-    \mathrm{h} \leftarrow \alpha \mathrm{h} + \frac {\partial E }{\partial \mathrm{W}} \odot \frac {\partial E }{\partial \mathrm{W}}  \\
-    \mathrm{W} \leftarrow \mathrm{W}  - \mu \frac{ 1 }{\sqrt{\mathrm{h}}} \frac{ \partial E }{\partial \mathrm{W}} 
+    \mathbf{h} \leftarrow \alpha \mathbf{h} + \frac {\partial \mathrm{E} }{\partial \mathbf{W}} \odot \frac {\partial \mathrm{E} }{\partial \mathbf{W}}  \\
+    \mathbf{W} \leftarrow \mathbf{W}  - \mu \frac{ 1 }{\sqrt{\mathbf{h}}} \frac{ \partial E }{\partial \mathbf{W}} 
 \label{eq:adagrad}
 \end{eqnarray}
 
-ここで$ \odot $は行列の要素ごとの掛け算を意味する。パラメータ更新の際に$ \frac{ 1 }{\sqrt{\mathrm{h}}} $を乗算することで、学習スケールを調整するという手法である。
+ここで$ \odot $は行列の要素ごとの掛け算を意味する。パラメータ更新の際に$ \frac{ 1 }{\sqrt{\mathbf{h}}} $を乗算することで、学習スケールを調整するという手法である。
 これにより、よく動いた学習パラメータは次第に小さくなる。
 
 
@@ -495,7 +495,7 @@ AdaGradは以下の式で表現できる。
 
 \section{問題点}
 
-本節で現状の機械学習および活性化関数の周辺に存在する問題点を述べる。
+本節で現状の機械学習および活性化関数の周辺に存在する社会的観点も踏まえた問題点を述べる。
 
 \subsection{実社会における学習の問題点}
 

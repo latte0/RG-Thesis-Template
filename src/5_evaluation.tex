@@ -1,13 +1,13 @@
 \chapter{評価}
 \label{evaluation}
 
-本章では第4章の\ref{implementation}で設定した3つの実験の結果及び考察を行う。
+本章では第\ref{implementation}章ので設定した3つの実験の結果及び考察を行う。
 
-実験1の結果\label{evo1}では\ref{exp1}で示した設定もとに実験を行い、その結果を述べ各データセットにおいてどの程度の学習性能を示したか結論を述べる。
-実験2の結果\label{evo2}では\ref{exp2}で示した設定もとに実験を行い、\ref{af-class}の表を軸にどのような活性化関数になったか、損失を見ながら考察を行い結論を述べる。
-実験3の結果\label{evo3}では\ref{exp3}で示した設定もとに実験を行い、一般的にどのような条件でK-AFがより良い性能を出すか、また、欠点が存在するか調査する。
+実験1の結果\ref{evo1}節では\ref{exp1}節で示した設定もとに実験を行い、その結果を述べ各データセットにおいてどの程度の学習性能を示したか結論を述べる。
+実験2の結果\ref{evo2}節では\ref{exp2}節で示した設定もとに実験を行い、\ref{af-class}の表を軸にどのような活性化関数になったか、損失を見ながら考察を行い結論を述べる。
+実験3の結果\ref{evo3}節では\ref{exp3}節で示した設定もとに実験を行い、一般的にどのような条件でK-AFがより良い性能を出すか、また、欠点が存在するか調査する。
 
-\label{result}では各実験による考察結果から、\ref{kadai}に対してどの程度K-AFが性能を示すことができたか分析を行う。
+\ref{result}節では各実験による考察結果から、\ref{kadai}節に対してどの程度K-AFが性能を示すことができたか分析を行う。
 そして最後に第6章への結論\ref{conclusion}へと導く。
 
 
@@ -21,22 +21,29 @@
 第4章の\ref{impl:iris}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
-irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に記す。
+irisを用いた活性化関数の比較結果を表\ref{result:iristable}に記す。
 
 \begin{table}[htbp]
     \begin{center}
         \caption{irisの設定1及び設定2のAccuracy}
         \label{result:iristable}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|}
+            \hline
             活性化関数  & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
             K-AF            & 72.0 & 26.0 \\
+            \hline
             Sigmoid            & 68.0 & 77.3\\
+            \hline
             Tanh            & 20.0 & 53.0\\
+            \hline
             ReLU        &  49.6 &  38.3\\
+            \hline
             Swish           & 87.3 & 47.3 \\
+            \hline
             Mish           & 60.0 & 65.0 \\
+            \hline
     
         \end{tabular}
     \end{center}
@@ -86,7 +93,7 @@ Swishが高い性能を出していることもわかる。
 \subsubsection{設定1及び設定2の結果}
 \label{digits:result}
 
-digitsを用いた活性化関数の比較結果を表(\ref{result:digitstable})に記す。
+digitsを用いた活性化関数の比較結果を表\ref{result:digitstable}に記す。
 
 \begin{table}[htbp]
     \begin{center}
@@ -154,7 +161,7 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
 第4章の\ref{impl:wine}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
-wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に記す。
+wineを用いた活性化関数の比較結果を\ref{result:winetable}に記す。
 
 
 \begin{table}[htbp]
@@ -225,7 +232,7 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 第4章の\ref{impl:boston}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
-bostonを用いた活性化関数の比較結果を表(\ref{result:bostontable})に記す。
+bostonを用いた活性化関数の比較結果を表\ref{result:bostontable}に記す。
 
 
 \begin{table}[htbp]
@@ -427,7 +434,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{table}
 
-▲になる理由は単調増加とは対象的な単調減少の関数も推論した関数の中に存在するからである。
+▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
 推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考えられる。
 例外的に一つ形が崩れているが、Sigmoidと関数の形がにているため、使用する関数としてもSigmoidのような形のもので十分な精度が出ることが予想できる。
 実際に\ref{ev:wineでの実験と設定}ではSigmoidやTanhでも十分な性能を出している。
@@ -542,7 +549,7 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \subsection{実験2全体のまとめ}
 実験2\ref{evo2}により、K-AFが活性化関数を最適に推論してることが視覚的に理解できた。
-また表(\ref{af-class})を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることがわかった。
+また表\ref{af-class}を用いた分析により、決定木で使うようなデータセットの場合や回帰の場合などは既存の活性化関数では表現の幅が不足していることがわかった。
 
 また、iris、digits、wine、bostonのK-AFの学習過程の動きをAppendix\ref{appendix:movie}で紹介している。
 
@@ -594,7 +601,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \subsubsection{性能評価まとめ}
 \ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
-また、Appendixの表(\ref{appendix:error})よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
+また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
 この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
 Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いようである。
 
@@ -635,6 +642,7 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 
 \section{まとめ}
+\ref{result}
 
 K-AFの精度、勾配爆発の有無、実用性の観点から先行研究との比較を行った。
 実験結果を踏まえ, 第 6 章で解決した課題をまとめ、将来への展望を述べる。

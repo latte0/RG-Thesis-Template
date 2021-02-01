@@ -340,7 +340,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{irisの活性化関数}
-実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:iris}のLR以外の設定を用いる。
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:iris}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_iris}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
@@ -372,7 +372,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{digitsの活性化関数}
-実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:digits}のLR以外の設定を用いる。
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:digits}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_digits}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
@@ -403,7 +403,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{wineの活性化関数}
-実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:wine}のLR以外の設定を用いる。
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:wine}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_wine}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
@@ -438,7 +438,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{bostonの活性化関数}
-実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:boston}のLR以外の設定を用いる。
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:boston}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_boston}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
@@ -472,7 +472,7 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
 
 
 \subsubsection{breastcancerの活性化関数}
-実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:breastcancer}のLR以外の設定を用いる。
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:breastcancer}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_breastcancer}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
@@ -529,21 +529,26 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 
 \subsubsection{bostonにおいて勾配発散の確率の少ないニューラルネットワークの構成}
 bostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{bostonbest}に記述する。
-それぞれの表の組み合わせは[ Initializer, Optimizer, Regularizer ]の順番でリストを作って表記する。
+
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論するときの最もいい設定}
+        \caption{bostonを推論するときの最も発散確率が低いニューラルネットワークの設定}
         \label{bostonbest}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c|c| }
-        組み合わせ & Acc & 勾配発散の回数 & 勾配発散確率 \\
+        \begin{tabular}{ |c|c|c|c|c| }
+        Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
         \hline
-        Adam      & $ 0.5 $    & 48 & 48 \\
-        Adam      & $ 0.5 $    & 30 & 48 \\
-        Adam      & $ 0.5 $    & 30 & 48 \\
-        Adam      & $ 0.5 $    & 30 & 48 \\
-        Adam      & $ 0.5 $    & 30 & 48 \\
+        Xavier & Adam & non & 275 & 27.5\%　\\
+        \hline
+        Xavier & Adam & l1 & 290 & 29.0\%　\\
+        \hline
+        Xavier & Adam & l2 & 294 & 29.4\%　\\
+        \hline
+        Xavier & SGD & l1 & 294 & 29.4\%　\\
+        \hline
+        Xavier & RMSprop & l1 & 298 & 29.8\%　\\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}
@@ -551,10 +556,9 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \subsubsection{性能評価まとめ}
 \ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることがわかった。
-また、Appendixの表(\ref{appendix:error})よりXavierはkaiming uniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
-この議論において大切なことは、どのinitializer性能が向上したかということではなく、initializerそのものがK-AFの性能に大きく影響しているということである。
-またinitializer以外は性能に大きく影響したようなものは見つけられなかった。
-
+また、Appendixの表(\ref{appendix:error})よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことがわかった。
+この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
+Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いようである。
 
 \subsection{実験3.2 クリッピングを用いた性能評価}
 \label{evo3.2}
@@ -569,8 +573,9 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
         \begin{tabular}{ |c|c|c| }
         構成 & error\_count & \\
         \hline
-        クリッピングあり  & 648 & 648 \\
-        クリッピングなし  & 590 & 648 \\
+        クリッピングなし  & 648 & 64.8\% \\
+        \hline
+        クリッピングあり  & 590 & 59.0\% \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -584,7 +589,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 
 \subsection{実験3まとめ}
-実験3.1により、K-AFの性能を引き出す最大の要素はinitializerに関わっていることがわかった。
+実験3.1により、K-AFの性能を引き出す最大の要素はInitializerに関わっていることがわかった。
 これは初期値の段階で勾配発散に陥ってる可能性が高いからと推測する。
 
 

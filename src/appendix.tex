@@ -36,7 +36,7 @@ G(\mathbf{X}_iw) \approx \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j w
 
 中間層が一つのK-AFの計算を考慮した実装クラスを\ref{python_impl}に示す。
 
-実装の全ては \href{https://github.com/latte0/graduation\_thesis}{graduation\_thesis}. に公開している。
+実装の全ては \href{https://github.com/latte0/graduation\_thesis}{https://github.com/latte0/graduation\_thesis}. に公開している。
 
 \begin{lstlisting}[caption=Pytorchを用いたK-AFの計算用のクラス,label=python_impl]
 class Net(nn.Module):
@@ -52,7 +52,6 @@ class Net(nn.Module):
         self.calc = False
         # バンド幅も推定する
         self.h = nn.Parameter(torch.tensor(1.5, requires_grad=True))
-        self.h_middle = torch.tensor(1.0)
 
         self.last_layer_result = []
         self.sigmoid = nn.Sigmoid()
@@ -62,9 +61,9 @@ class Net(nn.Module):
         numerator = 0
         denominator = 0
         result = []
-        for j, \mathbf{X}_j in enumerate(self.train_X):
+        for j, X_j in enumerate(self.train_X):
 
-            Xw = self.fc2(F.relu(self.fc1(\mathbf{X}_j)))
+            Xw = self.fc2(F.relu(self.fc1(X_j)))
             tmp = gauss((Xw - Zw) / self.h)
 
             tmp[j] = 0
@@ -109,19 +108,63 @@ class Net(nn.Module):
 
 各活性化関数の設定においてのエラーの頻度を以下の表に記述する。
 
-
-
-
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論した時のエラーの頻度と性能}
-        \label{error_count}
+        \caption{bostonを推論した時のエラーの頻度と性能。LearningRateは $ 10^{-5} $ }
+        \label{appendix:errorcount_table}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
-        構成 & Acc & エラーの回数 \\
+        \begin{tabular}{ |c|c|c|c|c| }
         \hline
-        クリッピングあり  & $ 0.5 $    & 48 \\
-        クリッピングなし  & $ 0.5 $    & 30 \\
+        Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
+        \hline
+        kaiming\_uniform & Adagrad & l1 & 622 & 62.2\% \\
+        \hline
+        kaiming\_uniform & Adagrad & l2 & 613 & 61.3\% \\
+        \hline
+        kaiming\_uniform & Adagrad & non & 635 & 63.5\% \\
+        \hline
+        kaiming\_uniform & Adam & l1 & 632 & 63.2\% \\
+        \hline
+        kaiming\_uniform & Adam & l2 & 615 & 61.5\% \\
+        \hline
+        kaiming\_uniform & Adam & non & 628 & 62.8\% \\
+        \hline
+        kaiming\_uniform & RMSprop & l1 & 639 & 63.9\% \\
+        \hline
+        kaiming\_uniform & RMSprop & l2 & 622 & 62.2\% \\
+        \hline
+        kaiming\_uniform & RMSprop & non & 629 & 62.9\% \\
+        \hline
+        kaiming\_uniform & SGD & l2 & 585 & 58.5\% \\
+        \hline
+        kaiming\_uniform & SGD & l1 & 619 & 61.9\% \\
+        \hline
+        kaiming\_uniform & SGD & non & 601 & 60.1\% \\
+        \hline
+        Xavier & Adagrad & l1 & 312 & 31.2\% \\
+        \hline
+        Xavier & Adagrad & l2 & 321 & 32.1\% \\
+        \hline
+        Xavier & Adagrad & non & 314 & 31.4\% \\
+        \hline
+        Xavier & Adam & l1 & 290 & 29.0\% \\
+        \hline
+        Xavier & Adam & l2 & 294 & 29.4\% \\
+        \hline
+        Xavier & Adam & non & 275 & 27.5\% \\
+        \hline
+        Xavier & RMSprop & l1 & 298 & 29.8\% \\
+        \hline
+        Xavier & RMSprop & l2 & 313 & 31.3\% \\
+        \hline
+        Xavier & RMSprop & non & 328 & 32.8\% \\
+        \hline
+        Xavier & SGD & l1 & 294 & 29.4\% \\
+        \hline
+        Xavier & SGD & l2 & 309 & 30.9\% \\
+        \hline
+        Xavier & SGD & non & 321 & 32.1\% \\
+        \hline
         \end{tabular}
     \end{center}
 \end{table}

@@ -100,7 +100,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
         学習においての変更項目 & 変更のリスト\\
         \hline
         LearningRate           & [  $10^{-1}$,  $10^{-2}$,  $10^{-3}$,  $10^{-4}$, $10^{-5}$, $10^{-6}$ ,$10^{-7}$]    \\
-        Initializer         & [ He, Xavier, kaiming uniform]   \\
+        Initializer         & [ Xavier, KaimingUniform]   \\
         Regularizer           & [ 何もなし, L1ノルム, L2ノルム]     \\
         Optimizer         & [ SGD, Momentum, AdaGrad, Adam]   \\
         データセット &  [ iris, digits, wine, boston, breast\_cancer ]    \\
@@ -222,7 +222,7 @@ optimzerにSGDを用いRegularizerを特に使わない理由はirisは単純な
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-1} $ & $ 10^{-2} $ \\
-        Initializer       & kaiming uniform &  kaiming uniform \\
+        Initializer       & KaimingUniform &  KaimingUniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
         epoch\_num       & 1000 &  1000 \\
@@ -250,7 +250,7 @@ digitsは次元数が高いデータセットであるため、OptimizerにはAd
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-2} $ & $ 10^{-3} $ \\
-        Initializer       & kaiming uniform &  kaiming uniform \\
+        Initializer       & KaimingUniform &  KaimingUniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
         epoch\_num       & 2000 &  10000 \\
@@ -279,7 +279,7 @@ wineとはワインの種類の判別を13個の入力次元の性質を用い�
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-4} $ \\
-        Initializer       & kaiming uniform & kaiming uniform \\
+        Initializer       & KaimingUniform & KaimingUniform \\
         Optimizer           & SGD & Adam \\
         Regularizer     & なし & なし \\
         epoch\_num       & 3000 &  3000 \\
@@ -305,7 +305,7 @@ bostonはボストンの住宅価格を回帰で推定する問題である。K-
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-5} $ & $ 10^{-5} $ \\
-        Initializer       & kaiming uniform  & Xavier \\
+        Initializer       & KaimingUniform  & Xavier \\
         Optimizer           & SGD & Adam \\
         Regularizer     & なし & なし \\
         epoch\_num       & 1000 &  1000 \\
@@ -330,7 +330,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         設定名 & 設定1 & 設定2 \\
         \hline
         LearningRate(lr)         & $ 10^{-3} $ & $ 10^{-3} $ \\
-        Initializer       & kaiming uniform & kaiming uniform \\
+        Initializer       & KaimingUniform & KaimingUniform \\
         Optimizer           & SGD & SGD \\
         Regularizer     & なし & なし \\
         epoch\_num       & 1000 &  1000 \\
@@ -426,13 +426,14 @@ K-AFが一般的にどのようなニューラルネットワークの設定の�
 epoch\_numが少ない理由は発散するときは初期のタイミングで発散するからである。
 1000回実験する中で勾配発散頻度の回数を記録する実験をこなう。
 そして、各ニューラルネットの構成で記録しどの組み合わせが一番勾配発散の回数が少ないか調査する。
-また、実験3.1ではLearningRateは小さい方が勾配発散の確率が減ることは自明なためLRは$ 10^{-5} $で固定するものとする。
+また、実験3.1ではLearningRateは小さい方が勾配発散の確率が減ることは自明なためLearningRateは$ 10^{-5} $で固定するものとする。
 
 
 
 
 \subsection{実験3.2 クリッピングを用いた勾配発散の制御}
-実験3.2では表(\label{exp:boston})の設定1の条件に対してクリッピングを用いる場合とそうでない場合に勾配発散の回数がどのように変化するか実験をする。
+\label{exp3.2}
+実験3.2では表(\ref{exp:boston})の設定1の条件に対してクリッピングを用いる場合とそうでない場合に勾配発散の回数がどのように変化するか実験をする。
 また学習性能についての評価を行うため、勾配発散が発生しなかった場合のAccuracyを用いた比較を行う。
 これにより、クリッピングがK-AFの学習に対してどの程度有効か議論する。
 本実験では、式\ref{eq:hassan}の上限値$ M $を0.025で設定する。

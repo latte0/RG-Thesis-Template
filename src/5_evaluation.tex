@@ -71,8 +71,8 @@ ValidationLossのログデータを図\ref{iris:loss_image1}と図\ref{iris:loss
 
 
 irisは最も単純な分類問題の一つであるが結果\ref{result:iristable}を分析すると特に学習を効率的にするテクニックを使わない場合は良い精度が出せている。
-Swishが高い性能を出していることもわかる。
-また、L2のRegularizerを入れるとかなり精度が下がってしまうことから、K-AFは既存の学習テクニックとの組み合わせでは精度が向上しないことがわかる。
+Swishが高い性能を出していることも確認できる。
+また、L2のRegularizerを入れるとかなり精度が下がってしまうことから、K-AFは既存の学習テクニックとの組み合わせでは精度が向上しないことが確認できる。
 
 
 
@@ -140,10 +140,10 @@ ValidationLossのログデータを図\ref{digits:loss_image1}と図\ref{digits:
 
 
 \subsubsection{digitsでの実験結果の考察}
-結果\ref{digits:result}を見ると設定1の場合では91.6\%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
+結果\ref{digits:result}を確認すると設定1の場合では91.6\%とSigmoidやTanhといったラベリングによく用いられる活性化関数に匹敵する精度を出せた。ReLU、Mish、Swish等のの上限値が存在しない関数よりも遥かに良い性能を出すことができた。
 設定2の場合でもSigmoidやTanhほどの成果は出なかったものの、上限値が存在しない関数よりはいい性能を出すことができた。
 
-ValidationLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順調に下に推移してることがわかる。
+ValidationLossのグラフ\ref{digits:result}を確認すると、設定の1,2共に順調に下に推移してることが確認できる。
 設定1の方で途中でTanhを追い抜いている理由は、活性化関数の形が急激に変わる瞬間があるからだと推測できる。
 
 
@@ -208,7 +208,7 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 
 
 \subsubsection{wineでの実験結果の考察}
-結果\ref{result:winetable}を見るとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることがわかる。
+結果\ref{result:winetable}を確認するとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることが考えられる。
 また、設定2はOptimizerをAdamに変えただけ、学習が失敗することが明らかになった。
 全体を通してもSGDのK-AFが最大のAccuracyを出している。
 
@@ -351,8 +351,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 
 \subsection{実験1全体のまとめ}
-結果全体を見ると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば
-かなり高い精度でどのデータセットも学習できることがわかる。
+結果全体を考察すると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば既存の活性化関数と同等もしくはより高い精度でどのデータセットも学習できることが判明した。
 特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことが明らかになった。
 複雑な問題に対しては、LearnigRateが大きい場合やcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことが判明した。
 
@@ -376,7 +375,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{figure}
 
-またこれを\ref{af-class}の表に埋めると表\ref{anal_iris}のようになる。
+またこれを\ref{af-class}の表に当てはめると表\ref{anal_iris}のようになる。
 \begin{table}[htbp]
     \begin{center}
         \caption{irisで推論した活性化関数の分析表}
@@ -410,7 +409,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{figure}
 
-またこれを\ref{af-class}の表に埋めると表\ref{anal_digits}のようになる。
+またこれを\ref{af-class}の表に当てはめると表\ref{anal_digits}のようになる。
 \begin{table}[htbp]
     \begin{center}
         \caption{digitsで推論した活性化関数の分析表}
@@ -427,7 +426,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 \end{table}
 
 ▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
-推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考えられる。
+推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考察できる。
 例外的に一つ形が崩れているが、Sigmoidと関数の形がにているため、使用する関数としてもSigmoidのような形のもので十分な精度が出ることが予想できる。
 実際に\ref{ev:wineでの実験と設定}ではSigmoidやTanhでも十分な性能を出している。
 
@@ -443,7 +442,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{figure}
 
-またこれを\ref{af-class}の表に埋めると表\ref{anal_wine}のようになる。
+またこれを\ref{af-class}の表に当てはめると表\ref{anal_wine}のようになる。
 \begin{table}[htbp]
     \begin{center}
         \caption{wineで推論した活性化関数の分析表。出力層が1次元の回帰問題なので、関数は一つだけである。}
@@ -459,10 +458,9 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{table}
 
-
-分類問題であるため、digitsとminst同様上限が存在するがおかしな形になっていることがわかる。
-これは決定木の性能評価のために使われるデータセットのため、ニューラルネットで表現できる関数空間との相性が悪いことが原因だと思われる。
-しかしながら、K-AFの影響で高い性能を出すことができた。
+K-AFでは高い性能を出すことができた。
+分類問題であるためdigitsと同様に、上限が存在するが歪な形になっていることが確認できる。
+これは決定木の性能評価のために使われるデータセットのため、ニューラルネットで表現できる関数空間との相性が悪いことが原因であると考えられる。
 
 
 
@@ -480,7 +478,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{figure}
 
-またこれを\ref{af-class}の表に埋めると表\ref{anal_boston}のようになる。
+またこれを\ref{af-class}の表に当てはめると表\ref{anal_boston}のようになる。
 \begin{table}[htbp]
     \begin{center}
         \caption{bostonで推論した活性化関数の分析表}
@@ -498,8 +496,8 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 bostonは回帰問題であるため、分類問題とは違い上限値が30になり、その中間の値も出力するようになった。
-複雑な関数の形も推論できていることがわかると同時に、このような問題に適した活性化関数がないことが原因でbostonでの実験\ref{ev:bostonでの比較実験}は圧倒的な性能を出したのではないかと考察することもできる。
-図\ref{infer_boston}のような形をした活性化関数は現状発表されてないので、既存の活性化関数では表現の幅が狭いことがわかる良い例である。
+複雑な関数の形も推論できていることが確認できると同時に、このような問題に適した活性化関数がないことが原因でbostonでの実験\ref{ev:bostonでの比較実験}は非常に高い性能を出したのではないかと考察することもできる。
+図\ref{infer_boston}のような形をした活性化関数は現状発表されてないので、既存の活性化関数では表現の幅が狭いことが確認できる良い例である。
 
 
 
@@ -516,7 +514,7 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
     \end{center}
 \end{figure}
 
-またこれを\ref{af-class}の表に埋めると表\ref{anal_breastcancer}のようになる。
+またこれを\ref{af-class}の表に当てはめると表\ref{anal_breastcancer}のようになる。
 \begin{table}[htbp]
     \begin{center}
         \caption{breastcancerで推論した活性化関数の分析表}
@@ -534,7 +532,7 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
 
 
 breast\_cancerは分類問題であるが決定木の評価に使われる関数である。
-そのため、かなり学習の不安定さが原因か、LearnigRateが大きい場合や活性化関数に使うデータセットが少ない場合に発散することが多かった。
+そのため、学習の不安定さ原因となり、LearnigRateが大きい場合や活性化関数に使うデータセットが少ない場合に勾配が発散することが多かった。
 
 
 
@@ -593,7 +591,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 
 \subsubsection{性能評価まとめ}
-表\ref{bostonbest}の順位を見ると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることが明らかになった。
+表\ref{bostonbest}の順位を確認すると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることが明らかになった。
 また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことが判明した。
 この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
 Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いことが明らかになった。

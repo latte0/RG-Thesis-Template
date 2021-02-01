@@ -16,13 +16,13 @@
 \begin{figure}[hbtp]
     \begin{center}
         \includegraphics[width=10cm]{asset/neural_network2.png}
-            \caption{活性化関数の領域。①、②の領域によって使われる活性化関数が変わることが多い。}
+            \caption{活性化関数の領域。\textcircled{\scriptsize 1}、\textcircled{\scriptsize 2}の領域によって使われる活性化関数が変わることが多い。}
             \label{neural_network1}
     \end{center}
 \end{figure}
 
 また、概要を述べるにあたってニューラルネットワークの用語を定義する。活性化関数は
-図\ref{neural_network1}の①の部分で使用する活性化関数を「中間層の活性化関数」、②の部分で使用する活性化関数を「中間層の活性化関数」と記述することとする。
+図\ref{neural_network1}の\textcircled{\scriptsize 1}の部分で使用する活性化関数を「中間層の活性化関数」、\textcircled{\scriptsize 2}の部分で使用する活性化関数を「中間層の活性化関数」と記述することとする。
 
 ディープラーニングの活性化関数に関する最近の研究はまだ多く、様々な実験が 行われている~\cite{study_af}。
 活性化関数の歴史はSigmoidという統計学的にも馴染み深いロジスティック回帰のモデルから始まった。
@@ -130,6 +130,7 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
 
 
 \subsection{Sigmoid関数とロジスティック回帰}
+\label{history_sigmoid}
 \begin{eqnarray}
 G(\mathbf{Y})=\mathbf{X}\cdot  \mathbf{W}
 \end{eqnarray}

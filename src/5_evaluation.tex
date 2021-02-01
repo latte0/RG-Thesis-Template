@@ -18,7 +18,7 @@
 \subsection{irisでの比較実験}
 \label{ev:iris}
 
-第4章の\ref{impl:iris}で設定した実験を行い、結果を以下にまとめた。
+第4章の\ref{impl:iris}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
 irisを用いた活性化関数の比較結果を表(\ref{result:iristable})に記す。
@@ -82,7 +82,7 @@ Swishが高い性能を出していることもわかる。
 
 \subsection{digitsでの比較実験}
 \label{ev:digitsでの比較実験}
-第4章の\ref{impl:digits}で設定した実験を行い、結果を以下にまとめた。
+第4章の\ref{impl:digits}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2の結果}
 \label{digits:result}
 
@@ -93,15 +93,22 @@ digitsを用いた活性化関数の比較結果を表(\ref{result:digitstable})
         \caption{digitsの設定1及び設定2のAccuracy}
         \label{result:digitstable}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|}
+            \hline
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
             K-AF            & 91.6 & 60.0 \\
+            \hline
             Sigmoid            & 92.0 & 68.6\\
+            \hline
             Tanh            & 95.6 & 89.6 \\
+            \hline
             ReLU        & 38.0 & 54.3 \\
+            \hline
             Swish           & 50.3 & 56.6 \\
+            \hline
             Mish           & 55.6 & 53.3 \\
+            \hline
     
         \end{tabular}
     \end{center}
@@ -144,7 +151,7 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
 \subsection{wineでの実験と設定}
 \label{ev:wineでの実験と設定}
 
-第4章の\ref{impl:wine}で設定した実験を行い、結果を以下にまとめた。
+第4章の\ref{impl:wine}項で設定した実験を行い、結果を以下にまとめた。
 \subsubsection{設定1及び設定2のの結果}
 
 wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に記す。
@@ -155,15 +162,22 @@ wineを用いた活性化関数の比較結果を表(\ref{result:winetable})に�
         \caption{wineの設定1及び設定2の結果Accuracy}
         \label{result:winetable}
         \vspace{2mm} 
-        \begin{tabular}{l*{2}{c}r}
+        \begin{tabular}{|c|c|c|c|}
+            \hline
             活性化関数              & 設定1のAccuracy &  設定2のAccuracy \\
             \hline
             K-AF            & 72.0 & 27.0 \\
+            \hline
             Sigmoid            & 33.3 & 43.0\\
+            \hline
             Tanh            & 33.3 & 38.3\\
+            \hline
             ReLU        & 33.3 & 0.0\\
+            \hline
             Swish           & 33.3 & 27 \\
+            \hline
             Mish           & 33.3 &  27.0\\
+            \hline
     
         \end{tabular}
     \end{center}

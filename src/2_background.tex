@@ -1,13 +1,13 @@
 \chapter{背景}
 \label{background}
 
-本章では本研究の背景について述べる.
+本章では本研究の背景について述べる。
 まず機械学習における活性化関数のの役割について明確にする。
 また、統計学において活性化関数に相当する概念がどのように応用されてきたか述べる。
 活性化関数について概説し、現在の機械学習における活性化関数の抱える問題点を明らかにする。
 次に、活性化関数の他に、ニューラルネットワークにおける精度を向上させるいくつかの構成要素について述べる。
 本研究の問題点の解決に必要な、ノンパラメトリックモデルとその具体例であるカーネル密度推定を導入する。
-最後に、実社会において機械学習を行う上での問題点や課題を述べ、本研究が取り組むべき課題を明確にする。
+最後に、実社会において機械学習を行う上での問題点や課題を述べる。
 
 
 
@@ -45,11 +45,11 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
         \label{|class_af|}
         \begin{tabular}{|cp{5cm}cc|}
         \hline
-        活性化関数の式              & 式 \\
+        活性化関数の式              & 式 & & \\
         \hline
-        Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
+        Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ & & \\
         \hline
-        Tanh               & tanh(x) \\
+        Tanh               & tanh(x) & &  \\
         \hline
         \multirow{5}{*}{ReLU}        &  \[{\rm output} =
             \begin{cases} 
@@ -58,9 +58,9 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
             \end{cases}
             \] & & \\
         \hline
-        Swish           & $ x\cdot {\rm sigmoid}(\beta x) $ \\
+        Swish           & $ x\cdot {\rm sigmoid}(\beta x) $ & & \\
         \hline
-        Mish           & $ x\cdot {\rm tanh}(\log (1 + \mathrm{exp}(x) )) $ \\
+        Mish           & $ x\cdot {\rm tanh}(\log (1 + \mathrm{exp}(x) )) $ & &  \\
         \hline
 
         \end{tabular}
@@ -508,19 +508,5 @@ Garrett Bingham(2020)~\cite{evo_af}は進化的アルゴリズムを用いて$ x
 より良い活性化関数を選択して精度を向上させ、パラメータ数を減らすことは、より良いモデルを学習・発見するための重要な課題である。
 
 
-
-\section{本研究が取り組むべき課題}
-\label{kadai}
-
-以上のような背景の中で活性化関数は、今もなお汎用的で精度が向上するような手法が模索されている。
-またこれまで用いてきた活性化関数が、問題に対して最適だったか確認する手立てが求められている。
-本研究ではそれを踏まえて以下の2つの課題に取り組む。
-
-\begin{itemize}
-  \item 高い汎用度で活性化関数が自動で推論でき、既存のものより安定的で精度がよくなること。
-  \item 関数全体から活性化関数が推定でき、扱っていた活性化関数との差分を確認できるようにすること。
-\end{itemize}
-
-第\ref{proposed}章では、実用的にこれらの課題を解決に導く手法を提案する。
 
 

@@ -9,21 +9,58 @@
 	\label{proposed_method}
 \end{figure}
 
-
-第\ref{background}章では本論文の提案手法を理解するための知識と、その背景から現状の課題点について述べた。
-
-本章では、背景を整理しつつ\ref{kadai}節で述べた課題を解決する本論文の提案手法の位置付けについて述べる。
+本章では、まず\ref{mondai}節で本研究が取り組むべき問題を背景を整理しながら述べる。
+\ref{mondai}節ではその問題を踏まえ、課題を明確に記す。
+\ref{kadai}節では\ref{kadai}節で述べた課題を解決する本論文の提案手法の歴史と位置付けについて述べる。
 \ref{history_activation}節では既存の活性化関数の動向を踏まえながら本提案手法へとつながる過程を述べる。
 \ref{position_proposed}節では本研究の研究的な位置付けについて解説する。
 \ref{math}節ではK-AFの式について解説し、活性化関数として使用できることを示す。
-\ref{al}節ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
+最後に\ref{al}節ではK-AFのアルゴリズムについて概説し、実装の理解を深める。
 
 
 
 
-\section{活性化関数と背景}
-\label {history_activation}
+\section{問題の背景}
+\label {mondai}
 
+
+現在ニューラルネットワークの構築に使われている活性化関数は組み合わせは問題に応じて、表\ref{which_to_use}のような組み合わせで構築することが多い。
+
+\begin{table}[htbp]
+\label{exp:iris}
+    \begin{center}
+        \caption{問題に応じた活性化関数の選択}
+        \label{which_to_use}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        問題の種類 & 入力層に使う活性化関数 & 出力層に使う活性化関数\\
+        \hline
+        分類  & ReLUなど & Sigmoidなど \\
+        \hline
+        回帰  & ReLUなど & ReLUなど \\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+しかし、これらの組み合わせは経験的であるという問題を抱えているだけではなく、問題やデータに対する人間の知識が事前に必要とされる。
+
+
+\section{本研究が取り組むべき課題}
+\label{kadai}
+
+第\ref{background}章より、活性化関数は今もなお汎用的で精度が向上するような手法が模索されている。
+また、これまで用いてきた活性化関数が問題に対して最適だったか確認する手立てが求められている。
+本研究ではそれを踏まえて以下の2つの課題に取り組む。
+
+\begin{itemize}
+  \item 高い汎用度で活性化関数が自動で推論でき、既存のものより安定的で精度がよくなること。
+  \item 関数全体から活性化関数が推定でき、扱っていた活性化関数との差分を確認できるようにすること。
+\end{itemize}
+
+
+\section{提案手法の着想点}
+\label{history_activation}
 
 \begin{figure}[hbtp]
 \includegraphics[width=15cm]{asset/history_af.png}
@@ -31,10 +68,8 @@
 	\label{history_af}
 \end{figure}
 
-現在、深層学習に利用できる活性化関数が研究されている。特に近年では、中間層にReLUを用い出力層にSigmoid関数を用いた組み合わせがよく用いられている。
-しかし、これらの組み合わせは経験的なものだけでなく、データに対する人間の知識が事前に必要とされる。
 
-また、本研究で提案する活性化関数はSwishやMishなどからの単調増加性の仮定を外した点に着目した。
+本研究で提案する活性化関数はSwishやMishなどからの単調増加性の仮定を外した点に着目した。
 Sigmoidはロジスティック回帰から生まれたものであり、ReLU自体も実験的に精度が良いと導出されただけのものであった。
 それらの単調増加性という性質は機械学習の観点では本来必要ではないと考えることもできる。
 図\ref{history_af}のように、活性化関数はSwishやMishなどといった形へと進化する中で、単調増加性を仮定する必要がなくなった。

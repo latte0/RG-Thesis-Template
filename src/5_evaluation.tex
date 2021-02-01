@@ -31,7 +31,7 @@
             \hline
             K-AF            & 72.0 & 26.0 \\
             Sigmoid            & 68.0 & 77.3\\
-            Linear            & 20.0 & 53.0\\
+            Tanh            & 20.0 & 53.0\\
             ReLU        &  49.6 &  38.3\\
             Swish           & 87.3 & 47.3 \\
             Mish           & 60.0 & 65.0 \\
@@ -150,7 +150,7 @@ TrainigLossのグラフ\ref{digits:result}を見ると、設定の1,2共に順�
             \hline
             K-AF            & 72.0 & 27.0 \\
             Sigmoid            & 33.3 & 43.0\\
-            Linear            & 33.3 & 38.3\\
+            Tanh            & 33.3 & 38.3\\
             ReLU        & 33.3 & 0.0\\
             Swish           & 33.3 & 27 \\
             Mish           & 33.3 &  27.0\\
@@ -264,7 +264,7 @@ bostonは本実験で唯一の回帰のデータセットである。
             \hline
             K-AF            & 43.0 & 90.3 \\
             Sigmoid            & 47.3 & 78.3\\
-            Linear            & 60.0 & 29.0\\
+            Tanh            & 60.0 & 29.0\\
             ReLU        & 43.0 & 29.0\\
             Swish           & 55.3 & 42.6\\
             Mish           & 47.3 & 42.6\\
@@ -300,13 +300,14 @@ bostonは本実験で唯一の回帰のデータセットである。
 
 \subsubsection{breastcancerでの実験結果の考察}
 結果\ref{breastcancer:result}を見るに、カーネル密度関数を推定するためのデータセットに依存して、発散することとそうではない場合があるようである。
-こちらも決定木の性能評価でよく疲れるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
-
+こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
+設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配発散が原因であると考えられる。
 
 \subsection{実験1全体のまとめ}
 結果全体を見ると、K-AFは本実験で使うようなデータセットの場合でも、いい条件で学習することができれば
 かなり高い精度でどのデータセットも学習できることがわかる。
 特に決定木の問題に対してもcalc\_numを多めに取ることができれば予想以上に高い精度を出すことがわかった。
+複雑な問題に対しては、LearnigRateが大きいばいやcalc\_numが少ない場合はかなりの確率で勾配爆発を起こすことがわかった。
 
 
 \section{実験2の結果 K-AFの関数形状の調査}
@@ -388,7 +389,7 @@ bostonは本実験で唯一の回帰のデータセットである。
 推論した活性化関数の形は図\ref{infer_wine}のようになる。
 \begin{figure}[hbtp]
     \begin{center}
-        \includegraphics[width=10cm]{asset/wine-0.1.png}
+        \includegraphics[width=10cm]{asset/wine-0.01.png}
             \caption{wineで推論した活性化関数の形}
             \label{ifer_wine}
     \end{center}
@@ -403,18 +404,83 @@ bostonは本実験で唯一の回帰のデータセットである。
         \begin{tabular}{ |c|c|c| }
         単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
         \hline
+        × & ○ & ○   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+分類問題であるため、digitsとminst同様上限が存在するがおかしな形になっていることがわかる。
+これは決定木の性能評価のために使われるデータセットのため、ニューラルネットで表現できる関数空間との相性が悪いことが原因だと思われる。
+しかしながら、K-AFの影響で高い性能を出すことができた。
+
+
+
+
+
+
+\subsubsection{bostonの活性化関数}
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:boston}のLR以外の設定を用いる。
+推論した活性化関数の形は図\ref{infer_boston}のようになる。
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/boston-0.00001.png}
+            \caption{bostonで推論した活性化関数の形}
+            \label{ifer_boston}
+    \end{center}
+\end{figure}
+
+またこれを\ref{af-class}の表に埋めると表\ref{anal_boston}のようになる。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{bostonで推論した活性化関数の分析表}
+        \label{anal_boston}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
+        × & ○ & ▲   \\
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+bostonは回帰問題であるため、分類問題とは違い上限値が30になり、その中間の値も出力するようになった。
+複雑な関数の形も推論できていることがわかると同時に、このような問題に適した活性化関数がないことが原因でbostonでの実験\ref{ev:bostonでの比較実験}は圧倒的な性能を出したのではないかと考察することもできる。
+
+
+
+
+
+
+\subsubsection{breastcancerの活性化関数}
+実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:breastcancer}のLR以外の設定を用いる。
+推論した活性化関数の形は図\ref{infer_breastcancer}のようになる。
+\begin{figure}[hbtp]
+    \begin{center}
+        \includegraphics[width=10cm]{asset/breastcancer-0.01.png}
+            \caption{breast\_cancerで推論した活性化関数の形}
+            \label{ifer_breastcancer}
+    \end{center}
+\end{figure}
+
+またこれを\ref{af-class}の表に埋めると表\ref{anal_breastcancer}のようになる。
+\begin{table}[htbp]
+    \begin{center}
+        \caption{breastcancerで推論した活性化関数の分析表}
+        \label{anal_breastcancer}
+        \vspace{2mm} 
+        \begin{tabular}{ |c|c|c| }
+        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        \hline
         ▲ & ○ & ○   \\
         \end{tabular}
     \end{center}
 \end{table}
 
 
-
-
-
-
-
-
+breast\_cancerは分類問題であるが決定木の評価に使われる関数である。
+そのため、かなり学習の不安定さが原因か、LearnigRateが大きい場合や活性化関数に使うデータセットが少ない場合に発散することが多かった。
 
 
 
@@ -429,8 +495,9 @@ bostonは本実験で唯一の回帰のデータセットである。
 \section{実験3の結果 K-AFの性能が上がる条件探査}
 \label{evo3}
 \ref{exp3}で示した比較実験の結果を記述する。
-wine及びbostonのデータセットで最も性能が良かったニューラルネットワークの設定のトップ5を記述する。
-
+実験中・・・・
+wine及びbostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{winebest}と表\ref{bostonbest}に記述する。
+それぞれの表の組み合わせは[ Initializer, Optimizer, Regularizer ]の順番でリストを作って表記する。
 \subsubsection{wineの場合}
 
 \begin{table}[htbp]
@@ -441,11 +508,11 @@ wine及びbostonのデータセットで最も性能が良かったニューラ�
         \begin{tabular}{ |c|c|c| }
         組み合わせ & Acc & エラーの回数 \\
         \hline
-        iris           & $ 10^{-3} $    & 3 \\
-        digits         & $ 10^{-3} $    & 3 \\
-        wine           & $ 10^{-3} $    & 3 \\
-        boston         & $ 10^{-3} $    & 13  \\
-        breast\_cancer & $ 10^{-3} $    & 30 \\
+        iris           & $ 0.5 $    & 3 \\
+        digits         & $ 0.5 $    & 3 \\
+        wine           & $ 0.5 $    & 3 \\
+        boston         & $ 0.5 $    & 13  \\
+        breast\_cancer & $ 0.5 $    & 30 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -462,11 +529,11 @@ wine及びbostonのデータセットで最も性能が良かったニューラ�
         \begin{tabular}{ |c|c|c| }
         組み合わせ & Acc & エラーの回数 \\
         \hline
-        iris           & $ 10^{-3} $    & 3 \\
-        digits         & $ 10^{-3} $    & 3 \\
-        wine           & $ 10^{-3} $    & 3 \\
-        boston         & $ 10^{-3} $    & 13  \\
-        breast\_cancer & $ 10^{-3} $    & 30 \\
+        [Adam....    ]       & $ 0.5 $    & 48 \\
+        [Adam....    ]          & $ 0.5 $    & 30 \\
+        [Adam....    ]            & $ 0.5 $    & 30 \\
+        [Adam....    ]          & $ 0.5 $    & 30  \\
+        [Adam....    ]       & $ 0.5 $    & 30 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -475,7 +542,9 @@ wine及びbostonのデータセットで最も性能が良かったニューラ�
 
 
 \subsection{性能評価まとめ}
-wineとbostonの結果をまとめるとと言うことがわかった。
+Adamを使う場合が多くの確率で最も性能が高いことが示された。
+以上により、活性化関数に使用するデータセット数やLearningRate以外にも、発散の可能性を減らす学習アルゴリズムの規則性を見ることができた。
+
 
 
 \section{まとめ}

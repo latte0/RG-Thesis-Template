@@ -161,7 +161,7 @@ Pytorchを用いた理由は実装コストが低く研究領域に従事でき�
 \subsection{実装手法}
 
 表\ref{list:learning_algorithm_change}に記述した5つのデータセットを軸に\ref{list:af_table}の活性化関数での比較実験を
-LearningRate 、Optimizer、Initializer、Regularizerを変更しながら実験した。
+LearningRate、Optimizer、Initializer、Regularizerを変更しながら実験した。
 K-AFの性能が有利にならないように、可能な限り任意の組み合わせで実験を行い性能の評価を行う。
 
 
@@ -375,9 +375,9 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \hline
         iris           & $ 10^{-1} $    & 3         & 3        & 分類      & 4 \\
         digits         & $ 10^{-1} $    & 3         & 64       & 分類      & 100 \\
-        wine           & $ 10^{-1} $    & 3         & 13       & 分類      & 40 \\
-        boston         & $ 10^{-1} $    & 13        & 1        & 回帰      & 20 \\
-        breast\_cancer & $ 10^{-1} $    & 30        & 2        & 分類      & 30 \\
+        wine           & $ 10^{-2} $    & 3         & 13       & 分類      & 40 \\
+        boston         & $ 10^{-5} $    & 13        & 1        & 回帰      & 20 \\
+        breast\_cancer & $ 10^{-2} $    & 30        & 2        & 分類      & 30 \\
         \end{tabular}
     \end{center}
 \end{table}
@@ -415,7 +415,7 @@ K-AFは実験の中で勾配発散問題が発生することが発覚した。
 
 epoch数が少ない理由は発散するときは初期のタイミングで発散するからである。
 評価項目として発散頻度(エラーの回数)とAccuracy及びMSEを二つのデータセットで調査する。
-
+また、実験3ではLearningRateは小さい方がエラー確率が減ることは自明なためLRは$ 10^{-5} $で固定するものとする。
 
 
 

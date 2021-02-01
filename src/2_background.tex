@@ -42,24 +42,25 @@ Prajit RamachandranのSwish(2017)~\cite{swish}は、$ f(x)=x {\bf sigmoid}(\beta
     \begin{center}
         \caption{活性化関数の種類}
         \vspace{2mm} 
-        \label{class_af}
+        \label{|class_af|}
         \begin{tabular}{cp{5cm}cc}
         活性化関数の数式              & 数式 \\
         \hline
         Sigmoid            & $ \cfrac{1}{1 + \mathrm{exp}(x)} $ \\
-        \vspace{2mm} 
+        \hline
         Tanh               & tanh(x) \\
-        \vspace{-5mm} 
-        \multirow{5}{*}{ReLU}        &  \[l=
+        \hline
+        \multirow{5}{*}{ReLU}        &  \[output =
             \begin{cases} 
             0 &\text{when $ x < 0 $ }\\
             x &\text{when $ x \geq 0 $ else} \\
             \end{cases}
             \] & & \\
-        \vspace{2mm} 
-        Swish           & $ x{\bf sigmoid}(\beta x) $ \\
-        \vspace{2mm} 
-        Mish           & $ x{\bf tanh}(\log (1 + \mathrm{exp}(x) )) $ \\
+        \hline
+        Swish           & $ x\cdot {\rm sigmoid}(\beta x) $ \\
+        \hline
+        Mish           & $ x\cdot {\rm tanh}(\log (1 + \mathrm{exp}(x) )) $ \\
+        \hline
 
         \end{tabular}
     \end{center}

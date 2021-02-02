@@ -20,23 +20,40 @@
 
 
 
-本研究において利用した実装環境を 表\ref{impl_table} に示す. 提案手法の実装は Pytorch 及
-を用いた.  PyTorch~\cite{pytorch}, Chainer~\cite{chainer},  Tensorflow~\cite{tensorflow} は計算グラフの自動微分ライブラリであり, 深層ニューラルネットワークの研究や開発にも用いられる.
-Pytorchを用いた理由は実装コストが低く研究領域に適用しやすいところにある。
+本研究において利用した実装環境を 表\ref{impl_table} に記す。
+また、本手法を動かすために使用したライブラリのバージョンを表\ref{impl2_table}に記す。
+PyTorch~\cite{pytorch}, Chainer~\cite{chainer},  Tensorflow~\cite{tensorflow} は計算グラフの自動微分ライブラリであり、深層ニューラルネットワークの研究や開発にも用いられる。
+その中でもPytorchは実装コストが低く研究領域に適用しやすいことから、本研究で用いた。
 
 
 \begin{table}[htbp]
     \begin{center}
         \caption{本研究の実行環境}
         \label{impl_table}
-        \vspace{2mm} 
+        \begin{tabular}{|c|c|}
+        \hline
+        項目              & 仕様 \\
+        \hline
+        CPU               &  2.6GHz Intel core i7 \\
+        \hline
+        メモリ             & 16GB 2400 MHz DDR4 \\
+        \hline
+        ストレージ          & Macintosh HD 256GB \\
+        \hline
+        OS               & macOS High Sierra 10.13.6 \\
+        \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+
+\begin{table}[htbp]
+    \begin{center}
+        \caption{本研究のに使用したライブラリのバージョン}
+        \label{impl2_table}
         \begin{tabular}{|c|c|}
         \hline
         環境              & バージョン \\
-        \hline
-        CPU               & Intel core i7 6コア 2.2GHz \\
-        \hline
-        メモリ             & 16GB \\
         \hline
         Python            & 3.8.5  \\
         \hline
@@ -49,8 +66,6 @@ Pytorchを用いた理由は実装コストが低く研究領域に適用しや�
         \end{tabular}
     \end{center}
 \end{table}
-
-
 
 \section{本実験での共通項目}
 \label{exp_common}

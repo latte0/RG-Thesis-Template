@@ -385,11 +385,11 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \caption{irisで推論した活性化関数の分析表}
         \label{anal_iris}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c| }
         \hline
-        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        単調増加関数か & 上限値があるか   \\
         \hline
-        × & ○ & ○   \\
+        × & ○   \\
         \hline
         \end{tabular}
     \end{center}
@@ -420,17 +420,17 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \caption{digitsで推論した活性化関数の分析表}
         \label{anal_digits}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c| }
         \hline
-        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        単調増加関数か  & 上限値があるか   \\
         \hline
-        ▲ & ○ & ○   \\
+        ▲ & ○   \\
         \hline
         \end{tabular}
     \end{center}
 \end{table}
 
-「単調増加か」が▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
+「単調増加関数か」が▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
 推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考察できる。
 例外的に一つ形が崩れているが、Sigmoidと関数の形がにているため、使用する関数としてもSigmoidのような形のもので十分な精度が出ることが予想できる。
 実際に\ref{ev:wineでの実験と設定}ではSigmoidやTanhでも十分な性能を出している。
@@ -454,11 +454,11 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
         \caption{wineで推論した活性化関数の分析表。出力層が1次元の回帰問題なので、関数は一つだけである。}
         \label{anal_wine}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c| }
         \hline
-        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        単調増加関数か  & 上限値があるか   \\
         \hline
-        × & ○ & ○   \\
+        × & ○   \\
         \hline
         \end{tabular}
     \end{center}
@@ -491,11 +491,11 @@ K-AFでは高い性能を出すことができた。
         \caption{bostonで推論した活性化関数の分析表}
         \label{anal_boston}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c| }
         \hline
-        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        単調増加関数か  & 上限値があるか   \\
         \hline
-        × & ○ & ▲   \\
+        × & ▲   \\
         \hline
         \end{tabular}
     \end{center}
@@ -527,11 +527,11 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
         \caption{breastcancerで推論した活性化関数の分析表}
         \label{anal_breastcancer}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c| }
         \hline
-        単調増加関数か & 勾配が$ 0 $の点があるか & 上限値があるか   \\
+        単調増加関数か  & 上限値があるか   \\
         \hline
-        ▲ & ○ & ○   \\
+        ▲ & ○   \\
         \hline
         \end{tabular}
     \end{center}

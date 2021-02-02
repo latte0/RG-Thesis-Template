@@ -208,7 +208,7 @@ ValidationLossのログデータを図\ref{wine:loss_image1}と図\ref{wine:loss
 
 
 \subsubsection{wineでの実験結果の考察}
-結果\ref{result:winetable}を確認するとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では発散してしまっていることが考えられる。
+結果\ref{result:winetable}を確認するとwineはもともと決定木に使用されるデータセットのためか、設定1ではK-AF以外では勾配爆発してしまっていることが考えられる。
 また、設定2はOptimizerをAdamに変えただけ、学習が失敗することが明らかになった。
 全体を通してもSGDのK-AFが最大のAccuracyを出している。
 
@@ -539,7 +539,7 @@ bostonは回帰問題であるため、分類問題とは違い上限値が30に
 
 
 breast\_cancerは分類問題であるが決定木の評価に使われる関数である。
-そのため、学習の不安定さ原因となり、LearnigRateが大きい場合や活性化関数に使うデータセットが少ない場合に勾配が発散することが多かった。
+そのため、学習の不安定さ原因となり、LearnigRateが大きい場合や活性化関数に使うデータセットが少ない場合に勾配が爆発することが多かった。
 
 
 
@@ -575,12 +575,12 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを推論するときの最も発散確率が低いニューラルネットワークの設定の順位}
+        \caption{bostonを推論するときの最も勾配爆発確率が低いニューラルネットワークの設定の順位}
         \label{bostonbest}
         \vspace{2mm} 
         \begin{tabular}{ |c||c|c|c|c|c| }
         \hline
-        順位 & Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
+        順位 & Initializer & Optimizer &  Reguralizer & 勾配爆発回数 & 勾配爆発確率 \\
         \hline
         1 & Xavier & Adam & non & 275 & 27.5\%　\\
         \hline

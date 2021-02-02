@@ -444,25 +444,28 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \caption{実験2に用いるデータセットの情報及びLearningRateの設定}
         \label{dataset_name2}
         \vspace{2mm} 
-        \begin{tabular}{ |c|c|c|c|c|c|c| }
-        \hline
-        データセット名 & LearningRate & Optimizer & Initializer & Reguralizer & 中間層の数 & calc\_num \\
-        \hline
-        iris           & $ 10^{-1} $    & SGD         & KaimingUniform        & なし      & 4 & 30 \\
-        \hline
-        digits         & $ 10^{-1} $    & SGD         & KaimingUniform       & なし      & 100 & 36 \\
-        \hline
-        wine           & $ 10^{-2} $    & SGD         & KaimingUniform       & なし      & 40 & 36 \\
-        \hline
-        boston         & $ 10^{-5} $    & SGD        & KaimingUniform        & なし      & 20 & 26 \\
-        \hline
-        breast\_cancer & $ 10^{-2} $    & SGD        & KaimingUniform        & なし      & 30 & 285 \\
-        \hline
-        \end{tabular}
+
+        \scalebox{0.7}[0.7]{
+            \begin{tabular}{ |c|c|c|c|c|c|c|c| }
+            \hline
+            データセット名 & LearningRate & Optimizer & Initializer & Reguralizer & 中間層の数 & calc\_num & epoch\_num \\
+            \hline
+            iris           & $ 10^{-1} $    & SGD         & KaimingUniform        & なし      & 4 & 30 & 1000 \\
+            \hline
+            digits         & $ 10^{-1} $    & SGD         & KaimingUniform       & なし      & 100 & 36 & 1000 \\
+            \hline
+            wine           & $ 10^{-2} $    & SGD         & KaimingUniform       & なし      & 40 & 36 & 1000 \\
+            \hline
+            boston         & $ 10^{-5} $    & SGD        & KaimingUniform        & なし      & 20 & 26 & 1000 \\
+            \hline
+            breast\_cancer & $ 10^{-2} $    & SGD        & KaimingUniform        & なし      & 30 & 285 & 1000 \\
+            \hline
+            \end{tabular}
+        }
     \end{center}
 \end{table}
 
-
+epochが1000の地点での活性化関数の形状を記録することとする。
 また、本実験は勾配爆発が起きていない場合の活性化関数の形状を記録し、評価する。
 
 

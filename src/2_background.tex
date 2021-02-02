@@ -325,12 +325,12 @@ w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{
 損失関数を$ \mathrm{E}(w) $とした時に、最適化する関数を$\mathrm{E}(w)$の代わりに以下の式を用いる。
 
 \begin{eqnarray}
-\mathrm{E}(w) + \lambda \frac{1}{p}\|w\|_p
+\mathrm{E}(w) + \mu \frac{1}{p}\|w\|_p
 \label{eq:regu}
 \end{eqnarray}
 
 
-ここで$ w $はパラメータベクトルで$　\| \cdot \|_p $はL1ノルム(p=1)やL2ノルム(p=2)などである。$ \lambda $ はハイパーパラメータである。
+ここで$ w $はパラメータベクトルで$　\| \cdot \|_p $はL1ノルム(p=1)やL2ノルム(p=2)などである。$ \mu $ はハイパーパラメータである。
 
 
 \begin{figure}[hbtp]

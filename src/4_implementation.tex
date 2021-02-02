@@ -480,14 +480,11 @@ breast\_cancerの場合に実際に発散したことは本論文でも明らか
 
 \subsection{実験3.1 ニューラルネットワークの設定変更により精度向上の条件調査}
 \label{exp3.1}
-K-AFが一般的にどのようなニューラルネットワークの設定の場合に性能を出しやすいかを、表\ref{list:learning_algorithm_change}での全てのパターンの組み合わせで実験し、評価する。
-
-
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{学習においての使用するニューラルネットワークの学習アルゴリズム}
-        \label{list:learning_algorithm_change:exp3}
+        \caption{実験3.1において使用するニューラルネットワークの構成の組み合わせ}
+        \label{list:learning_algorithm_change3}
         \vspace{2mm} 
         \begin{tabular}{ |c|c| }
         \hline
@@ -504,10 +501,9 @@ K-AFが一般的にどのようなニューラルネットワークの設定の�
 \end{table}
 
 
-
+K-AFが一般的にどのようなニューラルネットワークの設定の場合に性能を出しやすいかを、表\ref{list:learning_algorithm_change3}での全てのパターンの組み合わせで実験し、評価する。
 本実験ではデータセットとしてbostonを用いて性能評価を行う。
 
-その際のニューラルネットワークの設定は実験1で用いた表\ref{dataset_name}のbostonの欄を軸に設定する。
 他に実験において必要なパラメータを以下の表\ref{exp31hyper}に設定する。
 
 
@@ -520,6 +516,10 @@ K-AFが一般的にどのようなニューラルネットワークの設定の�
             \begin{tabular}{||c|c|c||}
             \hline
             ハイパーパラメータ  & 値 \\
+            \hline
+            LearningRate & $ 10^{-5} \\
+            \hline
+            中間層の数$ l_1 $ & 20  \\
             \hline
             epoch\_num & 5  \\
             \hline

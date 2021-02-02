@@ -80,7 +80,7 @@ PyTorch~\cite{pytorch}, Chainer~\cite{chainer},  Tensorflow~\cite{tensorflow} �
 \end{figure}
 
 今回の実験では、簡易的なモデルで活性化関数の性能を試していく。
-中間層の数を$ l_1 $とし、\textcircled{\scriptsize 1}にはReLUを用いる。\textcircled{\scriptsize 2}の部分を可変的にさまざまな活性化関数へと変えていく。
+中間層の次元数を$ l_1 $とし、\textcircled{\scriptsize 1}にはReLUを用いる。\textcircled{\scriptsize 2}の部分を可変的にさまざまな活性化関数へと変えていく。
 本論文で提案する、K-AFは\textcircled{\scriptsize 2}の部分において性能を評価する。
 
 比較用の活性化関数には以下の表\ref{list:af_table}に記述してあるものを用いる。
@@ -448,7 +448,7 @@ breast\_cancerは乳がんのデータセットである。実験に用いる設
         \scalebox{0.7}[0.7]{
             \begin{tabular}{ |c|c|c|c|c|c|c|c| }
             \hline
-            データセット名 & LearningRate & Optimizer & Initializer & Reguralizer & 中間層の数 & calc\_num & epoch\_num \\
+            データセット名 & LearningRate & Optimizer & Initializer & Reguralizer & 中間層の次元数 & calc\_num & epoch\_num \\
             \hline
             iris           & $ 10^{-1} $    & SGD         & KaimingUniform        & なし      & 4 & 30 & 1000 \\
             \hline
@@ -473,7 +473,9 @@ epochが1000の地点での活性化関数の形状を記録することとす�
 
 \section{実験3 K-AFの性能が上がる条件探査}
 \label{exp3}
-K-AFは実験の中で勾配爆発問題が発生することが発覚した。特にbostonやbreast\_cancerでは適当なパラメータで学習を開始すると、モデルが発散する可能性が高いことが実験の中から判明した。
+
+K-AFは実験の中で勾配爆発問題が発生することが発覚した。
+特にbostonや breast\_cancer では適当なパラメータで学習を開始すると、モデルが発散する可能性が高いことが実験の中から判明した。
 breast\_cancerの場合に実際に発散したことは本論文でも明らかになっている。
 また、勾配の爆発問題はパラメータの勾配を上限値でクリッピングすることである程度減らすことが知られている。
 本実験では、二つの実験を行う。
@@ -501,10 +503,10 @@ breast\_cancerの場合に実際に発散したことは本論文でも明らか
 \end{table}
 
 
-K-AFが一般的にどのようなニューラルネットワークの設定の場合に性能を出しやすいかを、表\ref{list:learning_algorithm_change3}での全てのパターンの組み合わせで実験し、評価する。
+K-AFが一般的にどのようなニューラルネットワークの設定の場合に性能を出しやすいかという問題を、表\ref{list:learning_algorithm_change3}での全てのパターンの組み合わせで実験することで、調査する。
 本実験ではデータセットとしてbostonを用いて性能評価を行う。
 
-他に実験において必要なパラメータを以下の表\ref{exp31hyper}に設定する。
+また、本実験に必要なパラメータを以下の表\ref{exp31hyper}に設定する。
 
 
 \begin{table}[hbtp]
@@ -517,9 +519,9 @@ K-AFが一般的にどのようなニューラルネットワークの設定の�
             \hline
             ハイパーパラメータ  & 値 \\
             \hline
-            LearningRate & $ 10^{-5} \\
+            LearningRate & $ 10^{-5} $ \\
             \hline
-            中間層の数$ l_1 $ & 20  \\
+            中間層の次元数 $ l_1 $ & 20  \\
             \hline
             epoch\_num & 5  \\
             \hline

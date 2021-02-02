@@ -368,6 +368,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{irisの活性化関数}
+\label{evo2:iris_result}
 実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:iris}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_iris}のようになる。
 \begin{figure}[hbtp]
@@ -402,6 +403,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{digitsの活性化関数}
+\label{evo2:digits_result}
 実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:digits}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_digits}のようになる。
 \begin{figure}[hbtp]
@@ -428,13 +430,14 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
     \end{center}
 \end{table}
 
-▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
+「単調増加か」が▲になる理由は単調増加とは対称的な単調減少の関数も推論した関数の中に存在するからである。
 推論するデータセットがラベリング問題であるため上限値が$ 1 $であることから、このような形になったと考察できる。
 例外的に一つ形が崩れているが、Sigmoidと関数の形がにているため、使用する関数としてもSigmoidのような形のもので十分な精度が出ることが予想できる。
 実際に\ref{ev:wineでの実験と設定}ではSigmoidやTanhでも十分な性能を出している。
 
 
 \subsubsection{wineの活性化関数}
+\label{evo2:wine_result}
 実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:wine}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_wine}のようになる。
 \begin{figure}[hbtp]
@@ -471,6 +474,7 @@ K-AFでは高い性能を出すことができた。
 
 
 \subsubsection{bostonの活性化関数}
+\label{evo2:boston_result}
 実験の設定は表\ref{dataset_name}のLearningRateと表\ref{exp:boston}のLearningRate以外の設定を用いる。
 推論した活性化関数の形は図\ref{infer_boston}のようになる。
 \begin{figure}[hbtp]

@@ -281,7 +281,8 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
 
 \subsubsection{bostonでの実験結果の考察}
 bostonは本実験で唯一の回帰のデータセットである。
-結果\ref{result:bostontable}を考察した結果、ReLU等の関数よりも高い精度が出ることが判明した。
+
+結果\ref{result:bostontable}を考察すると、ReLU等の関数よりも高い精度が出ることが判明した。
 
 
 
@@ -348,7 +349,7 @@ ValidationLossのログデータを図\ref{breastcancer:loss_image1}と図\ref{b
 
 
 \subsubsection{breastcancerでの実験結果の考察}
-結果\ref{result:breastcancer}を考察した結果、勾配発散が起きる条件に関わるものとして、カーネル密度関数を推定するためのデータセットの数が関与してることが明らかになった。
+結果\ref{result:breastcancer}を考察すると、勾配爆発が起きる条件に関わるものとして、カーネル密度関数を推定するためのデータセットの数が関与してることが明らかになった。
 こちらも決定木の性能評価でよく使用されるデータセットであるため、ニューラルネットワークで評価をするのには向いていないことが精度が出づらいことの原因であると考えられる。
 設定1での性能が極端に低い原因は計算用のデータセットの数が少ないことによる勾配爆発が原因であると考えられる。
 
@@ -564,7 +565,7 @@ breast\_cancerは分類問題であるが決定木の評価に使われる関数
 \ref{exp3.1}項で示した比較実験の結果を記述する。
 
 
-\subsubsection{bostonにおいて勾配発散の確率の少ないニューラルネットワークの構成}
+\subsubsection{bostonにおいて勾配爆発の確率の少ないニューラルネットワークの構成}
 bostonのデータセットで最も性能が良かったニューラルネットワークの設定の上位5つを表\ref{bostonbest}に記述する。
 
 
@@ -594,7 +595,7 @@ bostonのデータセットで最も性能が良かったニューラルネッ�
 
 \subsubsection{性能評価まとめ}
 表\ref{bostonbest}の順位を確認すると性能に直結しそうなものは初期値であり、上位の順位のものが全てXavierであることが明らかになった。
-また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配発散の発生回数が半分程度だったことが判明した。
+また、Appendixの表\ref{appendix:error}よりXavierはKaimingUniform によりもどの条件において勾配爆発の発生回数が半分程度だったことが判明した。
 この議論において大切なことは、どのInitializer性能が向上したかということではなく、InitializerそのものがK-AFの性能に大きく影響しているということである。
 Initializerの他には統計的な誤差の範囲内ではあるが、OptimizerとしてAdamを使用した場合にエラー頻度が低いことが明らかになった。
 
@@ -605,12 +606,12 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 \begin{table}[htbp]
     \begin{center}
-        \caption{bostonを用いたK-AFにクリッピングを用いた際の勾配発散の回数と確率}
+        \caption{bostonを用いたK-AFにクリッピングを用いた際の勾配爆発の回数と確率}
         \label{clipping_boston}
         \vspace{2mm} 
         \begin{tabular}{ |c|c|c| }
         \hline
-        構成 & 勾配発散の回数 & 勾配発散の確率\\
+        構成 & 勾配爆発の回数 & 勾配爆発の確率\\
         \hline
         クリッピングなし  & 648 & 64.8\% \\
         \hline
@@ -623,13 +624,13 @@ Initializerの他には統計的な誤差の範囲内ではあるが、Optimizer
 
 
 \subsubsection{クリッピングの性能まとめ}
-\ref{clipping_boston}節の結果により、クリッピングがK-AFの勾配発散の確率を減らすことには直接影響しないことが明らかになった。
+\ref{clipping_boston}節の結果により、クリッピングがK-AFの勾配爆発の確率を減らすことには直接影響しないことが明らかになった。
 
 
 
 \subsection{実験3まとめ}
 実験3.1により、K-AFの性能を引き出す最大の要素はInitializerに関わっていることが明らかになった。
-これは初期値の段階で勾配発散に陥ってる可能性が高いことが原因であると考えられる。
+これは初期値の段階で勾配爆発に陥ってる可能性が高いことが原因であると考えられる。
 
 
 %%% Local Variables:

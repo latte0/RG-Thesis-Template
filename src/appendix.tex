@@ -20,7 +20,7 @@ G(\mathbf{X}_i, \mathbf{W})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \math
 これにより\ref{calc:k-af}は以下の式に直すことができる。
 
 \begin{eqnarray}
-G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc})) \approx \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
+G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc})) = \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
 \label{calc:k-af-2}
 \end{eqnarray}
 
@@ -118,29 +118,29 @@ class Net(nn.Module):
         \hline
         Initializer & Optimizer &  Reguralizer & 発散回数 & 発散確率 \\
         \hline
-        kaiming\_uniform & Adagrad & l1 & 622 & 62.2\% \\
+        KaimingUniform & Adagrad & l1 & 622 & 62.2\% \\
         \hline
-        kaiming\_uniform & Adagrad & l2 & 613 & 61.3\% \\
+        KaimingUniform & Adagrad & l2 & 613 & 61.3\% \\
         \hline
-        kaiming\_uniform & Adagrad & なし & 635 & 63.5\% \\
+        KaimingUniform & Adagrad & なし & 635 & 63.5\% \\
         \hline
-        kaiming\_uniform & Adam & l1 & 632 & 63.2\% \\
+        KaimingUniform & Adam & l1 & 632 & 63.2\% \\
         \hline
-        kaiming\_uniform & Adam & l2 & 615 & 61.5\% \\
+        KaimingUniform & Adam & l2 & 615 & 61.5\% \\
         \hline
-        kaiming\_uniform & Adam & なし & 628 & 62.8\% \\
+        KaimingUniform & Adam & なし & 628 & 62.8\% \\
         \hline
-        kaiming\_uniform & RMSprop & l1 & 639 & 63.9\% \\
+        KaimingUniform & RMSprop & l1 & 639 & 63.9\% \\
         \hline
-        kaiming\_uniform & RMSprop & l2 & 622 & 62.2\% \\
+        KaimingUniform & RMSprop & l2 & 622 & 62.2\% \\
         \hline
-        kaiming\_uniform & RMSprop & なし & 629 & 62.9\% \\
+        KaimingUniform & RMSprop & なし & 629 & 62.9\% \\
         \hline
-        kaiming\_uniform & SGD & l2 & 585 & 58.5\% \\
+        KaimingUniform & SGD & l2 & 585 & 58.5\% \\
         \hline
-        kaiming\_uniform & SGD & l1 & 619 & 61.9\% \\
+        KaimingUniform & SGD & l1 & 619 & 61.9\% \\
         \hline
-        kaiming\_uniform & SGD & なし & 601 & 60.1\% \\
+        KaimingUniform & SGD & なし & 601 & 60.1\% \\
         \hline
         Xavier & Adagrad & l1 & 312 & 31.2\% \\
         \hline

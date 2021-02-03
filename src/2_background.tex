@@ -281,7 +281,7 @@ isotonic regression自体は回帰問題として発明された手法であっ�
 \end{eqnarray}
 
 複雑な損失関数を最小化させるためのテクニカルな手法として、学習率、初期パラメータ、正則化などと言ったものが挙げられる。
-本項ではこれらについて必要な概念を述べる。
+本項ではこれらについて必要な概念を述べる。~\cite{zero}
 \subsection{LearningRate（学習率）}
 
 LearningRateとはハイパーパラメータの一つで、式\ref{eq:learning_rate}の$ \mu $に相当する部分である。
@@ -296,7 +296,7 @@ LearningRateは大きいほど収束の可能性は小さくなり、小さい�
 また、重みの初期化手法を総称してInitializerと記述する。
 
 \subsubsection{Xavier initializer}
-Xavier(2010)~\cite{xavier}によって提唱された重みの初期化手法の一つで、現在最もニューラルネットワークの学習で利用されてる手法である。
+Xavier(2010)~\cite{xavier}によって提唱された重みの初期化手法の一つで、現在最もニューラルネットワークの学習で利用されてる手法である。~\cite{xavier_taco}
 ニューラルネットワークの$ i $層の重みの数を$ n_{i} $、重みを$ w_i $、一様分布を$U$ で表現した時
 
 \begin{eqnarray}
@@ -306,7 +306,7 @@ w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_i + n_{i+1}} }, \frac{\sqrt{6}}{ 
 活性化関数がLinear、Sigmoid、Tanhの時に有効に働く。
 
 \subsubsection{KaimingUniform}
-Kaiming He(2015)~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。
+Kaiming He(2015)~\cite{kaiming}によって提案された初期化の手法で、以下の分布から重みをサンプリングする。~\cite{kaiming_taco}
 
 \begin{eqnarray}
 w_{i} \sim U \bigl[ - \frac{\sqrt{6}}{ \sqrt{n_{i+1}} }, \frac{\sqrt{6}}{ \sqrt{ n_{i+1} }} \bigr]
@@ -473,7 +473,7 @@ AdaGradは以下の式で表現できる。
 
 \subsubsection{RMSprop}
 RMSPropはGeoffrey(2012)~\cite{rmsprop}によって紹介された。
-AdaGradの問題点として、一度学習率が0に近くなってしまった次元に関してはまだ坂があってもほとんど更新されなくなってしまうということが挙げられる。
+AdaGradの問題点として、一度学習率が0に近くなってしまった次元に関してはまだ坂があってもほとんど更新されなくなってしまうということが挙げられる。~\cite{rmsprop_wakaru}
 RMSPropは昔の勾配情報を忘却するようにし、多くの場合でAdaGradよりもいい精度を出すことに成功した。
 
 

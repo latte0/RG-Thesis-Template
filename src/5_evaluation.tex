@@ -283,6 +283,8 @@ ValidationLossのログデータを図\ref{boston:loss_image1}と図\ref{boston:
 bostonは本実験で唯一の回帰のデータセットである。
 
 結果\ref{result:bostontable}を考察すると、ReLU等の関数よりも高い精度が出ることが判明した。
+また、ValidationLossのグラフに対してMSEが小さい理由は、K-AF以外の活性化関数が初期値によって不安定な動作をしており、
+条件によってはMSEが非常に高くなる確率が多かったからである。
 
 
 

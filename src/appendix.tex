@@ -15,12 +15,12 @@ G(\mathbf{X}_i, \mathbf{W})=\frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}_j \math
 \end{eqnarray}
 
 ここで、$ \sum_{i\neq j} K\left(\frac{\mathbf{X}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h}\right) \approx	\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)$
-となるようなバンド幅$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ \mathbf{X}_{calc} $を用いて\ref{calc:k-af}を近似することができる。
+となるようなバンド幅$ h_{calc} $を見つけることで、全てのデータ点を使わなくとも$ \mathbf{X}_{calc} $を用いて式\ref{calc:k-af}を近似することができる。
 
 これにより\ref{calc:k-af}は以下の式に直すことができる。
 
 \begin{eqnarray}
-G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc})) = \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
+G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{X}^{calc}, \mathbf{Y}^{calc}) = \frac{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)\mathbf{Y}^{calc}_j}{\sum_{i\neq j} K\left(\frac{\mathbf{X}^{calc}_j \mathbf{W} - \mathbf{X}_i \mathbf{W}}{h_{calc}}\right)}
 \label{calc:k-af-2}
 \end{eqnarray}
 
@@ -34,7 +34,7 @@ G(\mathbf{X}_i, \mathbf{W}) \approx \tilde{G}(\mathbf{X}_i, \mathbf{W}, \mathbf{
 \section{クラス}
 
 
-中間層が一つのK-AFの計算を考慮した実装クラスを\ref{python_impl}に示す。
+中間層が一つのK-AFの計算を考慮した実装クラスをプログラム\ref{python_impl}に示す。
 
 実装の全容は\href{https://github.com/latte0/graduation\_thesis}{https://github.com/latte0/graduation\_thesis}に公開している。
 
@@ -106,7 +106,7 @@ class Net(nn.Module):
 \chapter{bostonの勾配爆発回数の記録}
 \label{appendix:error}
 
-実験3.1\ref{exp3.1}の表\ref{bostonbest}を導くために必要な情報をまとめた。
+実験3.1(\ref{exp3.1}節)の表\ref{bostonbest}を導くために必要な情報をまとめた。
 各活性化関数の設定においての勾配爆発の頻度を記した結果を以下の表\ref{appendix:errorcount_table}に記述する。
 
 \begin{table}[htbp]

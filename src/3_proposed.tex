@@ -148,7 +148,7 @@ $ \mathrm{E} $を損失関数とした時、以下のアルゴリズムで最適
 	\label{alg:fixed-u-alg}
 \begin{algorithmic}
 	\STATE {\bfseries Input:} data $\langle (\mathbf{X}_i, \mathbf{Y}_i) \rangle_{i=1}^m \in
-	\reals^d \times \reals^e$, $G: ( \reals^d, \reals^{d \times n}, \reals^{e \times n}, ) \rightarrow  \reals^e$.
+	\reals^d \times \reals^e$, $ \tilde{G}: ( \reals^d, \reals^{d \times n}, \reals^{e \times n}, ) \rightarrow  \reals^e$.
 	\STATE $\mathbf{X}^{calc} \sim_n \mathcal{D}_x$;
     \STATE $\mathbf{Y}^{calc} \sim_n \mathcal{D}_y$;
 	\FOR {$t = 1, 2, \ldots$}
